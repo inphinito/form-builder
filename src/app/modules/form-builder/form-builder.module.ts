@@ -9,6 +9,8 @@ import { InputComponent } from './components/input/input.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { SelectComponent } from './components/select/select.component';
 import { CodeComponent } from './components/code/code.component';
+import { TableCodeComponent } from './components/table-code/table-code.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
 	declarations: [
@@ -17,7 +19,9 @@ import { CodeComponent } from './components/code/code.component';
 		InputComponent,
 		TextAreaComponent,
 		SelectComponent,
-		CodeComponent
+		CodeComponent,
+		TableCodeComponent,
+		TableComponent
 	],
 	imports: [
 		FormsModule,
@@ -34,7 +38,8 @@ import { CodeComponent } from './components/code/code.component';
 		InputComponent,
 		TextAreaComponent,
 		SelectComponent,
-		CodeComponent
+		CodeComponent,
+		TableCodeComponent
 	]
 })
 export class FormBuilderModule { }

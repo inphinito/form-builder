@@ -1,15 +1,16 @@
 {
-	"name": "form-builder",
-	"version": "0.0.0",
+	"name": "ngx-dnd-form-builder",
+	"version": "0.0.2",
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
-		"e2e": "ng e2e"
+		"e2e": "ng e2e",
+		"packagr": "ng-packagr -p ng-package.json"
 	},
-	"private": true,
+	"private": false,
 	"devDependencies": {
 		"@angular-devkit/build-angular": "~0.803.21",
 		"@angular/animations": "~8.2.14",
@@ -23,11 +24,9 @@
 		"@angular/platform-browser": "~8.2.14",
 		"@angular/platform-browser-dynamic": "~8.2.14",
 		"@angular/router": "~8.2.14",
-		"@ng-bootstrap/ng-bootstrap": "^5.1.5",
 		"@types/jasmine": "~3.3.8",
 		"@types/jasminewd2": "~2.0.3",
 		"@types/node": "~8.9.4",
-		"bootstrap": "^4.4.1",
 		"codelyzer": "^5.0.0",
 		"jasmine-core": "~3.4.0",
 		"jasmine-spec-reporter": "~4.2.1",
@@ -36,7 +35,7 @@
 		"karma-coverage-istanbul-reporter": "~2.0.1",
 		"karma-jasmine": "~2.0.1",
 		"karma-jasmine-html-reporter": "^1.4.0",
-		"ngx-drag-drop": "^2.0.0",
+		"ng-packagr": "^5.7.1",
 		"protractor": "~5.4.0",
 		"rxjs": "~6.4.0",
 		"ts-node": "~7.0.0",
@@ -45,5 +44,9 @@
 		"typescript": "~3.5.3",
 		"zone.js": "~0.9.1"
 	},
-	"dependencies": {}
+	"peerDependencies": {
+		"ngx-drag-drop": "^2.0.0",
+		"@ng-bootstrap/ng-bootstrap": "^5.1.5",
+		"bootstrap": "^4.4.1"
+	}
 }

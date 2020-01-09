@@ -76,7 +76,6 @@ export class FormBuilderComponent implements OnInit {
 	 * @param {any[]} [list]
 	 */
 	onDrop(event: DndDropEvent, list?: any[]) {
-		console.log(event.dropEffect, list, event.index);
 		if (list && (event.dropEffect === 'copy' || event.dropEffect === 'move')) {
 
 			let index = event.index;
