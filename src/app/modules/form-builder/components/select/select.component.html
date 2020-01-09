@@ -1,0 +1,73 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-title">Select</h4>
+	<button type="button" class="close" aria-describedby="modal-title" (click)="cancel()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="modal-body">
+	<form [formGroup]="form">
+		<div class="form-group">
+			<label>Etiqueta <sup class="text-danger">*</sup></label>
+			<input type="text" formControlName="name" class="form-control">
+		</div>
+		<div class="form-group checkbox">
+			<label>
+				<input type="checkbox" formControlName="required">
+				Obligatorio <sup class="text-danger">*</sup>
+			</label>
+		</div>
+		<div class="form-group checkbox">
+			<label>
+				<input type="checkbox" formControlName="multiple" (change)="selectType = 'select'">
+				Selección multiple <sup class="text-danger">*</sup>
+			</label>
+		</div>
+	</form>
+
+	<div class="form-group tableContainer" #table>
+		<table>
+			<thead>
+				<tr>
+					<th>Clave</th>
+					<th>Valor</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let option of options; let i = index">
+					<td>
+						<input type="text" class="form-control" [(ngModel)]="option.value">
+					</td>
+					<td>
+						<input type="text" class="form-control" [(ngModel)]="option.text">
+					</td>
+					<td>
+						<button class="btn" (click)="delete(i)">
+							<em class="fa fa-trash"></em>
+						</button>
+					</td>
+				</tr>
+				<tr *ngIf="!options.length">
+					<td colspan="3">
+						<div class="alert alert-warning" role="alert">
+							Pulse añadir para ir añadiendo opciones
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="text-right">
+		<button class="btn" (click)="addOption()">
+			<em class="fa fa-plus"></em>
+			Añadir
+		</button>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
+	<button type="button" class="btn btn-danger" (click)="save()"
+		[disabled]="form.invalid || !options.length || (options.length && !options[options.length - 1].value.length)">Aceptar</button>
+</div>
