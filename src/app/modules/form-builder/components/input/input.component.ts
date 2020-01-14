@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -7,32 +7,31 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 	templateUrl: './input.component.html',
 	styleUrls: ['./input.component.scss']
 })
-export class InputComponent implements AfterViewInit {
+export class InputComponent implements OnInit {
 	@Input() value: any;
 
-	@ViewChild('text', { static: false }) text: TemplateRef<any>;
-
 	form: FormGroup = this._formBuilder.group({
-		name: [null, Validators.required],
-		required: [false, Validators.required],
-		type: ['text', Validators.required],
+		type: ['input'],
+		key: [null, Validators.required],
+		description: [null, Validators.required],
+		required: [false],
+		format: ['text'],
 		placeholder: [null],
+		maximun: [20],
+		minimun: [0],
 		value: [null],
-		maxlength: [10],
-		max: [20],
-		min: [0],
-		selected: [false],
-		multiple: [false],
+		// selected: [false],
+		// multiple: [false],
 		step: [1],
-		controlName: [null]
+		// controlName: [null]
 	});
-	selectedType: TemplateRef<any>;
-	types: string[] = [
+	formats: string[] = [
 		// 'button',
-		// 'checkbox',
+		'checkbox',
 		'color',
+		'datetime',
 		'date',
-		// 'datetime',
+		'time',
 		// 'email',
 		'file',
 		// 'hidden',
@@ -40,36 +39,26 @@ export class InputComponent implements AfterViewInit {
 		// 'radio',
 		'range',
 		'text',
-		'time'
+		'time',
+		'email'
 	];
 
 	constructor(
 		public _activeModal: NgbActiveModal,
-		private _formBuilder: FormBuilder,
-		private _changeDetectorRef: ChangeDetectorRef
+		private _formBuilder: FormBuilder
 	) { }
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		if (this.value) {
 			this.form.patchValue(this.value);
-			this.selectedType = this[this.form.get('type').value];
-		} else {
-			this.selectedType = this.text;
 		}
-
-		this._changeDetectorRef.detectChanges();
 	}
 
-	selectType(type: string) {
-		this.form.get('value').setValue(type === 'range' ? 10 : null);
-		this.selectedType = this[type];
+	dismiss() {
+		this._activeModal.close();
 	}
 
-	save() {
+	saveAndDismiss() {
 		this._activeModal.close(this.form.value);
-	}
-
-	cancel() {
-		this._activeModal.dismiss();
 	}
 }

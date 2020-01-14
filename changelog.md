@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2020-01-14
+### Changed
+- Refactorización del código
+### Added
+- Nuevo componente para añadir pestañas al formualrio
+
 ## [0.0.2] - 2020-01-09
 ### Changed
 - Las dependencias de bootstrap y ngx-drag-drop ya no son de desarrollo

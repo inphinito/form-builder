@@ -11,6 +11,7 @@ import { SelectComponent } from './components/select/select.component';
 import { CodeComponent } from './components/code/code.component';
 import { TableCodeComponent } from './components/table-code/table-code.component';
 import { TableComponent } from './components/table/table.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 
 @NgModule({
 	declarations: [
@@ -21,7 +22,8 @@ import { TableComponent } from './components/table/table.component';
 		SelectComponent,
 		CodeComponent,
 		TableCodeComponent,
-		TableComponent
+		TableComponent,
+		TabsComponent
 	],
 	imports: [
 		FormsModule,
@@ -34,6 +36,7 @@ import { TableComponent } from './components/table/table.component';
 		FormBuilderComponent
 	],
 	entryComponents: [
+		TabsComponent,
 		SectionComponent,
 		InputComponent,
 		TextAreaComponent,

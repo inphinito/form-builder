@@ -1,0 +1,48 @@
+<div class="modal-header">
+	<h5 class="modal-title">Tabs editing</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="modal-body">
+	<form [formGroup]="form">
+		<ng-container formArrayName="properties" *ngFor="let item of properties.controls; index as i;">
+			<fieldset [formGroupName]="i">
+				<legend>Tab #{{ i + 1 }}</legend>
+				<div class="float-right">
+					<button (click)="removeByIndex(i)">Eliminar</button>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Clave</label>
+					<div class="col-sm-9">
+						<input type="string" class="form-control" formControlName="key">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Nombre <sup class="text-danger">*</sup></label>
+					<div class="col-sm-9">
+						<input type="string" class="form-control" formControlName="description">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Clase del icono</label>
+					<div class="col-sm-9">
+						<input type="string" class="form-control" formControlName="iconClass">
+					</div>
+				</div>
+			</fieldset>
+			<div *ngIf="!properties.controls.length" class="alert alert-warning" role="alert">
+				Click the button to add new tabs
+			</div>
+		</ng-container>
+		<div class="text-right">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="add()">Add</button>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" (click)="dismiss()">Cancel</button>
+	<button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
+</div>

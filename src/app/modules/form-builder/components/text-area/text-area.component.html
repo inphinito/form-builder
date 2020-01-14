@@ -1,46 +1,55 @@
 <div class="modal-header">
-	<h4 class="modal-title" id="modal-title">TextArea</h4>
-	<button type="button" class="close" aria-describedby="modal-title" (click)="cancel()">
+	<h5 class="modal-title">Textarea editing</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-
 <div class="modal-body">
 	<form [formGroup]="form">
-		<div class="form-group">
-			<label>Etiqueta <sup class="text-danger">*</sup></label>
-			<input type="text" formControlName="name" class="form-control">
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Key <sup class="text-danger">*</sup></label>
+			<div class="col-sm-9">
+				<input type="string" class="form-control" formControlName="key">
+			</div>
 		</div>
-		<div class="form-group">
-			<label>Nombre <sup class="text-danger">*</sup></label>
-			<input type="text" formControlName="controlName" class="form-control">
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Label <sup class="text-danger">*</sup></label>
+			<div class="col-sm-9">
+				<input type="string" class="form-control" formControlName="description">
+			</div>
 		</div>
-		<div class="form-group">
-			<label>Placeholder</label>
-			<input type="text" formControlName="placeholder" class="form-control">
-		</div>
-		<div class="form-group checkbox">
-			<label>
-				<input type="checkbox" formControlName="required">
-				Obligatorio <sup class="text-danger">*</sup>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" formControlName="required">
+			<label class="form-check-label">
+				Required
 			</label>
 		</div>
-		<div class="form-group">
-			<label>Texto</label>
-			<textarea formControlName="value" class="form-control" [rows]="form.get('rows').value" [cols]="form.get('cols').value"></textarea>
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Placeholder</label>
+			<div class="col-sm-9">
+				<input type="string" class="form-control" formControlName="placeholder">
+			</div>
 		</div>
-		<div class="form-group">
-			<label>Columnas <sup class="text-danger">*</sup></label>
-			<input type="number" formControlName="cols" class="form-control">
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Columns</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" formControlName="cols">
+			</div>
 		</div>
-		<div class="form-group">
-			<label>Filas <sup class="text-danger">*</sup></label>
-			<input type="number" formControlName="rows" class="form-control">
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Rows</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" formControlName="rows">
+			</div>
+		</div>
+		<div>
+			<label>Defaut value</label>
+			<textarea class="form-control" formControlName="value" rows="4"></textarea>
 		</div>
 	</form>
 </div>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
-	<button type="button" class="btn btn-danger" (click)="save()" [disabled]="form.invalid">Aceptar</button>
+	<button type="button" class="btn btn-danger" (click)="dismiss()">Cancel</button>
+	<button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
 </div>

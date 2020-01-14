@@ -1,13 +1,72 @@
 <div class="modal-header">
-	<h4 class="modal-title" id="modal-title">Input</h4>
-	<button type="button" class="close" aria-describedby="modal-title" (click)="cancel()">
+	<h5 class="modal-title">Input editing</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-
 <div class="modal-body">
 	<form [formGroup]="form">
-		<div class="form-group">
+		<fieldset>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Key <sup class="text-danger">*</sup></label>
+				<div class="col-sm-9">
+					<input type="string" class="form-control" formControlName="key">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Label <sup class="text-danger">*</sup></label>
+				<div class="col-sm-9">
+					<input type="string" class="form-control" formControlName="description">
+				</div>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" formControlName="required">
+				<label class="form-check-label">
+					Required
+				</label>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Type</label>
+				<div class="col-sm-9">
+					<select class="form-control" formControlName="format">
+						<option *ngFor="let format of formats" [value]="format">{{ format }}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Placeholder</label>
+				<div class="col-sm-9">
+					<input type="string" class="form-control" formControlName="placeholder">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Default value</label>
+				<div class="col-sm-9">
+					<input type="string" class="form-control" formControlName="value">
+				</div>
+			</div>
+			<ng-container *ngIf="form.get('format').value === 'number'">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Minimun</label>
+					<div class="col-sm-9">
+						<input type="string" class="form-control" formControlName="minimun">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Maximun</label>
+					<div class="col-sm-9">
+						<input type="string" class="form-control" formControlName="maximun">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Step</label>
+					<div class="col-sm-9">
+						<input type="string" class="form-control" formControlName="step">
+					</div>
+				</div>
+			</ng-container>
+		</fieldset>
+		<!-- <div class="form-group">
 			<label>Etiqueta <sup class="text-danger">*</sup></label>
 			<input type="text" formControlName="name" class="form-control">
 		</div>
@@ -167,11 +226,11 @@
 					Multiple
 				</label>
 			</div>
-		</ng-template>
+		</ng-template> -->
 	</form>
 </div>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
-	<button type="button" class="btn btn-danger" (click)="save()" [disabled]="form.invalid">Aceptar</button>
+	<button type="button" class="btn btn-danger" (click)="dismiss()">Cancel</button>
+	<button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
 </div>

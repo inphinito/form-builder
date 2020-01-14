@@ -10,9 +10,9 @@ export class AppComponent implements OnInit {
 
 	schema: any;
 
-	constructor(private _http: HttpClient) {
-
-	}
+	constructor(
+		private _http: HttpClient
+	) { }
 
 	async ngOnInit() {
 		const schemas = await this._http.get('./assets/examples.json').toPromise();
