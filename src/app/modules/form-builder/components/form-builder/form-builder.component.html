@@ -1,7 +1,7 @@
-<div class="row my-4">
+<div *ngIf="!disabled" class="row my-4">
 	<div class="col text-auto">
-		<button class="btn btn-primary mr-2" *ngFor="let item of buildingItems" [dndDraggable]="item"
-			dndEffectAllowed="copy">
+		<button class="btn btn-primary mr-2" *ngFor="let item of buildingItems" [dndDisableIf]="disabled"
+			[dndDraggable]="item" dndEffectAllowed="copy">
 			{{ item.name }}
 		</button>
 	</div>
@@ -10,8 +10,8 @@
 <ng-template #recursiveList let-property>
 	<fieldset dndDropzone (dndDrop)="onDrop($event, property?.properties)">
 		<!-- <legend>{{ property.description }}</legend> -->
-		<div class="building-item" *ngFor="let item of property?.properties" [dndDraggable]="item"
-			dndEffectAllowed="move" [dndDisableIf]="item.disable"
+		<div class="building-item" *ngFor="let item of property?.properties" [dndDisableIf]="disabled"
+			[dndDraggable]="item" dndEffectAllowed="move" [dndDisableIf]="item.disable"
 			(dndCopied)="onDragged(item, property.properties, 'copy')"
 			(dndLinked)="onDragged(item, property.properties, 'link')"
 			(dndMoved)="onDragged(item, property.properties, 'move')"
@@ -49,8 +49,8 @@
 								<sup *ngIf="item.required" class="text-danger">*</sup>
 							</label>
 						</div>
-						<div *ngSwitchDefault class="form-group" [dndDraggable]="item" dndEffectAllowed="move"
-							(dndCopied)="onDragged(item, property.properties, 'copy')"
+						<div *ngSwitchDefault class="form-group" [dndDisableIf]="disabled" [dndDraggable]="item"
+							dndEffectAllowed="move" (dndCopied)="onDragged(item, property.properties, 'copy')"
 							(dndMoved)="onDragged(item, property.properties, 'move')">
 							<label>{{ item.description }}
 								<sup *ngIf="item.required" class="text-danger">*</sup>
@@ -114,7 +114,7 @@
 </ng-template>
 
 <ng-template #buttonsTpt let-list="list" let-item="item">
-	<span class="build-item_button-bar float-right">
+	<span *ngIf="!disabled" class="build-item_button-bar float-right">
 		<button class="btn btn-link px-1 build-item_button-bar_edit" (click)="editBuildItem(list, item)">
 			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" role="img"
 				xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-pencil-alt fa-w-16">

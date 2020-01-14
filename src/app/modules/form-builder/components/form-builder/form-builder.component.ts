@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
@@ -9,13 +9,26 @@ import { CodeComponent } from '../code/code.component';
 import { TableComponent } from '../table/table.component';
 import { InputComponent } from '../input/input.component';
 import { TabsComponent } from '../tabs/tabs.component';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator } from '@angular/forms';
 
 @Component({
 	selector: 'form-builder',
 	templateUrl: './form-builder.component.html',
-	styleUrls: ['./form-builder.component.scss']
+	styleUrls: ['./form-builder.component.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => FormBuilderComponent),
+			multi: true,
+		},
+		{
+			provide: NG_VALIDATORS,
+			useExisting: forwardRef(() => FormBuilderComponent),
+			multi: true,
+		}
+	]
 })
-export class FormBuilderComponent implements OnInit {
+export class FormBuilderComponent implements ControlValueAccessor, Validator {
 	buildingItems: BuildingItem[] = [
 		{ name: 'tabs', children: [] as any[], type: 'tabs', icon: 'fa fa-square', properties: { value: null } },
 		// { name: 'Fieldset', children: [] as any[], type: 'fieldset', icon: 'fa fa-square', properties: { value: null } },
@@ -37,25 +50,50 @@ export class FormBuilderComponent implements OnInit {
 		properties: []
 	};
 
-	private _schema: any;
-	@Output() schemaChange = new EventEmitter();
-	get schema(): any {
-		return this._schema || this.defaultSchema;
-	}
-	@Input() set schema(v: any) {
-		this._schema = v || Object.assign({}, this.defaultSchema);
-		this.schemaChange.emit(this._schema);
-	}
+	schema: any;
+
+	disabled: boolean = false;
 
 	constructor(
 		private _modalSvc: NgbModal
 	) { }
 
-	ngOnInit() {
-		this.initialize();
+	// the method set in registerOnChange, it is just 
+	// a placeholder for a method that takes one parameter, 
+	// we use it to emit changes back to the form
+	private propagateChange = (_: any) => { };
+
+	// this is the initial value set to the component
+	public writeValue(obj: any) {
+		if (obj) {
+			this.schema = obj;
+		}
 	}
 
-	async initialize() { }
+	// registers 'fn' that will be fired when changes are made
+	// this is how we emit the changes back to the form
+	public registerOnChange(fn: any) {
+		this.propagateChange = fn;
+	}
+	// not used, used for touch input
+	public registerOnTouched() { }
+
+	/**
+	 * This function is called when the control status changes to or from "DISABLED".
+	 * Depending on the value, it will enable or disable the appropriate DOM element.
+	 * @param isDisabled
+	 */
+	setDisabledState?(isDisabled: boolean): void {
+		this.disabled = isDisabled;
+	}
+
+
+	// returns null when valid else the validation object 
+	// in this case we're checking if the json parsing has 
+	// passed or failed from the onChange method
+	public validate(c: FormControl) {
+		return null;
+	}
 
 	async save() {
 		try {
@@ -72,7 +110,6 @@ export class FormBuilderComponent implements OnInit {
 	 * @param {DropEffect} effect
 	 */
 	onDragged(item: any, list: any[], effect: DropEffect) {
-		console.log(`Drag ended with effect '${effect}'!`);
 		if (effect === 'move') {
 			const index = list.indexOf(item);
 			list.splice(index, 1);
@@ -102,6 +139,9 @@ export class FormBuilderComponent implements OnInit {
 			}
 
 			list.splice(index, 0, event.data);
+
+			// update the form
+			this.propagateChange(this.schema);
 		}
 	}
 
@@ -171,6 +211,10 @@ export class FormBuilderComponent implements OnInit {
 	tabClick(tabs, tab) {
 		const index = tabs.properties.indexOf(tab);
 		tabs.index = index;
+	}
+
+	onChange(event) {
+		this.propagateChange(event);
 	}
 
 }
