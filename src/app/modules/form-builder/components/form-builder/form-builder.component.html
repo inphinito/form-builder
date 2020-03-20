@@ -104,6 +104,13 @@
 						[value]="item.value || ''" [placeholder]="item.placeholder"
 						[required]="item.required || false"></textarea>
 				</div>
+				<div *ngSwitchCase="'file'" class="form-group">
+					<label>{{ item.description }}
+						<sup *ngIf="item.required" class="text-danger">*</sup></label>
+					<ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+					</ng-container>
+					<input type="file" class="form-control-file" [multiple]="item.multiple">
+				</div>
 				<p *ngSwitchDefault>
 					{{ 'Other: ' + item.description}}
 				</p>

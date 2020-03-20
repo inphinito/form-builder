@@ -10,6 +10,7 @@ import { TableComponent } from '../table/table.component';
 import { InputComponent } from '../input/input.component';
 import { TabsComponent } from '../tabs/tabs.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator } from '@angular/forms';
+import { FileComponent } from '../file/file.component';
 
 @Component({
 	selector: 'form-builder',
@@ -37,6 +38,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		{ name: 'Input', type: 'string', icon: 'fa fa-language', properties: { value: null } },
 		{ name: 'Select', type: 'select', icon: 'fa fa-language', properties: { value: null } },
 		{ name: 'Textarea', type: 'textarea', icon: 'fa fa-language', properties: { value: null } },
+		{ name: 'File', type: 'file', icon: 'fa fa-document', properties: { value: null } }
 		// { name: 'Código', type: 'code', icon: 'fa fa-language', properties: { value: null } },
 		// { name: 'Tabla', type: 'table', icon: 'fa fa-hashtag' }
 	];
@@ -58,25 +60,38 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		private _modalSvc: NgbModal
 	) { }
 
-	// the method set in registerOnChange, it is just 
-	// a placeholder for a method that takes one parameter, 
-	// we use it to emit changes back to the form
+	/**
+	 * The method set in registerOnChange, it is just a placeholder for a method that takes one parameter,
+	 * we use it to emit changes back to the form
+	 * @private
+	 * @memberof FormBuilderComponent
+	 */
 	private propagateChange = (_: any) => { };
 
 	// this is the initial value set to the component
 	public writeValue(obj: any) {
 		if (obj) {
 			this.schema = obj;
+			this.onChange(this.schema);
 		}
 	}
 
-	// registers 'fn' that will be fired when changes are made
-	// this is how we emit the changes back to the form
-	public registerOnChange(fn: any) {
+	/**
+	 * Registers a callback function that is called when the control's value changes in the UI.
+	 *
+	 * @param {*} fn The callback function to register
+	 */
+	public registerOnChange(fn: any): void {
 		this.propagateChange = fn;
 	}
-	// not used, used for touch input
-	public registerOnTouched() { }
+
+	/**
+	 * Registers a callback function is called by the forms API on initialization to update the form model on blur.
+	 *
+	 * @param {*} fn The callback function to register
+	 *
+	 */
+	public registerOnTouched(fn: any): void { }
 
 	/**
 	 * This function is called when the control status changes to or from "DISABLED".
@@ -135,7 +150,6 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 				if (!event.data) {
 					return;
 				}
-				console.log(event.data);
 			}
 
 			list.splice(index, 0, event.data);
@@ -173,6 +187,9 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		switch (key) {
 			case 'string':
 				modalRef = this._modalSvc.open(InputComponent);
+				break;
+			case 'file':
+				modalRef = this._modalSvc.open(FileComponent);
 				break;
 			case 'tabs':
 				modalRef = this._modalSvc.open(TabsComponent);

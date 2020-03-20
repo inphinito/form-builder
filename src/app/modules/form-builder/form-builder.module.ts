@@ -12,6 +12,7 @@ import { CodeComponent } from './components/code/code.component';
 import { TableCodeComponent } from './components/table-code/table-code.component';
 import { TableComponent } from './components/table/table.component';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { FileComponent } from './components/file/file.component';
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,8 @@ import { TabsComponent } from './components/tabs/tabs.component';
 		CodeComponent,
 		TableCodeComponent,
 		TableComponent,
-		TabsComponent
+		TabsComponent,
+		FileComponent
 	],
 	imports: [
 		FormsModule,
@@ -42,7 +44,8 @@ import { TabsComponent } from './components/tabs/tabs.component';
 		TextAreaComponent,
 		SelectComponent,
 		CodeComponent,
-		TableCodeComponent
+		TableCodeComponent,
+		FileComponent
 	]
 })
 export class FormBuilderModule { }

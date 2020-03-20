@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-01-14
+### Added
+- Añadido nuevo componente para añadir inputs de tipo fichero
+
 ## [0.2.0] - 2020-01-14
 ### Added
 - Implementación de control reactivo y deshabilitado
