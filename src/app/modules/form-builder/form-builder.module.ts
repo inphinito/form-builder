@@ -4,7 +4,7 @@ import { FormBuilderComponent } from './components/form-builder/form-builder.com
 import { DndModule } from 'ngx-drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { SectionComponent } from './components/section/section.component';
+import { FieldsetComponent } from './components/fieldset/fieldset.component';
 import { InputComponent } from './components/input/input.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { SelectComponent } from './components/select/select.component';
@@ -17,7 +17,7 @@ import { FileComponent } from './components/file/file.component';
 @NgModule({
 	declarations: [
 		FormBuilderComponent,
-		SectionComponent,
+		FieldsetComponent,
 		InputComponent,
 		TextAreaComponent,
 		SelectComponent,
@@ -39,7 +39,7 @@ import { FileComponent } from './components/file/file.component';
 	],
 	entryComponents: [
 		TabsComponent,
-		SectionComponent,
+		FieldsetComponent,
 		InputComponent,
 		TextAreaComponent,
 		SelectComponent,

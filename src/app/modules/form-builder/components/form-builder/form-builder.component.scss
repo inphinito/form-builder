@@ -1,63 +1,93 @@
 :host {
-  display: block;
-  box-sizing: border-box;
+	display: block;
+	box-sizing: border-box;
 }
 
 .dndDraggingSource {
-  opacity: 0.5;
-  transform: scale(0.98);
+	opacity: 0.5;
+	transform: scale(0.98);
 }
 
 .dndDroppingTarget {
-  border: 1px dashed #dee2e6;
-  padding: 1rem;
+	border: 1px dashed #ddd;
+	padding: 2rem;
 }
 
 .dndPlaceholder {
-  border: 1px dashed #777;
-  height: 2rem;
-  margin: 1rem;
-}
-
-fieldset {
-  min-height: 4rem;
+	border: 1px dashed #777;
+	height: 4rem;
+	margin: 2rem 1rem;
 }
 
 .tabs {
-  margin-bottom: 1rem;
-  .tab-container {
-    padding: 1rem;
-    border: 1px solid #dee2e6;
-    margin-top: -1px;
-  }
+	margin-bottom: 1rem;
+	.tab-container {
+		padding: 1rem;
+		border: 1px solid #dee2e6;
+		margin-top: -1px;
+	}
 }
 
 .build-item_button-bar {
-  .btn {
-    opacity: 0;
-    svg {
-      width: 1rem;
-    }
-  }
-  .build-item_button-bar_edit {
-    color: gray;
-  }
-  .build-item_button-bar_remove {
-    color: #a00;
-  }
+	.btn {
+		opacity: 0;
+		svg {
+			width: 1rem;
+		}
+	}
+	.build-item_button-bar_edit {
+		color: gray;
+	}
+	.build-item_button-bar_remove {
+		color: #a00;
+	}
 }
 
 .building-item {
-  &:hover {
-    > .form-group > .build-item_button-bar {
-      .btn {
-        opacity: 1;
-      }
-    }
-  }
-  & > .tabs > .nav-tabs:hover > .nav-item > .build-item_button-bar {
-    .btn {
-      opacity: 1;
-    }
-  }
+	&:hover {
+		> .form-group > .build-item_button-bar {
+			.btn {
+				opacity: 1;
+			}
+		}
+	}
+
+	& > .tabs > .nav-tabs:hover > .nav-item > .build-item_button-bar {
+		.btn {
+			opacity: 1;
+		}
+	}
+}
+
+[dnddropzone] {
+	min-height: 4rem;
+}
+
+fieldset {
+	min-height: 4rem;
+	border: 1px solid;
+	position: relative;
+	margin: 2rem 0 1rem;
+	padding: 1rem;
+
+	legend {
+		top: -1.5rem;
+		position: absolute;
+		background: white;
+		width: auto;
+		left: 0.5rem;
+		padding: 0 0.5rem;
+		+ .build-item_button-bar {
+			position: absolute;
+			top: -1.5rem;
+			right: 1rem;
+		}
+	}
+
+	&:hover > legend + .build-item_button-bar {
+		background: white;
+		.btn {
+			opacity: 1;
+		}
+	}
 }

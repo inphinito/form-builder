@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@ang
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
-import { SectionComponent } from '../section/section.component';
+import { FieldsetComponent } from '../fieldset/fieldset.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
 import { SelectComponent } from '../select/select.component';
 import { CodeComponent } from '../code/code.component';
@@ -32,7 +32,7 @@ import { FileComponent } from '../file/file.component';
 export class FormBuilderComponent implements ControlValueAccessor, Validator {
 	buildingItems: BuildingItem[] = [
 		{ name: 'tabs', children: [] as any[], type: 'tabs', icon: 'fa fa-square', properties: { value: null } },
-		// { name: 'Fieldset', children: [] as any[], type: 'fieldset', icon: 'fa fa-square', properties: { value: null } },
+		{ name: 'Fieldset', children: [] as any[], type: 'fieldset', icon: 'fa fa-square', properties: { value: null } },
 		// { name: 'Row', children: [] as any[], type: 'row', icon: 'fa fa-square', properties: { value: null} },
 		// { name: 'Col', children: [] as any[], type: 'col', icon: 'fa fa-square', properties: { value: null} },
 		{ name: 'Input', type: 'string', icon: 'fa fa-language', properties: { value: null } },
@@ -195,7 +195,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 				modalRef = this._modalSvc.open(TabsComponent);
 				break;
 			case 'fieldset':
-				modalRef = this._modalSvc.open(SectionComponent);
+				modalRef = this._modalSvc.open(FieldsetComponent);
 				break;
 			case 'textarea':
 				modalRef = this._modalSvc.open(TextAreaComponent);
@@ -232,6 +232,10 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 
 	onChange(event) {
 		this.propagateChange(event);
+	}
+
+	test(asdf, asd) {
+		console.log(arguments);
 	}
 
 }

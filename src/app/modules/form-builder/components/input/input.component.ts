@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -25,6 +25,7 @@ export class InputComponent implements OnInit {
 		step: [1],
 		// controlName: [null]
 	});
+
 	formats: string[] = [
 		// 'button',
 		'checkbox',
