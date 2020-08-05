@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilderComponent } from './components/form-builder/form-builder.component';
 import { DndModule } from 'ngx-drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FieldsetComponent } from './components/fieldset/fieldset.component';
 import { InputComponent } from './components/input/input.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
@@ -32,7 +32,8 @@ import { FileComponent } from './components/file/file.component';
 		ReactiveFormsModule,
 		CommonModule,
 		DndModule,
-		NgbModalModule
+		NgbModalModule,
+		NgbModule
 	],
 	exports: [
 		FormBuilderComponent

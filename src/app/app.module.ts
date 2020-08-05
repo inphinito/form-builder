@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { FormBuilderModule } from './modules/form-builder/form-builder.module';
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		ReactiveFormsModule,
 		BrowserModule,
 		FormBuilderModule,
-		HttpClientModule
+		HttpClientModule,
+		NgbModule
 	],
 	providers: [],
 	bootstrap: [
