@@ -10,7 +10,7 @@ import { TableCodeComponent } from '../table-code/table-code.component';
 })
 export class TableComponent implements AfterViewInit {
 	@Input() value: any;
-	@ViewChild('table', { static: false }) table: ElementRef;
+	@ViewChild('table') table: ElementRef;
 
 	form: FormGroup = this._formBuilder.group({
 		name: [null, Validators.required]
