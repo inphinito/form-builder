@@ -13,6 +13,7 @@ import { TableCodeComponent } from './components/table-code/table-code.component
 import { TableComponent } from './components/table/table.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { FileComponent } from './components/file/file.component';
+import { TriggersComponent } from './components/triggers/triggers.component';
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import { FileComponent } from './components/file/file.component';
 		TableCodeComponent,
 		TableComponent,
 		TabsComponent,
-		FileComponent
+		FileComponent,
+		TriggersComponent
 	],
 	imports: [
 		FormsModule,

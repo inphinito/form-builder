@@ -6,6 +6,44 @@
 		"type": "object",
 		"properties": [
 			{
+				"type": "fieldset",
+				"key": "aaa",
+				"description": "aaa",
+				"properties": [],
+				"triggers": [
+					{
+						"if": [
+							{
+								"type": null,
+								"value": "asdf",
+								"operator": "equal",
+								"boolean": "and",
+								"type2": null,
+								"value2": "asdf"
+							},
+							{
+								"type": null,
+								"value": "fasd",
+								"operator": "equal",
+								"boolean": "and",
+								"type2": null,
+								"value2": "dsd"
+							}
+						],
+						"then": [
+							{
+								"action": "asdf"
+							}
+						],
+						"else": [
+							{
+								"action": "asdfasdf"
+							}
+						]
+					}
+				]
+			},
+			{
 				"key": "firstName",
 				"type": "input",
 				"description": "First name"

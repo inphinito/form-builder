@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-	selector: 'app-fieldset',
+	selector: 'ngx-fieldset',
 	templateUrl: './fieldset.component.html',
 	styleUrls: ['./fieldset.component.scss']
 })
@@ -15,8 +15,11 @@ export class FieldsetComponent implements OnInit {
 		type: ['fieldset'],
 		key: [null, Validators.required],
 		description: [null, Validators.required],
-		properties: [[]]
+		properties: [[]],
+		triggers: [null]
 	});
+
+	activeNavId: number = 1;
 
 	constructor(
 		private _activeModal: NgbActiveModal,

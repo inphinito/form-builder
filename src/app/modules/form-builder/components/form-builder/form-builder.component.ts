@@ -195,7 +195,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 				modalRef = this._modalSvc.open(TabsComponent);
 				break;
 			case 'fieldset':
-				modalRef = this._modalSvc.open(FieldsetComponent);
+				modalRef = this._modalSvc.open(FieldsetComponent, { size: 'lg' });
 				break;
 			case 'textarea':
 				modalRef = this._modalSvc.open(TextAreaComponent);
