@@ -1,21 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Tabs } from '../../interfaces/tabs';
 
-export interface Tabs {
-	type: 'tabs';
-	key?: string;
-	description?: string;
-	properties: Tab[];
-}
 
-export class Tab {
-	type = 'tab';
-	key?: string;
-	description: string;
-	iconClass: string;
-	properties: any[]
-}
+
 
 @Component({
 	selector: 'app-tabs',
@@ -30,11 +19,14 @@ export class TabsComponent implements OnInit {
 
 	form = this._formBuilder.group({
 		type: ['tabs'],
-		properties: this._formBuilder.array([])
+		properties: this._formBuilder.array([]),
+		triggers: [null]
 	});
 
+	activeNavId: number = 1;
+
 	constructor(
-		public _activeModal: NgbActiveModal,
+		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder
 	) { }
 

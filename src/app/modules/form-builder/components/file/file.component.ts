@@ -21,11 +21,14 @@ export class FileComponent implements OnInit {
 		value: [null],
 		multiple: [false],
 		maximun: [20],
-		minimun: [0]
+		minimun: [0],
+		triggers: [null]
 	});
 
+	activeNavId: number = 1;
+
 	constructor(
-		public _activeModal: NgbActiveModal,
+		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder
 	) { }
 

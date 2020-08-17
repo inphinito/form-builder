@@ -18,11 +18,14 @@ export class TextAreaComponent implements OnInit {
 		value: [null],
 		placeholder: [''],
 		cols: [20],
-		rows: [5]
+		rows: [5],
+		triggers: [null]
 	});
 
+	activeNavId: number = 1;
+
 	constructor(
-		public _activeModal: NgbActiveModal,
+		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
 	) { }
 

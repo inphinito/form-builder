@@ -1,89 +1,66 @@
-import { Component, Input, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TableCodeComponent } from '../table-code/table-code.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-table',
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements AfterViewInit {
+export class TableComponent implements OnInit {
 	@Input() value: any;
-	@ViewChild('table') table: ElementRef;
 
 	form: FormGroup = this._formBuilder.group({
-		name: [null, Validators.required]
+		type: ['table'],
+		key: [null, Validators.required],
+		description: [null, Validators.required],
+		caption: [null],
+		required: [false],
+		properties: this._formBuilder.array([])
 	});
-	columns: any[] = [];
+
+	get properties(): FormArray {
+		return this.form.get('properties') as FormArray;
+	}
+
+	activeNavId: number = 1;
 
 	constructor(
-		public _activeModal: NgbActiveModal,
-		private _formBuilder: FormBuilder,
-		private _changeDetectorRef: ChangeDetectorRef,
-		private _modalService: NgbModal
+		private _activeModal: NgbActiveModal,
+		private _formBuilder: FormBuilder
 	) { }
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		if (this.value) {
 			this.form.patchValue(this.value);
-			this.columns = this.value.value.length ? this.value.value : [];
-		}
-
-		this._changeDetectorRef.detectChanges();
-	}
-
-	addOption() {
-		const nCols = this.columns.length;
-
-		if (!nCols || (this.columns[nCols - 1].name.length && this.columns[nCols - 1].label.length)) {
-			this.columns.push({
-				name: '',
-				label: '',
-				type: 'text',
-				code: '',
-			});
-			setTimeout(() => {
-				this.table.nativeElement.scrollTop = this.table.nativeElement.scrollHeight;
-			}, 1);
+			this.value.properties.forEach(o => this.addOption(o));
+		} else {
+			this.addOption();
 		}
 	}
 
-	async addCode(column: any) {
-		try {
-			const modalRef: NgbModalRef = this._modalService.open(TableCodeComponent, { size: 'lg' });
-
-			column.code = await modalRef.result;
-		} catch (error) {
-			console.log(error);
+	addOption(value?: any): void {
+		const properties = this.form.get('properties') as FormArray;
+		const formGroup = this._formBuilder.group({
+			description: [null, Validators.required],
+			properties: this._formBuilder.array([])
+		});
+		if (value) {
+			formGroup.patchValue(value);
 		}
+		properties.push(formGroup);
 	}
 
-	async editCode(column: any) {
-		try {
-			const modalRef: NgbModalRef = this._modalService.open(TableCodeComponent, { size: 'lg' });
-
-			modalRef.componentInstance.value = column.code;
-			column.code = await modalRef.result;
-		} catch (error) {
-			console.log(error);
-		}
+	removeByIndex(index: number): void {
+		const properties = this.form.get('properties') as FormArray;
+		properties.removeAt(index);
 	}
 
-	delete(index: number) {
-		this.columns.splice(index, 1);
+	dismiss(): void {
+		this._activeModal.close();
 	}
 
-	save() {
-		if (this.columns.length) {
-			const value = this.form.value;
-
-			value.value = this.columns;
-			this._activeModal.close(value);
-		}
-	}
-
-	cancel() {
-		this._activeModal.dismiss();
+	saveAndDismiss(): void {
+		this._activeModal.close(this.form.value);
 	}
 }

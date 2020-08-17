@@ -35,7 +35,8 @@
 			width: 1rem;
 		}
 	}
-	.build-item_button-bar_edit {
+	.build-item_button-bar_edit,
+	.build-item_button-bar_clone {
 		color: gray;
 	}
 	.build-item_button-bar_remove {
@@ -88,6 +89,18 @@ fieldset {
 		background: white;
 		.btn {
 			opacity: 1;
+		}
+	}
+}
+
+table {
+	tr {
+		td {
+			.building-item {
+				label {
+					display: none;
+				}
+			}
 		}
 	}
 }

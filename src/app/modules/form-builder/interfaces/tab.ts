@@ -1,6 +1,7 @@
-import { BuildingItem } from './building-item';
-
 export interface Tab {
-	name: string;
-	properties: BuildingItem[];
+	type: 'tab';
+	key?: string;
+	description: string;
+	iconClass: string;
+	properties: any[];
 }

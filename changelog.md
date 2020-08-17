@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2020-08-17
+### Added
+- Nuevo elemento tablas
+
+## [0.5.0] - 2020-08-07
+### Added
+- Añadida la posibilidad de clonar elementos
+- Añadido el componente Triggers para condicionar cada elemento de construcción.
+
 ## [0.4.0] - 2020-07-27
 ### Added
 - Nuevo componente fieldset

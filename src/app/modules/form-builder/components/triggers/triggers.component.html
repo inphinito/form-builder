@@ -8,24 +8,24 @@
 						<li [formGroupName]="j">
 							<div class="form-group row">
 								<div class="col-2">
-									<select class="form-control" formcontrolname="type">
+									<select class="form-control" formControlName="type">
 										<option value="control">Control</option>
-										<option value="value">value</option>
+										<option value="value">Value</option>
 									</select>
 								</div>
 								<div class="col-2">
 									<input type="text" formControlName="value" placeholder="campo" class="form-control">
 								</div>
 								<div class="col-2">
-									<select class="form-control" formcontrolname="operator">
-										<option value="equal">Equal</option>
-										<option value="like">like</option>
+									<select class="form-control" formControlName="operator">
+										<option *ngFor="let operator of operators" [value]="operator">{{ operator }}
+										</option>
 									</select>
 								</div>
 								<div class="col-2">
-									<select class="form-control" formcontrolname="type2">
+									<select class="form-control" formControlName="type2">
 										<option value="control">Control</option>
-										<option value="value">value</option>
+										<option value="value">Value</option>
 									</select>
 								</div>
 								<div class="col-2">
@@ -33,7 +33,7 @@
 										class="form-control">
 								</div>
 								<div class="col-2" *ngIf="!last">
-									<select class="form-control" formcontrolname="boolean">
+									<select class="form-control" formControlName="boolean">
 										<option value="and">And</option>
 										<option value="or">Or</option>
 									</select>
@@ -53,12 +53,15 @@
 						<li [formGroupName]="k">
 							<div class="form-group row">
 								<div class="col">
-									<input type="text" formControlName="control" placeholder="control"
+									<input type="text" formControlName="control" placeholder="Control path"
 										class="form-control">
 								</div>
+								<label class="col-form-label">is </label>
 								<div class="col">
-									<input type="text" formControlName="action" placeholder="action"
-										class="form-control">
+									<select class="form-control" formControlName="action">
+										<option *ngFor="let action of actions" [value]="action">{{ action }}
+										</option>
+									</select>
 								</div>
 							</div>
 						</li>
@@ -75,12 +78,15 @@
 						<li [formGroupName]="l">
 							<div class="form-group row">
 								<div class="col">
-									<input type="text" formControlName="control" placeholder="control"
+									<input type="text" formControlName="control" placeholder="Control path"
 										class="form-control">
 								</div>
+								<label class="col-form-label">is </label>
 								<div class="col">
-									<input type="text" formControlName="action" placeholder="action"
-										class="form-control">
+									<select class="form-control" formControlName="action">
+										<option *ngFor="let action of actions" [value]="action">{{ action }}
+										</option>
+									</select>
 								</div>
 							</div>
 						</li>
@@ -98,3 +104,4 @@
 		<button class="btn btn-secondary" (click)="addTrigger()">Add trigger</button>
 	</div>
 </form>
+<!-- <pre>{{ form.value | json }}</pre> -->

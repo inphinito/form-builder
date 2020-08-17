@@ -7,6 +7,193 @@
 		"properties": [
 			{
 				"type": "fieldset",
+				"key": "Permiso",
+				"description": "permission",
+				"properties": [
+					{
+						"key": "table1",
+						"type": "table",
+						"description": "Table",
+						"required": false,
+						"properties": [
+							{
+								"description": "Name",
+								"properties": []
+							},
+							{
+								"description": "Surname",
+								"properties": []
+							},
+							{
+								"description": "Age",
+								"properties": []
+							},
+							{
+								"description": "Job",
+								"properties": []
+							}
+						]
+					},
+					{
+						"type": "select",
+						"key": "type",
+						"description": "Type",
+						"required": false,
+						"placeholder": null,
+						"multiple": false,
+						"format": "dropdown",
+						"properties": [
+							{
+								"type": "option",
+								"value": "type1",
+								"description": "Type 1"
+							},
+							{
+								"type": "option",
+								"value": "type2",
+								"description": "Type 2"
+							},
+							{
+								"type": "option",
+								"value": "type3",
+								"description": "Type 3"
+							}
+						],
+						"default": null
+					},
+					{
+						"type": "fieldset",
+						"key": "type1_fieldset",
+						"description": "Type 1 info",
+						"properties": [
+							{
+								"type": "input",
+								"key": "date",
+								"description": "Date",
+								"required": false,
+								"format": "date",
+								"placeholder": null,
+								"maximun": 20,
+								"minimun": 0,
+								"value": null,
+								"step": 1
+							}
+						],
+						"triggers": [
+							{
+								"if": [
+									{
+										"type": "control",
+										"value": "permission.type",
+										"operator": "equal",
+										"boolean": "and",
+										"type2": "value",
+										"value2": "type1"
+									}
+								],
+								"then": [
+									{
+										"control": "type1_fieldset",
+										"action": "shown"
+									}
+								],
+								"else": []
+							}
+						]
+					},
+					{
+						"type": "fieldset",
+						"key": "type2_fieldset",
+						"description": "Type 2 info",
+						"properties": [
+							{
+								"type": "input",
+								"key": "date",
+								"description": "Date",
+								"required": false,
+								"format": "date",
+								"placeholder": null,
+								"maximun": 20,
+								"minimun": 0,
+								"value": null,
+								"step": 1
+							}
+						],
+						"triggers": [
+							{
+								"if": [
+									{
+										"type": "control",
+										"value": "permission.type",
+										"operator": "equal",
+										"boolean": "and",
+										"type2": "value",
+										"value2": "type2"
+									}
+								],
+								"then": [
+									{
+										"control": "permission.type2_fieldset",
+										"action": "shown"
+									}
+								],
+								"else": []
+							}
+						]
+					},
+					{
+						"type": "fieldset",
+						"key": "type3_fieldset",
+						"description": "Type 3 info",
+						"properties": [
+							{
+								"type": "input",
+								"key": "date",
+								"description": "Date",
+								"required": false,
+								"format": "date",
+								"placeholder": null,
+								"maximun": 20,
+								"minimun": 0,
+								"value": null,
+								"step": 1
+							}
+						],
+						"triggers": [
+							{
+								"if": [
+									{
+										"type": "control",
+										"value": "permission.type",
+										"operator": "equal",
+										"boolean": "and",
+										"type2": "value",
+										"value2": "type3"
+									}
+								],
+								"then": [
+									{
+										"control": "permission.type_fieldset",
+										"action": "shown"
+									}
+								],
+								"else": []
+							}
+						]
+					}
+				],
+				"triggers": null
+			}
+		]
+	},
+	{
+		"$id": "https://example.com/person.schema.json",
+		"$schema": "http://json-schema.org/draft-07/schema#",
+		"title": null,
+		"type": "object",
+		"properties": [
+			{
+				"type": "fieldset",
 				"key": "aaa",
 				"description": "aaa",
 				"properties": [],

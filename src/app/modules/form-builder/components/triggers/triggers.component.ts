@@ -1,5 +1,5 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, forwardRef, OnInit, Input } from '@angular/core';
+import { FormArray, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup } from '@angular/forms';
 import { Trigger } from '../../interfaces/trigger';
 import { Antecedent } from '../../interfaces/antecedent';
 import { Consequence } from '../../interfaces/consequence';
@@ -22,12 +22,15 @@ export class TriggersComponent implements OnInit, ControlValueAccessor {
 		items: this._fb.array([])
 	});
 	isDisabled: boolean;
-	onChange = (_: any) => { };
-	onTouch = () => { };
+	operators = ['equal', 'distinct', 'like', 'greater', 'less'];
+	actions = ['shown', 'hidden', 'enabled', 'disabled'];
 
 	get items(): FormArray {
 		return this.form.get('items') as FormArray;
 	}
+
+	onChange = (_: any) => { };
+	onTouch = () => { };
 
 	constructor(
 		private _fb: FormBuilder

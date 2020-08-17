@@ -18,7 +18,7 @@ export class CodeComponent implements AfterViewInit {
 	});
 
 	constructor(
-		public _activeModal: NgbActiveModal,
+		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
 		private _changeDetectorRef: ChangeDetectorRef
 	) { }

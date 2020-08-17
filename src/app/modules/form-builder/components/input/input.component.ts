@@ -24,7 +24,10 @@ export class InputComponent implements OnInit {
 		// multiple: [false],
 		step: [1],
 		// controlName: [null]
+		triggers: [null]
 	});
+
+	activeNavId: number = 1;
 
 	formats: string[] = [
 		// 'button',
@@ -45,7 +48,7 @@ export class InputComponent implements OnInit {
 	];
 
 	constructor(
-		public _activeModal: NgbActiveModal,
+		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder
 	) { }
 

@@ -20,17 +20,23 @@ export class SelectComponent implements OnInit {
 		multiple: [false],
 		format: ['dropdown'],
 		properties: this._formBuilder.array([]),
-		default: []
+		default: [],
+		triggers: [null]
 	});
+
 	formats: string[] = [
 		'dropdown',
 		'radio'
 	];
 
-	get properties(): FormArray { return this.form.get('properties') as FormArray; }
+	get properties(): FormArray {
+		return this.form.get('properties') as FormArray;
+	}
+
+	activeNavId: number = 1;
 
 	constructor(
-		public _activeModal: NgbActiveModal,
+		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
 	) { }
 

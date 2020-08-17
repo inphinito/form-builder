@@ -38,9 +38,9 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		{ name: 'Input', type: 'string', icon: 'fa fa-language', properties: { value: null } },
 		{ name: 'Select', type: 'select', icon: 'fa fa-language', properties: { value: null } },
 		{ name: 'Textarea', type: 'textarea', icon: 'fa fa-language', properties: { value: null } },
-		{ name: 'File', type: 'file', icon: 'fa fa-document', properties: { value: null } }
+		{ name: 'File', type: 'file', icon: 'fa fa-document', properties: { value: null } },
 		// { name: 'Código', type: 'code', icon: 'fa fa-language', properties: { value: null } },
-		// { name: 'Tabla', type: 'table', icon: 'fa fa-hashtag' }
+		{ name: 'Table', type: 'table', icon: 'fa fa-hashtag' }
 	];
 	tabIndex = 0;
 
@@ -186,31 +186,31 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		let modalRef: NgbModalRef;
 		switch (key) {
 			case 'string':
-				modalRef = this._modalSvc.open(InputComponent);
+				modalRef = this._modalSvc.open(InputComponent, { size: 'lg' });
 				break;
 			case 'file':
-				modalRef = this._modalSvc.open(FileComponent);
+				modalRef = this._modalSvc.open(FileComponent, { size: 'lg' });
 				break;
 			case 'tabs':
-				modalRef = this._modalSvc.open(TabsComponent);
+				modalRef = this._modalSvc.open(TabsComponent, { size: 'lg' });
 				break;
 			case 'fieldset':
 				modalRef = this._modalSvc.open(FieldsetComponent, { size: 'lg' });
 				break;
 			case 'textarea':
-				modalRef = this._modalSvc.open(TextAreaComponent);
+				modalRef = this._modalSvc.open(TextAreaComponent, { size: 'lg' });
 				break;
 			case 'select':
 				modalRef = this._modalSvc.open(SelectComponent, { size: 'lg' });
 				break;
 			case 'code':
-				modalRef = this._modalSvc.open(CodeComponent);
+				modalRef = this._modalSvc.open(CodeComponent, { size: 'lg' });
 				break;
 			case 'table':
 				modalRef = this._modalSvc.open(TableComponent, { size: 'lg' });
 				break;
 			default:
-				modalRef = this._modalSvc.open(InputComponent);
+				modalRef = this._modalSvc.open(InputComponent, { size: 'lg' });
 				break;
 		}
 		return modalRef;
@@ -225,6 +225,13 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		}
 	}
 
+	cloneProperty(list: any[], item: object): void {
+		const index = list.indexOf(item);
+		if (index > -1) {
+			list.splice(index + 1, 0, Object.assign({}, item));
+		}
+	}
+
 	tabClick(tabs, tab) {
 		const index = tabs.properties.indexOf(tab);
 		tabs.index = index;
@@ -234,8 +241,12 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		this.propagateChange(event);
 	}
 
-	test(asdf, asd) {
-		console.log(arguments);
+	getFormControlPaths() {
+		// const result = Object.keys(this.form).reduce(function (r, k) {
+		// 			return r.concat(k, object[k]);
+		// 		}, []);
+
+		// 	console.log(result);
 	}
 
 }
