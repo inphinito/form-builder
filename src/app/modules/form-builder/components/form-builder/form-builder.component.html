@@ -1,186 +1,169 @@
-<div *ngIf="!disabled" class="row my-4">
-	<div class="col text-auto">
-		<button class="btn btn-primary mr-2" *ngFor="let item of buildingItems" [dndDisableIf]="disabled"
-			[dndDraggable]="item" dndEffectAllowed="copy">
-			{{ item.name }}
-		</button>
-	</div>
+<div #buildingToolbar *ngIf="!disabled" class="my-4 building-toolbar" [class.sticky]="sticky">
+  <button class="btn btn-light mr-2" *ngFor="let item of buildingItems" [dndDisableIf]="disabled" [dndDraggable]="item"
+    dndEffectAllowed="copy">
+    <img *ngIf="item.icon" class="icon mr-2" [src]="item.icon" [alt]="item.name">
+    <span class="label">{{ item.name | titlecase }}</span>
+  </button>
 </div>
 
 <ng-template #recursiveList let-property>
-	<div dndPlaceholderRef class="dndPlaceholder"></div>
-	<div class="building-item" *ngFor="let item of property?.properties" [dndDisableIf]="disabled" [dndDraggable]="item"
-		dndEffectAllowed="move" [dndDisableIf]="item.disable" (dndMoved)="onDragged(item, property.properties, 'move')">
-		<ng-container [ngSwitch]="item.type">
+  <div dndPlaceholderRef class="dndPlaceholder"></div>
+  <div class="building-item" *ngFor="let item of property?.properties" [dndDisableIf]="disabled" [dndDraggable]="item"
+    dndEffectAllowed="move" [dndDisableIf]="item.disable" (dndMoved)="onDragged(item, property.properties, 'move')">
+    <ng-container [ngSwitch]="item.type">
+      <ng-container *ngSwitchCase="'table'">
+        <table class="table table-bordered table-striped table-responsive-sm">
+          <caption *ngIf="item.caption">{{ item.caption }}</caption>
+          <thead>
+            <tr>
+              <th *ngFor="let header of item.properties">{{ header.description }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td *ngFor="let header of item.properties" dndDropzone (dndDrop)="onDrop($event, header.properties)">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: header }">
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
 
-			<ng-container *ngSwitchCase="'table'">
-				<table class="table table-bordered table-striped table-responsive-sm">
-					<caption *ngIf="item.caption">{{ item.caption }}</caption>
-					<thead>
-						<tr>
-							<th *ngFor="let header of item.properties">{{ header.description }}</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td *ngFor="let header of item.properties" dndDropzone
-								(dndDrop)="onDrop($event, header.properties)">
-								<ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: header }">
-								</ng-container>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</ng-container>
+      <div *ngSwitchCase="'tabs'" class="tabs">
+        <ul class="nav nav-tabs mb-0">
+          <li *ngFor="let tab of item.properties; index as i" class="nav-item">
+            <a class="nav-link" href="javascript:{}"
+              [ngClass]="{'active': (!item.index && i ===  0) || item.index === i}" (click)="tabClick(item, tab)">
+              <i *ngIf="tab.iconClass" [ngClass]="tab.iconClass" class="mr-2"></i>
+              {{ tab.description }}
+            </a>
+          </li>
+          <li class="nav-item ml-auto">
+            <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+            </ng-container>
+          </li>
+        </ul>
+        <div class="tab-content border border-top-0 p-4 mb-4">
+          <div dndDropzone (dndDrop)="onDrop($event, item.properties[item.index || 0].properties)">
+            <ng-container
+              *ngTemplateOutlet="recursiveList; context:{ $implicit: item.properties[item.index || 0] || [] }">
+            </ng-container>
+          </div>
+        </div>
+      </div>
 
-			<div *ngSwitchCase="'tabs'" class="tabs">
-				<ul class="nav nav-tabs">
-					<li *ngFor="let tab of item.properties; index as i" class="nav-item">
-						<a class="nav-link" href="javascript:{}"
-							[ngClass]="{'active': (!item.index && i ===  0) || item.index === i}"
-							(click)="tabClick(item, tab)">{{ tab.description }}</a>
-					</li>
-					<li class="nav-item float-right">
-						<ng-container
-							*ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-						</ng-container>
-					</li>
-				</ul>
-				<div class="tab-container">
-					<div dndDropzone (dndDrop)="onDrop($event, item.properties[item.index || 0].properties)">
-						<ng-container
-							*ngTemplateOutlet="recursiveList; context:{ $implicit: item.properties[item.index || 0] || [] }">
-						</ng-container>
-					</div>
-				</div>
-			</div>
+      <fieldset *ngSwitchCase="'fieldset'">
+        <legend>{{ item.description }}</legend>
+        <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+        </ng-container>
+        <div dndDropzone (dndDrop)="onDrop($event, item.properties)">
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item }"></ng-container>
+        </div>
+      </fieldset>
 
-			<fieldset *ngSwitchCase="'fieldset'">
-				<legend>{{ item.description }}</legend>
-				<ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-				</ng-container>
-				<div dndDropzone (dndDrop)="onDrop($event, item.properties)">
-					<ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item }"></ng-container>
-				</div>
-			</fieldset>
+      <ng-container *ngSwitchCase="'input'">
+        <ng-container [ngSwitch]="item.format">
+          <div *ngSwitchCase="'checkbox'" class="form-check">
+            <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+            </ng-container>
+            <input type="checkbox" class="form-check-input" [checked]="!!item.value">
+            <label class="form-check-label">
+              {{ item.description }}
+              <sup *ngIf="item.required" class="text-danger">*</sup>
+            </label>
+          </div>
+          <div *ngSwitchDefault class="form-group" [dndDisableIf]="disabled" [dndDraggable]="item"
+            dndEffectAllowed="move" (dndCopied)="onDragged(item, property.properties, 'copy')"
+            (dndMoved)="onDragged(item, property.properties, 'move')">
+            <label>{{ item.description }}
+              <sup *ngIf="item.required" class="text-danger">*</sup>
+            </label>
+            <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+            </ng-container>
+            <input class="form-control" [type]="item.format || 'string'" [name]="item.key"
+              [placeholder]="item.placeholder || ''" [required]="item.required" [min]="item.minimun"
+              [max]="item.maximun" [step]="item.step" [value]="item.value || ''" />
+          </div>
+        </ng-container>
+      </ng-container>
 
-			<ng-container *ngSwitchCase="'input'">
-				<ng-container [ngSwitch]="item.format">
-					<div *ngSwitchCase="'checkbox'" class="form-check">
-						<input type="checkbox" class="form-check-input" [checked]="!!item.value">
-						<label class="form-check-label">
-							{{ item.description }}
-							<sup *ngIf="item.required" class="text-danger">*</sup>
-						</label>
-					</div>
-					<div *ngSwitchDefault class="form-group" [dndDisableIf]="disabled" [dndDraggable]="item"
-						dndEffectAllowed="move" (dndCopied)="onDragged(item, property.properties, 'copy')"
-						(dndMoved)="onDragged(item, property.properties, 'move')">
-						<label>{{ item.description }}
-							<sup *ngIf="item.required" class="text-danger">*</sup>
-						</label>
-						<ng-container
-							*ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-						</ng-container>
-						<input class="form-control" [type]="item.format || 'string'" [name]="item.key"
-							[placeholder]="item.placeholder || ''" [required]="item.required" [min]="item.minimun"
-							[max]="item.maximun" [step]="item.step" [value]="item.value || ''" />
-					</div>
-				</ng-container>
-			</ng-container>
+      <ng-container *ngSwitchCase="'select'">
+        <ng-container [ngSwitch]="item.format">
+          <div *ngSwitchCase="'dropdown'" class="form-group">
+            <label>{{ item.description }}
+              <sup *ngIf="item.required" class="text-danger">*</sup>
+            </label>
+            <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+            </ng-container>
+            <select class="form-control" [value]="item.default || null" [required]="item.required" [name]="item.key"
+              [multiple]="item.multiple || false">
+              <option *ngFor="let option of item.properties" [value]="option.value">
+                {{ option.description }}
+              </option>
+            </select>
+          </div>
+          <div *ngSwitchCase="'radio'" class="form-group">
+            <label>{{ item.description }}
+              <sup *ngIf="item.required" class="text-danger">*</sup>
+            </label>
+            <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+            </ng-container>
+            <div class="form-check" *ngFor="let option of item.properties">
+              <input class="form-check-input" type="radio" [value]="option.value" [name]="item.key">
+              <label class="form-check-label">
+                {{ option.description }}
+              </label>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
 
-			<ng-container *ngSwitchCase="'select'">
-				<ng-container [ngSwitch]="item.format">
-					<div *ngSwitchCase="'dropdown'" class="form-group">
-						<label>{{ item.description }}
-							<sup *ngIf="item.required" class="text-danger">*</sup>
-						</label>
-						<ng-container
-							*ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-						</ng-container>
-						<select class="form-control" [value]="item.default || null" [required]="item.required"
-							[name]="item.key" [multiple]="item.multiple || false">
-							<option *ngFor="let option of item.properties" [value]="option.value">
-								{{ option.description }}</option>
-						</select>
-					</div>
-					<div *ngSwitchCase="'radio'" class="form-group">
-						<label>{{ item.description }}
-							<sup *ngIf="item.required" class="text-danger">*</sup>
-						</label>
-						<ng-container
-							*ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-						</ng-container>
-						<div class="form-check" *ngFor="let option of item.properties">
-							<input class="form-check-input" type="radio" [value]="option.value" [name]="item.key">
-							<label class="form-check-label">
-								{{ option.description }}
-							</label>
-						</div>
-					</div>
-				</ng-container>
-			</ng-container>
+      <div *ngSwitchCase="'textarea'" class="form-group">
+        <label>{{ item.description }}
+          <sup *ngIf="item.required" class="text-danger">*</sup></label>
+        <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+        </ng-container>
+        <textarea class="form-control" [id]="item.key" [rows]="item.rows || 4" [cols]="item.cols || 0"
+          [value]="item.value || ''" [placeholder]="item.placeholder" [required]="item.required || false"></textarea>
+      </div>
 
-			<div *ngSwitchCase="'textarea'" class="form-group">
-				<label>{{ item.description }}
-					<sup *ngIf="item.required" class="text-danger">*</sup></label>
-				<ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-				</ng-container>
-				<textarea class="form-control" [id]="item.key" [rows]="item.rows || 4" [cols]="item.cols || 0"
-					[value]="item.value || ''" [placeholder]="item.placeholder"
-					[required]="item.required || false"></textarea>
-			</div>
+      <div *ngSwitchCase="'file'" class="form-group">
+        <label>{{ item.description }}
+          <sup *ngIf="item.required" class="text-danger">*</sup></label>
+        <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+        </ng-container>
+        <input type="file" class="form-control-file" [multiple]="item.multiple">
+      </div>
 
-			<div *ngSwitchCase="'file'" class="form-group">
-				<label>{{ item.description }}
-					<sup *ngIf="item.required" class="text-danger">*</sup></label>
-				<ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
-				</ng-container>
-				<input type="file" class="form-control-file" [multiple]="item.multiple">
-			</div>
+      <div *ngSwitchCase="'enriched-text'" class="enriched-text" [ngClass]="item.classList">
+        <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+        </ng-container>
+        <div [innerHTML]="item.value"></div>
+      </div>
 
-			<p *ngSwitchDefault>
-				<span>{{ item | json }}</span>
-			</p>
+      <p *ngSwitchDefault>
+        <span>{{ item | json }}</span>
+      </p>
 
-		</ng-container>
-	</div>
+    </ng-container>
+  </div>
 </ng-template>
 
 <ng-template #buttonsTpt let-list="list" let-item="item">
-	<span *ngIf="!disabled" class="build-item_button-bar float-right">
-		<button class="btn btn-link px-1 build-item_button-bar_edit" (click)="editBuildItem(list, item)">
-			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" role="img"
-				xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-pencil-alt fa-w-16">
-				<path fill="currentColor"
-					d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
-					class=""></path>
-			</svg>
-		</button>
-		<button class="btn btn-link px-1 build-item_button-bar_clone" (click)="cloneProperty(list, item)">
-			<svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="clone" role="img"
-				xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-clone fa-w-16 fa-2x">
-				<g class="fa-group">
-					<path fill="currentColor"
-						d="M48 512a48 48 0 0 1-48-48V176a48 48 0 0 1 48-48h48v208a80.09 80.09 0 0 0 80 80h208v48a48 48 0 0 1-48 48H48z"
-						class="fa-secondary"></path>
-					<path fill="currentColor"
-						d="M512 48v288a48 48 0 0 1-48 48H176a48 48 0 0 1-48-48V48a48 48 0 0 1 48-48h288a48 48 0 0 1 48 48z"
-						class="fa-primary"></path>
-				</g>
-			</svg>
-		</button>
-		<button class="btn btn-link px-1 build-item_button-bar_remove" (click)="deleteProperty(list, item)">
-			<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" role="img"
-				xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-trash-alt fa-w-14">
-				<path fill="currentColor"
-					d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"
-					class=""></path>
-			</svg>
-		</button>
-	</span>
+  <span *ngIf="!disabled" class="build-item_button-bar float-right">
+    <button class="btn btn-link px-1 build-item_button-bar_edit" (click)="editBuildItem(list, item)">
+      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-link px-1 build-item_button-bar_clone" (click)="cloneProperty(list, item)">
+      <i class="far fa-clone" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-link px-1 build-item_button-bar_remove" (click)="deleteProperty(list, item)">
+      <i class="far fa-trash-alt" aria-hidden="true"></i>
+    </button>
+  </span>
 </ng-template>
 
 <div class="dndDroppingTarget" *ngIf="schema" dndDropzone (dndDrop)="onDrop($event, schema.properties)">
-	<ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: schema }"></ng-container>
+  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: schema }"></ng-container>
 </div>

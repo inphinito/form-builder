@@ -1,0 +1,112 @@
+<form [formGroup]="form">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="offset-2 col-5">Cols</div>
+        <div class="col-5">Offset</div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">XS</label>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="col">
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="offset">
+            <option value="0">0</option>
+
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">SM</label>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="col-sm">
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="offset-sm">
+            <option value="0">0</option>
+
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">MD</label>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="col-md">
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="offset-md">
+            <option value="0">0</option>
+
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">LG</label>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="col-lg">
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="offset-lg">
+            <option value="0">0</option>
+
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">XL</label>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="col-xl">
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <select class="form-control" formControlName="offset-xl">
+            <option value="0">0</option>
+
+            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+          </select>
+        </div>
+      </div>
+    </li>
+  </ul>
+</form>
+<ng-template #optionsTpt>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
+  <option value="11">11</option>
+  <option value="12">12</option>
+  <option value="auto">Auto</option>
+  <option value="equal">Equal</option>
+</ng-template>
+<!-- <pre>{{ form.value | json }}</pre> -->

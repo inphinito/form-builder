@@ -14,6 +14,9 @@ import { TableComponent } from './components/table/table.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { FileComponent } from './components/file/file.component';
 import { TriggersComponent } from './components/triggers/triggers.component';
+import { EnrichedTextComponent } from '../../form-builder/components/enriched-text/enriched-text.component';
+import { DisplaySettingsComponent } from '../../form-builder/components/display-settings/display-settings.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
 	declarations: [
@@ -27,7 +30,9 @@ import { TriggersComponent } from './components/triggers/triggers.component';
 		TableComponent,
 		TabsComponent,
 		FileComponent,
-		TriggersComponent
+		TriggersComponent,
+		EnrichedTextComponent,
+		DisplaySettingsComponent
 	],
 	imports: [
 		FormsModule,
@@ -35,7 +40,8 @@ import { TriggersComponent } from './components/triggers/triggers.component';
 		CommonModule,
 		DndModule,
 		NgbModalModule,
-		NgbModule
+		NgbModule,
+		CKEditorModule
 	],
 	exports: [
 		FormBuilderComponent
@@ -48,7 +54,9 @@ import { TriggersComponent } from './components/triggers/triggers.component';
 		SelectComponent,
 		CodeComponent,
 		TableCodeComponent,
-		FileComponent
+		FileComponent,
+		EnrichedTextComponent,
+		DisplaySettingsComponent
 	]
 })
 export class FormBuilderModule { }

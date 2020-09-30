@@ -1,64 +1,81 @@
 <div class="modal-header">
-	<h5 class="modal-title">Tabs editing</h5>
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
-		<span aria-hidden="true">&times;</span>
-	</button>
+  <h5 class="modal-title">Tabs editing</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 
 <div class="modal-body">
-	<form [formGroup]="form">
-		<ul ngbNav #nav="ngbNav" [(activeId)]="activeNavId" class="nav-tabs">
-			<li [ngbNavItem]="1">
-				<a ngbNavLink>Properties</a>
-				<ng-template ngbNavContent>
-					<ng-container formArrayName="properties" *ngFor="let item of properties.controls; index as i;">
-						<fieldset [formGroupName]="i">
-							<legend>Tab #{{ i + 1 }}</legend>
-							<div class="float-right">
-								<button (click)="removeByIndex(i)">Remove</button>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label">Key</label>
-								<div class="col-sm-9">
-									<input type="string" class="form-control" formControlName="key">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label">Name <sup class="text-danger">*</sup></label>
-								<div class="col-sm-9">
-									<input type="string" class="form-control" formControlName="description">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label">Icon</label>
-								<div class="col-sm-9">
-									<input type="string" class="form-control" formControlName="iconClass">
-								</div>
-							</div>
-						</fieldset>
-						<div *ngIf="!properties.controls.length" class="alert alert-warning" role="alert">
-							Click the button to add new tabs
-						</div>
-					</ng-container>
-					<div class="text-right">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"
-							(click)="add()">Add</button>
-					</div>
-				</ng-template>
-			</li>
-			<li [ngbNavItem]="2">
-				<a ngbNavLink>Triggers</a>
-				<ng-template ngbNavContent>
-					<ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
-				</ng-template>
-			</li>
-		</ul>
-		<div [ngbNavOutlet]="nav"></div>
+  <form [formGroup]="form">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="activeNavId" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Properties</a>
+        <ng-template ngbNavContent>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" formArrayName="properties"
+              *ngFor="let item of properties.controls; index as i;">
+              <fieldset [formGroupName]="i">
+                <legend>Tab #{{ i + 1 }}</legend>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Key <sup class="text-danger">*</sup></label>
+                  <div class="col-sm-9">
+                    <input type="string" class="form-control" formControlName="key">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Name <sup class="text-danger">*</sup></label>
+                  <div class="col-sm-9">
+                    <input type="string" class="form-control" formControlName="description">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Icon</label>
+                  <div class="col-sm-9">
+                    <input type="string" class="form-control" formControlName="iconClass">
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <button type="button" class="btn btn-danger ml-auto" (click)="removeByIndex(i)">
+                    <i class="far fa-trash-alt mr-2"></i>
+                    Remove
+                  </button>
+                </div>
+              </fieldset>
+              <div *ngIf="!properties.controls.length" class="alert alert-warning" role="alert">
+                Click the button to add new tabs
+              </div>
+            </li>
+          </ul>
+          <div class="text-right">
 
-	</form>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Triggers</a>
+        <ng-template ngbNavContent>
+          <ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Display settings</a>
+        <ng-template ngbNavContent>
+          <ngx-form-builder-display-settings formControlName="display-settings"></ngx-form-builder-display-settings>
+        </ng-template>
+      </li>
+
+
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+
+  </form>
 </div>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-danger" (click)="dismiss()">Cancel</button>
-	<button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
+  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="add()">
+    <i class="fas fa-plus mr-2" aria-hidden="true"></i>
+    Add
+  </button>
+  <button type="button" class="btn ml-auto" (click)="dismiss()">Cancel</button>
+  <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
 </div>

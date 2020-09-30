@@ -3,9 +3,6 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Tabs } from '../../interfaces/tabs';
 
-
-
-
 @Component({
 	selector: 'app-tabs',
 	templateUrl: './tabs.component.html',
@@ -20,7 +17,8 @@ export class TabsComponent implements OnInit {
 	form = this._formBuilder.group({
 		type: ['tabs'],
 		properties: this._formBuilder.array([]),
-		triggers: [null]
+		triggers: [null],
+		'display-settings': [null]
 	});
 
 	activeNavId: number = 1;
@@ -45,8 +43,8 @@ export class TabsComponent implements OnInit {
 			this._formBuilder.group({
 				type: ['tab'],
 				description: [value.description, Validators.required],
-				key: [value.key],
-				iconClass: [value.icon],
+				key: [value.key, Validators.required],
+				iconClass: [value.iconClass],
 				properties: [value.properties || []]
 			})
 		);

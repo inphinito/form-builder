@@ -1,107 +1,104 @@
 <form [formGroup]="form">
-	<ul class="list-group list-group-flush" formArrayName="items">
-		<ng-container *ngFor="let trigger of items.controls; let i=index">
-			<li class="list-group-item" [formGroupName]="i">
-				<h5>If</h5>
-				<ul formArrayName="if">
-					<ng-container *ngFor="let trigger of trigger.get('if').controls; let j=index; let last = last;">
-						<li [formGroupName]="j">
-							<div class="form-group row">
-								<div class="col-2">
-									<select class="form-control" formControlName="type">
-										<option value="control">Control</option>
-										<option value="value">Value</option>
-									</select>
-								</div>
-								<div class="col-2">
-									<input type="text" formControlName="value" placeholder="campo" class="form-control">
-								</div>
-								<div class="col-2">
-									<select class="form-control" formControlName="operator">
-										<option *ngFor="let operator of operators" [value]="operator">{{ operator }}
-										</option>
-									</select>
-								</div>
-								<div class="col-2">
-									<select class="form-control" formControlName="type2">
-										<option value="control">Control</option>
-										<option value="value">Value</option>
-									</select>
-								</div>
-								<div class="col-2">
-									<input type="text" formControlName="value2" placeholder="campo"
-										class="form-control">
-								</div>
-								<div class="col-2" *ngIf="!last">
-									<select class="form-control" formControlName="boolean">
-										<option value="and">And</option>
-										<option value="or">Or</option>
-									</select>
-								</div>
-							</div>
-						</li>
-					</ng-container>
-				</ul>
-				<div class="text-right">
-					<button class="btn btn-secondary" (click)="addAntecedent(trigger.get('if'))">
-						+
-					</button>
-				</div>
-				<h5>Then</h5>
-				<ul formArrayName="then">
-					<ng-container *ngFor="let trigger of trigger.get('then').controls; let k=index">
-						<li [formGroupName]="k">
-							<div class="form-group row">
-								<div class="col">
-									<input type="text" formControlName="control" placeholder="Control path"
-										class="form-control">
-								</div>
-								<label class="col-form-label">is </label>
-								<div class="col">
-									<select class="form-control" formControlName="action">
-										<option *ngFor="let action of actions" [value]="action">{{ action }}
-										</option>
-									</select>
-								</div>
-							</div>
-						</li>
-					</ng-container>
-				</ul>
-				<div class="text-right">
-					<button class="btn btn-secondary" (click)="addConsequence(trigger.get('then'))">
-						+
-					</button>
-				</div>
-				<h5>Else</h5>
-				<ul formArrayName="else">
-					<ng-container *ngFor="let trigger of trigger.get('else').controls; let l=index">
-						<li [formGroupName]="l">
-							<div class="form-group row">
-								<div class="col">
-									<input type="text" formControlName="control" placeholder="Control path"
-										class="form-control">
-								</div>
-								<label class="col-form-label">is </label>
-								<div class="col">
-									<select class="form-control" formControlName="action">
-										<option *ngFor="let action of actions" [value]="action">{{ action }}
-										</option>
-									</select>
-								</div>
-							</div>
-						</li>
-					</ng-container>
-				</ul>
-				<div class="text-right">
-					<button class="btn btn-secondary" (click)="addConsequence(trigger.get('else'))">
-						+
-					</button>
-				</div>
-			</li>
-		</ng-container>
-	</ul>
-	<div class="text-right m-2">
-		<button class="btn btn-secondary" (click)="addTrigger()">Add trigger</button>
-	</div>
+  <ul class="list-group list-group-flush" formArrayName="items">
+    <ng-container *ngFor="let trigger of items.controls; let i=index">
+      <li class="list-group-item" [formGroupName]="i">
+        <h5>If</h5>
+        <ul formArrayName="if">
+          <ng-container *ngFor="let trigger of trigger.get('if').controls; let j=index; let last = last;">
+            <li [formGroupName]="j">
+              <div class="form-group row">
+                <div class="col-2">
+                  <select class="form-control" formControlName="type">
+                    <option value="control">Control</option>
+                    <option value="value">Value</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <input type="text" formControlName="value" placeholder="campo" class="form-control">
+                </div>
+                <div class="col-2">
+                  <select class="form-control" formControlName="operator">
+                    <option *ngFor="let operator of operators" [value]="operator">{{ operator }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <select class="form-control" formControlName="type2">
+                    <option value="control">Control</option>
+                    <option value="value">Value</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <input type="text" formControlName="value2" placeholder="campo" class="form-control">
+                </div>
+                <div class="col-2" *ngIf="!last">
+                  <select class="form-control" formControlName="boolean">
+                    <option value="and">And</option>
+                    <option value="or">Or</option>
+                  </select>
+                </div>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+        <div class="text-right">
+          <button class="btn btn-secondary" (click)="addAntecedent(trigger.get('if'))">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        <h5>Then</h5>
+        <ul formArrayName="then">
+          <ng-container *ngFor="let trigger of trigger.get('then').controls; let k=index">
+            <li [formGroupName]="k">
+              <div class="form-group row">
+                <div class="col">
+                  <input type="text" formControlName="control" placeholder="Control path" class="form-control">
+                </div>
+                <label class="col-form-label">is </label>
+                <div class="col">
+                  <select class="form-control" formControlName="action">
+                    <option *ngFor="let action of actions" [value]="action">{{ action }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+        <div class="text-right">
+          <button class="btn btn-secondary" (click)="addConsequence(trigger.get('then'))">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        <h5>Else</h5>
+        <ul formArrayName="else">
+          <ng-container *ngFor="let trigger of trigger.get('else').controls; let l=index">
+            <li [formGroupName]="l">
+              <div class="form-group row">
+                <div class="col">
+                  <input type="text" formControlName="control" placeholder="Control path" class="form-control">
+                </div>
+                <label class="col-form-label">is </label>
+                <div class="col">
+                  <select class="form-control" formControlName="action">
+                    <option *ngFor="let action of actions" [value]="action">{{ action }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+        <div class="text-right">
+          <button class="btn btn-secondary" (click)="addConsequence(trigger.get('else'))">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+  <div class="text-right m-2">
+    <button class="btn btn-secondary" (click)="addTrigger()">Add trigger</button>
+  </div>
 </form>
 <!-- <pre>{{ form.value | json }}</pre> -->

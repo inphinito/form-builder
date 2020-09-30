@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
@@ -11,6 +11,7 @@ import { InputComponent } from '../input/input.component';
 import { TabsComponent } from '../tabs/tabs.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator } from '@angular/forms';
 import { FileComponent } from '../file/file.component';
+import { EnrichedTextComponent } from '../../../../form-builder/components/enriched-text/enriched-text.component';
 
 @Component({
 	selector: 'form-builder',
@@ -29,19 +30,24 @@ import { FileComponent } from '../file/file.component';
 		}
 	]
 })
-export class FormBuilderComponent implements ControlValueAccessor, Validator {
+export class FormBuilderComponent implements ControlValueAccessor, Validator, AfterViewInit {
+
+	@ViewChild('buildingToolbar') toolbarElement: ElementRef;
+
 	buildingItems: BuildingItem[] = [
-		{ name: 'tabs', children: [] as any[], type: 'tabs', icon: 'fa fa-square', properties: { value: null } },
-		{ name: 'Fieldset', children: [] as any[], type: 'fieldset', icon: 'fa fa-square', properties: { value: null } },
-		// { name: 'Row', children: [] as any[], type: 'row', icon: 'fa fa-square', properties: { value: null} },
-		// { name: 'Col', children: [] as any[], type: 'col', icon: 'fa fa-square', properties: { value: null} },
-		{ name: 'Input', type: 'string', icon: 'fa fa-language', properties: { value: null } },
-		{ name: 'Select', type: 'select', icon: 'fa fa-language', properties: { value: null } },
-		{ name: 'Textarea', type: 'textarea', icon: 'fa fa-language', properties: { value: null } },
-		{ name: 'File', type: 'file', icon: 'fa fa-document', properties: { value: null } },
-		// { name: 'Código', type: 'code', icon: 'fa fa-language', properties: { value: null } },
-		{ name: 'Table', type: 'table', icon: 'fa fa-hashtag' }
+		{ name: 'tabs', children: [] as any[], type: 'tabs', icon: 'assets/icons/segmented-nav.svg' },
+		{ name: 'Fieldset', children: [] as any[], type: 'fieldset', icon: 'assets/icons/slash-square.svg' },
+		{ name: 'Input', type: 'string', icon: 'assets/icons/input.svg' },
+		{ name: 'Select', type: 'select', icon: 'assets/icons/menu-button-wide.svg' },
+		{ name: 'Textarea', type: 'textarea', icon: 'assets/icons/textarea-resize.svg' },
+		{ name: 'Table', type: 'table', icon: 'assets/icons/table.svg' },
+		{ name: 'File', type: 'file', icon: 'assets/icons/file-earmark.svg' },
+		{ name: 'Enriched Text', type: 'enriched-text', icon: 'assets/icons/code.svg' },
 	];
+
+	sticky: boolean = false;
+	elementPosition: any;
+
 	tabIndex = 0;
 
 	defaultSchema: any = {
@@ -54,11 +60,19 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 
 	schema: any;
 
+
 	disabled: boolean = false;
+
+	onTouch = () => { }
 
 	constructor(
 		private _modalSvc: NgbModal
 	) { }
+
+	ngAfterViewInit() {
+		this.elementPosition = this.toolbarElement.nativeElement.offsetTop;
+		console.log(this.elementPosition);
+	}
 
 	/**
 	 * The method set in registerOnChange, it is just a placeholder for a method that takes one parameter,
@@ -91,7 +105,9 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 	 * @param {*} fn The callback function to register
 	 *
 	 */
-	public registerOnTouched(fn: any): void { }
+	public registerOnTouched(fn: any): void {
+		this.onTouch = fn;
+	}
 
 	/**
 	 * This function is called when the control status changes to or from "DISABLED".
@@ -154,6 +170,8 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 
 			list.splice(index, 0, event.data);
 
+			this.onTouch();
+
 			// update the form
 			this.propagateChange(this.schema);
 		}
@@ -176,6 +194,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 			const result = await modalRef.result;
 			if (result) {
 				list[index] = result;
+				this.onTouch();
 			}
 		} catch (error) {
 			console.log(error);
@@ -209,6 +228,9 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 			case 'table':
 				modalRef = this._modalSvc.open(TableComponent, { size: 'lg' });
 				break;
+			case 'enriched-text':
+				modalRef = this._modalSvc.open(EnrichedTextComponent, { size: 'lg' });
+				break;
 			default:
 				modalRef = this._modalSvc.open(InputComponent, { size: 'lg' });
 				break;
@@ -221,6 +243,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		if (confirm('Do you want to delete the item?')) {
 			if (index > -1) {
 				list.splice(index, 1);
+				this.onTouch();
 			}
 		}
 	}
@@ -229,6 +252,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		const index = list.indexOf(item);
 		if (index > -1) {
 			list.splice(index + 1, 0, Object.assign({}, item));
+			this.onTouch();
 		}
 	}
 
@@ -247,6 +271,16 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator {
 		// 		}, []);
 
 		// 	console.log(result);
+	}
+
+	@HostListener('window:scroll', ['$event'])
+	handleScroll() {
+		const windowScroll = window.pageYOffset;
+		if (windowScroll >= this.elementPosition) {
+			this.sticky = true;
+		} else {
+			this.sticky = false;
+		}
 	}
 
 }
