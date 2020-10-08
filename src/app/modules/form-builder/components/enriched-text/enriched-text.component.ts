@@ -19,7 +19,7 @@ export class EnrichedTextComponent implements OnInit {
 		type: ['enriched-text'],
 		value: [null, Validators.required],
 		classList: [null],
-		'display-settings': [null]
+		// 'display-settings': [null]
 	});
 
 	activeNavId: number = 1;

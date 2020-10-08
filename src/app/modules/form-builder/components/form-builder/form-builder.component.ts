@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, forwardRef, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, forwardRef, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
@@ -11,7 +11,8 @@ import { InputComponent } from '../input/input.component';
 import { TabsComponent } from '../tabs/tabs.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator } from '@angular/forms';
 import { FileComponent } from '../file/file.component';
-import { EnrichedTextComponent } from '../../../../form-builder/components/enriched-text/enriched-text.component';
+import { EnrichedTextComponent } from '../enriched-text/enriched-text.component';
+import { FormBuilderService } from '../../services/form-builder.service';
 
 @Component({
 	selector: 'form-builder',
@@ -45,6 +46,8 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 		{ name: 'Enriched Text', type: 'enriched-text', icon: 'assets/icons/code.svg' },
 	];
 
+	buildingItemsToShow: BuildingItem[];
+
 	sticky: boolean = false;
 	elementPosition: any;
 
@@ -60,18 +63,21 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 
 	schema: any;
 
-
 	disabled: boolean = false;
 
 	onTouch = () => { }
 
 	constructor(
-		private _modalSvc: NgbModal
-	) { }
+		private _modalSvc: NgbModal,
+		private _configSvc: FormBuilderService
+	) {
+		this.buildingItemsToShow = this.buildingItems.filter(o =>
+			this._configSvc.config.components.findIndex(p => o.type === p) > -1
+		);
+	}
 
 	ngAfterViewInit() {
 		this.elementPosition = this.toolbarElement.nativeElement.offsetTop;
-		console.log(this.elementPosition);
 	}
 
 	/**

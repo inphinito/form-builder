@@ -1,104 +1,176 @@
 <form [formGroup]="form">
-  <ul class="list-group list-group-flush" formArrayName="items">
-    <ng-container *ngFor="let trigger of items.controls; let i=index">
-      <li class="list-group-item" [formGroupName]="i">
-        <h5>If</h5>
-        <ul formArrayName="if">
-          <ng-container *ngFor="let trigger of trigger.get('if').controls; let j=index; let last = last;">
-            <li [formGroupName]="j">
-              <div class="form-group row">
-                <div class="col-2">
-                  <select class="form-control" formControlName="type">
-                    <option value="control">Control</option>
-                    <option value="value">Value</option>
-                  </select>
-                </div>
-                <div class="col-2">
-                  <input type="text" formControlName="value" placeholder="campo" class="form-control">
-                </div>
-                <div class="col-2">
-                  <select class="form-control" formControlName="operator">
-                    <option *ngFor="let operator of operators" [value]="operator">{{ operator }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-2">
-                  <select class="form-control" formControlName="type2">
-                    <option value="control">Control</option>
-                    <option value="value">Value</option>
-                  </select>
-                </div>
-                <div class="col-2">
-                  <input type="text" formControlName="value2" placeholder="campo" class="form-control">
-                </div>
-                <div class="col-2" *ngIf="!last">
-                  <select class="form-control" formControlName="boolean">
-                    <option value="and">And</option>
-                    <option value="or">Or</option>
-                  </select>
-                </div>
-              </div>
-            </li>
-          </ng-container>
-        </ul>
-        <div class="text-right">
-          <button class="btn btn-secondary" (click)="addAntecedent(trigger.get('if'))">
-            <i class="fas fa-plus"></i>
-          </button>
+  <ng-container *ngIf="items.controls.length; then withTriggersTpt; else withoutTriggersTpt"></ng-container>
+  <ng-template #withoutTriggersTpt>
+    <div class="alert alert-info mt-3 mb-4" role="alert">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-info mr-4 fa-2x"></i>
+        <p class="mb-0">The building element has no triggers. To add one, click on the button below.</p>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #withTriggersTpt>
+    <ng-container formArrayName="items">
+      <div class="card mb-4" *ngFor="let trigger of items.controls; let i=index" [formGroupName]="i">
+        <div class="card-body">
+          <div class="row align-items-center mb-4">
+            <h4 class="col card-title">Trigger #{{ i + 1 }}</h4>
+            <div class="col d-flex">
+              <button class="btn btn-danger ml-auto" (click)="removeTrigger(items, i)">
+                <i class="far fa-trash-alt mr-2"></i>Remove
+              </button>
+            </div>
+          </div>
+          <fieldset>
+            <legend>If</legend>
+            <ng-container *ngIf="trigger.get('if')['controls']?.length; then ifIfTpt; else placeholderTpt">
+            </ng-container>
+            <ng-template #ifIfTpt>
+              <ul class="list-group list-group-flush mb-4" formArrayName="if">
+                <ng-container *ngFor="let antecedent of trigger.get('if')['controls']; let j=index; let last = last;">
+                  <li class="list-group-item" [formGroupName]="j">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col-2">
+                            <select class="form-control" formControlName="type">
+                              <option value="control">Control</option>
+                              <option value="value">Value</option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <input type="text" formControlName="value" placeholder="campo" class="form-control">
+                          </div>
+                          <div class="col-2">
+                            <select class="form-control" formControlName="operator">
+                              <option *ngFor="let operator of operators" [value]="operator">{{ operator }}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <select class="form-control" formControlName="type2">
+                              <option value="control">Control</option>
+                              <option value="value">Value</option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <input type="text" formControlName="value2" placeholder="campo" class="form-control">
+                          </div>
+                          <div class="col-2" *ngIf="!last">
+                            <select class="form-control" formControlName="boolean">
+                              <option value="and">And</option>
+                              <option value="or">Or</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <button class="btn btn-link text-danger" (click)="removeTrigger(trigger.get('if'), j)">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-template>
+          </fieldset>
+          <div class="text-right">
+            <button class="btn btn-link" (click)="addAntecedent(trigger.get('if'))">
+              <i class="fas fa-plus mr-2"></i>Add antecedent
+            </button>
+          </div>
+          <fieldset>
+            <legend>Then</legend>
+            <ng-container *ngIf="trigger.get('then')['controls']?.length; then ifThenTpt; else placeholderTpt">
+            </ng-container>
+            <ng-template #ifThenTpt>
+              <ul class="list-group list-group-flush mb-4" formArrayName="then">
+                <ng-container *ngFor="let consequence of trigger.get('then')['controls']; let k=index">
+                  <li class="list-group-item" [formGroupName]="k">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <input type="text" formControlName="control" placeholder="Control path"
+                              class="form-control">
+                          </div>
+                          <label class="col-form-label">is </label>
+                          <div class="col">
+                            <select class="form-control" formControlName="action">
+                              <option *ngFor="let action of actions" [value]="action">{{ action }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <button class="btn btn-link text-danger" (click)="removeTrigger(trigger.get('then'), k)">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-template>
+          </fieldset>
+          <div class="text-right">
+            <button class="btn btn-link" (click)="addConsequence(trigger.get('then'))">
+              <i class="fas fa-plus mr-2"></i>Add Consequence
+            </button>
+          </div>
+          <fieldset>
+            <legend>Else</legend>
+            <ng-container *ngIf="trigger.get('else')['controls']?.length; then ifElseTpt; else placeholderTpt">
+            </ng-container>
+            <ng-template #ifElseTpt>
+              <ul class="list-group list-group-flush mb-4" formArrayName="else">
+                <ng-container *ngFor="let consequence of trigger.get('else')['controls']; let l=index">
+                  <li class="list-group-item" [formGroupName]="l">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <input type="text" formControlName="control" placeholder="Control path"
+                              class="form-control">
+                          </div>
+                          <label class="col-form-label">is </label>
+                          <div class="col">
+                            <select class="form-control" formControlName="action">
+                              <option *ngFor="let action of actions" [value]="action">{{ action }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <button class="btn btn-link text-danger" (click)="removeTrigger(trigger.get('else'), l)">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-template>
+          </fieldset>
+          <div class="text-right">
+            <button class="btn btn-link" (click)="addConsequence(trigger.get('else'))">
+              <i class="fas fa-plus mr-2"></i>Add Consequence
+            </button>
+          </div>
         </div>
-        <h5>Then</h5>
-        <ul formArrayName="then">
-          <ng-container *ngFor="let trigger of trigger.get('then').controls; let k=index">
-            <li [formGroupName]="k">
-              <div class="form-group row">
-                <div class="col">
-                  <input type="text" formControlName="control" placeholder="Control path" class="form-control">
-                </div>
-                <label class="col-form-label">is </label>
-                <div class="col">
-                  <select class="form-control" formControlName="action">
-                    <option *ngFor="let action of actions" [value]="action">{{ action }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </li>
-          </ng-container>
-        </ul>
-        <div class="text-right">
-          <button class="btn btn-secondary" (click)="addConsequence(trigger.get('then'))">
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
-        <h5>Else</h5>
-        <ul formArrayName="else">
-          <ng-container *ngFor="let trigger of trigger.get('else').controls; let l=index">
-            <li [formGroupName]="l">
-              <div class="form-group row">
-                <div class="col">
-                  <input type="text" formControlName="control" placeholder="Control path" class="form-control">
-                </div>
-                <label class="col-form-label">is </label>
-                <div class="col">
-                  <select class="form-control" formControlName="action">
-                    <option *ngFor="let action of actions" [value]="action">{{ action }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </li>
-          </ng-container>
-        </ul>
-        <div class="text-right">
-          <button class="btn btn-secondary" (click)="addConsequence(trigger.get('else'))">
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
-      </li>
+      </div>
     </ng-container>
-  </ul>
-  <div class="text-right m-2">
-    <button class="btn btn-secondary" (click)="addTrigger()">Add trigger</button>
+  </ng-template>
+  <div class="d-flex">
+    <button class="btn btn-secondary ml-auto" (click)="addTrigger()">
+      <i class="fas fa-plus mr-2"></i>Add trigger
+    </button>
   </div>
 </form>
-<!-- <pre>{{ form.value | json }}</pre> -->
+
+
+<ng-template #placeholderTpt>
+  <div class="placeholder"></div>
+</ng-template>

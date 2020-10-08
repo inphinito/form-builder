@@ -14,9 +14,13 @@ import { TableComponent } from './components/table/table.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { FileComponent } from './components/file/file.component';
 import { TriggersComponent } from './components/triggers/triggers.component';
-import { EnrichedTextComponent } from '../../form-builder/components/enriched-text/enriched-text.component';
-import { DisplaySettingsComponent } from '../../form-builder/components/display-settings/display-settings.component';
+import { EnrichedTextComponent } from './components/enriched-text/enriched-text.component';
+import { DisplaySettingsComponent } from './components/display-settings/display-settings.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormBuilderConfig } from './interfaces/FormBuilderConfig';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { FormBuilderConfigService } from '../form-builder/services/form-builder-config.service'
+import { FormBuilderService } from '../form-builder/services/form-builder.service'
 
 @NgModule({
 	declarations: [
@@ -59,4 +63,19 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 		DisplaySettingsComponent
 	]
 })
-export class FormBuilderModule { }
+
+export class FormBuilderModule {
+
+	static forRoot(config?: FormBuilderConfig): ModuleWithProviders {
+		return {
+			ngModule: FormBuilderModule,
+			providers: [
+				FormBuilderService,
+				{
+					provide: FormBuilderConfigService,
+					useValue: config
+				}
+			]
+		}
+	}
+}

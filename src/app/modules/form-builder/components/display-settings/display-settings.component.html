@@ -2,7 +2,8 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <div class="row">
-        <div class="offset-2 col-5">Cols</div>
+        <div class="col-2">Screen size</div>
+        <div class="col-5">Cols</div>
         <div class="col-5">Offset</div>
       </div>
     </li>
@@ -11,14 +12,12 @@
         <label class="col-sm-2 col-form-label">XS</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col">
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
           </select>
         </div>
         <div class="col-sm-5">
           <select class="form-control" formControlName="offset">
-            <option value="0">0</option>
-
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let offset of offsetSizes" [value]="offset">{{ offset }}</option>
           </select>
         </div>
       </div>
@@ -28,14 +27,12 @@
         <label class="col-sm-2 col-form-label">SM</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-sm">
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
           </select>
         </div>
         <div class="col-sm-5">
           <select class="form-control" formControlName="offset-sm">
-            <option value="0">0</option>
-
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let offset of offsetSizes" [value]="offset">{{ offset }}</option>
           </select>
         </div>
       </div>
@@ -45,14 +42,12 @@
         <label class="col-sm-2 col-form-label">MD</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-md">
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
           </select>
         </div>
         <div class="col-sm-5">
           <select class="form-control" formControlName="offset-md">
-            <option value="0">0</option>
-
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let offset of offsetSizes" [value]="offset">{{ offset }}</option>
           </select>
         </div>
       </div>
@@ -62,14 +57,12 @@
         <label class="col-sm-2 col-form-label">LG</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-lg">
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
           </select>
         </div>
         <div class="col-sm-5">
           <select class="form-control" formControlName="offset-lg">
-            <option value="0">0</option>
-
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let offset of offsetSizes" [value]="offset">{{ offset }}</option>
           </select>
         </div>
       </div>
@@ -79,14 +72,12 @@
         <label class="col-sm-2 col-form-label">XL</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-xl">
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
           </select>
         </div>
         <div class="col-sm-5">
           <select class="form-control" formControlName="offset-xl">
-            <option value="0">0</option>
-
-            <ng-template [ngTemplateOutlet]="optionsTpt"></ng-template>
+            <option *ngFor="let offset of offsetSizes" [value]="offset">{{ offset }}</option>
           </select>
         </div>
       </div>
@@ -109,4 +100,3 @@
   <option value="auto">Auto</option>
   <option value="equal">Equal</option>
 </ng-template>
-<!-- <pre>{{ form.value | json }}</pre> -->

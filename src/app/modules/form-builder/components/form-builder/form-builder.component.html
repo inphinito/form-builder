@@ -1,6 +1,6 @@
 <div #buildingToolbar *ngIf="!disabled" class="my-4 building-toolbar" [class.sticky]="sticky">
-  <button class="btn btn-light mr-2" *ngFor="let item of buildingItems" [dndDisableIf]="disabled" [dndDraggable]="item"
-    dndEffectAllowed="copy">
+  <button class="btn btn-light mr-2" *ngFor="let item of buildingItemsToShow" [dndDisableIf]="disabled"
+    [dndDraggable]="item" dndEffectAllowed="copy">
     <img *ngIf="item.icon" class="icon mr-2" [src]="item.icon" [alt]="item.name">
     <span class="label">{{ item.name | titlecase }}</span>
   </button>

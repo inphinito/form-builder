@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Barra de herramientas flotante en scroll
 ### Fixed
 - El formulario se marca como tocado cuando duplicas, eliminas o editas un elemento.
+### Changed
+- Maquetación general mejorada
 
 ## [0.6.0] - 2020-08-17
 ### Added

@@ -12,7 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		FormsModule,
 		ReactiveFormsModule,
 		BrowserModule,
-		FormBuilderModule,
+		FormBuilderModule.forRoot({
+			components: ['tabs', 'fieldset', 'string', 'select', 'textarea', 'file']
+		}),
 		HttpClientModule
 	],
 	providers: [],

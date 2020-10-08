@@ -1,12 +1,11 @@
 <div class="modal-header">
-  <h5 class="modal-title">Input editing</h5>
+  <h5 class="modal-title">Enriched text</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <form [formGroup]="form">
-    <pre>{{ activeNavId | json  }}</pre>
     <ul ngbNav #nav="ngbNav" [(activeId)]="activeNavId" class="nav-tabs">
       <li [ngbNavItem]="1">
         <a ngbNavLink>Info</a>
@@ -23,12 +22,12 @@
           </div>
         </ng-template>
       </li>
-      <li [ngbNavItem]="2">
+      <!-- <li [ngbNavItem]="2">
         <a ngbNavLink>Display settings</a>
         <ng-template ngbNavContent>
           <ngx-form-builder-display-settings formControlName="display-settings"></ngx-form-builder-display-settings>
         </ng-template>
-      </li>
+      </li> -->
     </ul>
     <div [ngbNavOutlet]="nav"></div>
 

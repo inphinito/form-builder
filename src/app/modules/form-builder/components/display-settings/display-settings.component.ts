@@ -21,12 +21,15 @@ export class DisplaySettingsComponent implements OnInit {
 		'col-md': [12, Validators.required],
 		'col-lg': [12, Validators.required],
 		'col-xl': [12, Validators.required],
-		'offset': [12, Validators.required],
+		'offset': [0, Validators.required],
 		'offset-sm': [0, Validators.required],
 		'offset-md': [0, Validators.required],
 		'offset-lg': [0, Validators.required],
 		'offset-xl': [0, Validators.required],
 	});
+
+	columnSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'auto', 'equal'];
+	offsetSizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 	isDisabled: boolean;
 
@@ -36,7 +39,9 @@ export class DisplaySettingsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.form.valueChanges.subscribe((changes) => {
-			this.onChange(this.form.value);
+			const value = this.form.value;
+			Object.keys(value).forEach((k) => !value[k] && delete value[k]);
+			this.onChange(value);
 		});
 	}
 

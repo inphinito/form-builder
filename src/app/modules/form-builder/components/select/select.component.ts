@@ -10,7 +10,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class SelectComponent implements OnInit {
 	@Input() value: any;
 
-	options: any[] = [];
+	urelRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+
 	form: FormGroup = this._formBuilder.group({
 		type: ['select'],
 		key: [null, Validators.required],
@@ -20,8 +21,15 @@ export class SelectComponent implements OnInit {
 		multiple: [false],
 		format: ['dropdown'],
 		properties: this._formBuilder.array([]),
+		feeding_type: ['static', Validators.required],
+		external_feeding_config: this._formBuilder.group({
+			endpoint: [null, [Validators.required, Validators.pattern(this.urelRegEx)]],
+			value_property: [null, Validators.required],
+			text_property: [null, Validators.required]
+		}),
 		default: [],
-		triggers: [null]
+		triggers: [null],
+		// 'display-settings': [null]
 	});
 
 	formats: string[] = [

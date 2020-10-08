@@ -18,7 +18,7 @@ export class TabsComponent implements OnInit {
 		type: ['tabs'],
 		properties: this._formBuilder.array([]),
 		triggers: [null],
-		'display-settings': [null]
+		// 'display-settings': [null]
 	});
 
 	activeNavId: number = 1;

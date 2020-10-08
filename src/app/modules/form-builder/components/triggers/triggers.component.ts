@@ -21,6 +21,7 @@ export class TriggersComponent implements OnInit, ControlValueAccessor {
 	form = this._fb.group({
 		items: this._fb.array([])
 	});
+
 	isDisabled: boolean;
 	operators = ['equal', 'distinct', 'like', 'greater', 'less'];
 	actions = ['shown', 'hidden', 'enabled', 'disabled'];
@@ -82,6 +83,11 @@ export class TriggersComponent implements OnInit, ControlValueAccessor {
 			}
 		}
 		this.items.push(group);
+	}
+
+	removeTrigger(formGroup: FormArray, index: number) {
+		formGroup.removeAt(index);
+		formGroup.markAsDirty();
 	}
 
 	addAntecedent(arrayForm: FormArray, value?: Antecedent) {
