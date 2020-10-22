@@ -53,7 +53,7 @@ export class TabsComponent implements OnInit {
 	removeByIndex(index: number) {
 		const properties = this.form.get('properties') as FormArray;
 		const property = properties.at(index);
-		if (!property.get('properties').value.length || !confirm('La pestaña tiene propiedades. ¿Desea continuar?')) {
+		if (property.get('properties').value.length && !confirm('La pestaña tiene propiedades. ¿Desea continuar?')) {
 			return;
 		}
 		properties.removeAt(index);

@@ -8,8 +8,6 @@ import { FieldsetComponent } from './components/fieldset/fieldset.component';
 import { InputComponent } from './components/input/input.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { SelectComponent } from './components/select/select.component';
-import { CodeComponent } from './components/code/code.component';
-import { TableCodeComponent } from './components/table-code/table-code.component';
 import { TableComponent } from './components/table/table.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { FileComponent } from './components/file/file.component';
@@ -21,6 +19,7 @@ import { FormBuilderConfig } from './interfaces/FormBuilderConfig';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { FormBuilderConfigService } from '../form-builder/services/form-builder-config.service'
 import { FormBuilderService } from '../form-builder/services/form-builder.service'
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	declarations: [
@@ -29,8 +28,6 @@ import { FormBuilderService } from '../form-builder/services/form-builder.servic
 		InputComponent,
 		TextAreaComponent,
 		SelectComponent,
-		CodeComponent,
-		TableCodeComponent,
 		TableComponent,
 		TabsComponent,
 		FileComponent,
@@ -45,7 +42,8 @@ import { FormBuilderService } from '../form-builder/services/form-builder.servic
 		DndModule,
 		NgbModalModule,
 		NgbModule,
-		CKEditorModule
+		CKEditorModule,
+		TranslateModule.forChild()
 	],
 	exports: [
 		FormBuilderComponent
@@ -56,8 +54,6 @@ import { FormBuilderService } from '../form-builder/services/form-builder.servic
 		InputComponent,
 		TextAreaComponent,
 		SelectComponent,
-		CodeComponent,
-		TableCodeComponent,
 		FileComponent,
 		EnrichedTextComponent,
 		DisplaySettingsComponent

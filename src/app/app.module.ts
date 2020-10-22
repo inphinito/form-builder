@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { FormBuilderModule } from './modules/form-builder/form-builder.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
 	declarations: [
 		AppComponent
@@ -12,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		FormsModule,
 		ReactiveFormsModule,
 		BrowserModule,
+		TranslateModule.forRoot(),
 		FormBuilderModule.forRoot({
 			components: ['tabs', 'fieldset', 'string', 'select', 'textarea', 'file']
 		}),

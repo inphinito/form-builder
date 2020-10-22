@@ -23,9 +23,9 @@ export class SelectComponent implements OnInit {
 		properties: this._formBuilder.array([]),
 		feeding_type: ['static', Validators.required],
 		external_feeding_config: this._formBuilder.group({
-			endpoint: [null, [Validators.required, Validators.pattern(this.urelRegEx)]],
-			value_property: [null, Validators.required],
-			text_property: [null, Validators.required]
+			endpoint: [null, [Validators.pattern(this.urelRegEx)]],
+			value_property: [null],
+			text_property: [null]
 		}),
 		default: [],
 		triggers: [null],

@@ -1,11 +1,10 @@
-import { Component, forwardRef, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, forwardRef, ElementRef, ViewChild, AfterViewInit, HostListener, OnInit } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
 import { FieldsetComponent } from '../fieldset/fieldset.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
 import { SelectComponent } from '../select/select.component';
-import { CodeComponent } from '../code/code.component';
 import { TableComponent } from '../table/table.component';
 import { InputComponent } from '../input/input.component';
 import { TabsComponent } from '../tabs/tabs.component';
@@ -13,6 +12,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Va
 import { FileComponent } from '../file/file.component';
 import { EnrichedTextComponent } from '../enriched-text/enriched-text.component';
 import { FormBuilderService } from '../../services/form-builder.service';
+import { TranslationService } from '../../services/translation.service';
+import { locale as esLang } from '../../assets/i18n/es';
+import { locale as enLang } from '../../assets/i18n/en';
+import { locale as itLang } from '../../assets/i18n/it';
 
 @Component({
 	selector: 'form-builder',
@@ -31,7 +34,7 @@ import { FormBuilderService } from '../../services/form-builder.service';
 		}
 	]
 })
-export class FormBuilderComponent implements ControlValueAccessor, Validator, AfterViewInit {
+export class FormBuilderComponent implements ControlValueAccessor, Validator, OnInit {
 
 	@ViewChild('buildingToolbar') toolbarElement: ElementRef;
 
@@ -68,6 +71,8 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 	onTouch = () => { }
 
 	constructor(
+		private _elementRef: ElementRef,
+		private _translationSvc: TranslationService,
 		private _modalSvc: NgbModal,
 		private _configSvc: FormBuilderService
 	) {
@@ -76,8 +81,8 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 		);
 	}
 
-	ngAfterViewInit() {
-		this.elementPosition = this.toolbarElement.nativeElement.offsetTop;
+	ngOnInit() {
+		this._translationSvc.loadTranslations(esLang, enLang, itLang);
 	}
 
 	/**
@@ -92,7 +97,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 	public writeValue(obj: any) {
 		if (obj) {
 			this.schema = obj;
-			this.onChange(this.schema);
+			// this.onChange(this.schema);
 		}
 	}
 
@@ -176,23 +181,23 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 
 			list.splice(index, 0, event.data);
 
-			this.onTouch();
-
-			// update the form
-			this.propagateChange(this.schema);
+			// updating the form
+			this.onChange(this.schema);
 		}
+		this.onTouch();
 	}
 
 	async newBuildingItem(type: string) {
 		const modalRef = this.getModalRefByKey(type);
 		try {
+			this.onTouch();
 			return await modalRef.result;
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	async editBuildItem(list: any[], item: any) {
+	async edit(list: any[], item: any) {
 		const index = list.indexOf(item);
 		const modalRef = this.getModalRefByKey(item.type);
 		try {
@@ -200,11 +205,12 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 			const result = await modalRef.result;
 			if (result) {
 				list[index] = result;
-				this.onTouch();
+				this.onChange(this.schema);
 			}
 		} catch (error) {
 			console.log(error);
 		}
+		this.onTouch();
 	}
 
 	getModalRefByKey(key: string): NgbModalRef {
@@ -228,9 +234,6 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 			case 'select':
 				modalRef = this._modalSvc.open(SelectComponent, { size: 'lg' });
 				break;
-			case 'code':
-				modalRef = this._modalSvc.open(CodeComponent, { size: 'lg' });
-				break;
 			case 'table':
 				modalRef = this._modalSvc.open(TableComponent, { size: 'lg' });
 				break;
@@ -244,20 +247,22 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 		return modalRef;
 	}
 
-	deleteProperty(list: any[], item: object): void {
+	delete(list: any[], item: object): void {
 		const index = list.indexOf(item);
 		if (confirm('Do you want to delete the item?')) {
 			if (index > -1) {
 				list.splice(index, 1);
+				this.onChange(this.schema);
 				this.onTouch();
 			}
 		}
 	}
 
-	cloneProperty(list: any[], item: object): void {
+	clone(list: any[], item: object): void {
 		const index = list.indexOf(item);
 		if (index > -1) {
 			list.splice(index + 1, 0, Object.assign({}, item));
+			this.onChange(this.schema);
 			this.onTouch();
 		}
 	}
@@ -271,18 +276,13 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, Af
 		this.propagateChange(event);
 	}
 
-	getFormControlPaths() {
-		// const result = Object.keys(this.form).reduce(function (r, k) {
-		// 			return r.concat(k, object[k]);
-		// 		}, []);
-
-		// 	console.log(result);
-	}
-
 	@HostListener('window:scroll', [])
 	handleScroll() {
 		const windowScroll = window.pageYOffset;
-		if (windowScroll >= this.elementPosition) {
+		const componentTop = this._elementRef.nativeElement.offsetTop;
+		const componentBottom = componentTop + this._elementRef.nativeElement.scrollHeight;
+
+		if (windowScroll >= componentTop && windowScroll <= componentBottom) {
 			this.sticky = true;
 		} else {
 			this.sticky = false;

@@ -1,29 +1,21 @@
 <nav class="navbar fixed-top navbar-light bg-light">
-	<a class="navbar-brand" href="#">Form Builder</a>
+  <a class="navbar-brand" href="#">Form Builder</a>
 </nav>
 <main class="container">
-	<div>
-		<h4>Reactive form</h4>
-		<form [formGroup]="reactiveForm">
-			<form-builder formControlName="schema" (onchange)="onChange($event)"></form-builder>
-		</form>
-		<div class="my-4 text-right">
-			<button class="btn btn-primary" (click)="toggleDisable()">
-				Enable/Disable
-			</button>
-		</div>
-	</div>
-	<code>
-		<pre>{{ reactiveForm.value | json }}</pre>
-	</code>
-	<!-- 	<form-builder [(ngModel)]="schema">
-	</form-builder>
-	<br>
-	<div class="card">
-		<div class="card-body">
-			<pre>
-			{{ schema | json }}
-			</pre>
-		</div>
-	</div> -->
+  <div>
+    <h4>Reactive form</h4>
+    <form [formGroup]="reactiveForm">
+      <form-builder formControlName="schema" (onchange)="onChange($event)"></form-builder>
+    </form>
+    <div class="my-4 text-right">
+      <button class="btn btn-primary" (click)="toggleDisable()">
+        Enable/Disable
+      </button>
+    </div>
+  </div>
+  <code>
+    <pre>Touched: {{ reactiveForm.touched }}</pre>
+    <pre>Dirty: {{ reactiveForm.dirty }}</pre>
+    <pre>{{ reactiveForm.value | json }}</pre>
+  </code>
 </main>

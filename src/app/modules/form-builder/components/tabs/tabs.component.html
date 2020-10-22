@@ -72,7 +72,7 @@
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="add()">
     <i class="fas fa-plus mr-2" aria-hidden="true"></i>
-    Add
+    {{ 'ADD' | translate}}
   </button>
   <button type="button" class="btn ml-auto" (click)="dismiss()">Cancel</button>
   <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>

@@ -152,13 +152,13 @@
 
 <ng-template #buttonsTpt let-list="list" let-item="item">
   <span *ngIf="!disabled" class="build-item_button-bar float-right">
-    <button class="btn btn-link px-1 build-item_button-bar_edit" (click)="editBuildItem(list, item)">
+    <button class="btn btn-link px-1 build-item_button-bar_edit" (click)="edit(list, item)">
       <i class="fas fa-pencil-alt" aria-hidden="true"></i>
     </button>
-    <button class="btn btn-link px-1 build-item_button-bar_clone" (click)="cloneProperty(list, item)">
+    <button class="btn btn-link px-1 build-item_button-bar_clone" (click)="clone(list, item)">
       <i class="far fa-clone" aria-hidden="true"></i>
     </button>
-    <button class="btn btn-link px-1 build-item_button-bar_remove" (click)="deleteProperty(list, item)">
+    <button class="btn btn-link px-1 build-item_button-bar_remove" (click)="delete(list, item)">
       <i class="far fa-trash-alt" aria-hidden="true"></i>
     </button>
   </span>
