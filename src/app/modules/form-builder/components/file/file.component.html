@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h5 class="modal-title">File input editing</h5>
+	<h5 class="modal-title">{{ 'LEGEND' | translate }}File input editing</h5>
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -8,17 +8,19 @@
 	<form [formGroup]="form">
 		<ul ngbNav #nav="ngbNav" [(activeId)]="activeNavId" class="nav-tabs">
 			<li [ngbNavItem]="1">
-				<a ngbNavLink>Properties</a>
+				<a ngbNavLink>{{ 'PROPERTIES' | translate }}</a>
 				<ng-template ngbNavContent>
 					<fieldset>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">Key <sup class="text-danger">*</sup></label>
+							<label class="col-sm-3 col-form-label">{{ 'KEY' | translate }} <sup
+									class="text-danger">*</sup></label>
 							<div class="col-sm-9">
 								<input type="string" class="form-control" formControlName="key">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">Label <sup class="text-danger">*</sup></label>
+							<label class="col-sm-3 col-form-label">{{ 'LABEL' | translate }} <sup
+									class="text-danger">*</sup></label>
 							<div class="col-sm-9">
 								<input type="string" class="form-control" formControlName="description">
 							</div>
@@ -26,20 +28,20 @@
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" formControlName="required">
 							<label class="form-check-label">
-								Required
+								{{ 'REQUIRED' | translate }}
 							</label>
 						</div>
 						<div class="form-group">
-							<label>Extensions accepted</label>
+							<label>{{ 'EXTENSIONS_ACCEPTED' | translate }}</label>
 							<input type="string" class="form-control" formControlName="accepts">
 						</div>
 
 						<div class="form-group">
-							<label>Naming pattern</label>
+							<label>{{ 'NAMING_PATTERN' | translate }}</label>
 							<input type="string" class="form-control" formControlName="namingPattern">
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">Default value</label>
+							<label class="col-sm-3 col-form-label">{{ 'DEFAULT_VALUE' | translate }}</label>
 							<div class="col-sm-9">
 								<input type="string" class="form-control" formControlName="value">
 							</div>
@@ -47,18 +49,18 @@
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" formControlName="multiple">
 							<label class="form-check-label">
-								Multiple
+								{{ 'MULTIPLE' | translate }}
 							</label>
 						</div>
 						<ng-container *ngIf="form.get('multiple').value === true">
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label">Minimun</label>
+								<label class="col-sm-3 col-form-label">{{ 'MINIMUN' | translate }}</label>
 								<div class="col-sm-9">
 									<input type="string" class="form-control" formControlName="minimun">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label">Maximun</label>
+								<label class="col-sm-3 col-form-label">{{ 'MAXIMUN' | translate }}</label>
 								<div class="col-sm-9">
 									<input type="string" class="form-control" formControlName="maximun">
 								</div>
@@ -68,7 +70,7 @@
 				</ng-template>
 			</li>
 			<li [ngbNavItem]="2">
-				<a ngbNavLink>Triggers</a>
+				<a ngbNavLink>{{ 'TRIGGERS' | translate }}</a>
 				<ng-template ngbNavContent>
 					<ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
 				</ng-template>
@@ -79,6 +81,7 @@
 </div>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-danger" (click)="dismiss()">Cancel</button>
-	<button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
+	<button type="button" class="btn btn-danger" (click)="dismiss()">{{ 'CANCEL' | translate }}</button>
+	<button type="button" class="btn btn-primary" [disabled]="form.invalid"
+		(click)="saveAndDismiss()">{{ 'ACCEPT' | translate }}</button>
 </div>

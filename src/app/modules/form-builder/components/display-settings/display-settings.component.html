@@ -2,14 +2,14 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <div class="row">
-        <div class="col-2">Screen size</div>
-        <div class="col-5">Cols</div>
-        <div class="col-5">Offset</div>
+        <div class="col-2">{{ 'SCREEN_SIZE' | translate }}</div>
+        <div class="col-5">{{ 'COLS' | translate }}</div>
+        <div class="col-5">{{ 'Offset' | translate }}</div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">XS</label>
+        <label class="col-sm-2 col-form-label">{{ 'XS' | translate }}XS</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col">
             <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
@@ -24,7 +24,7 @@
     </li>
     <li class="list-group-item">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">SM</label>
+        <label class="col-sm-2 col-form-label">{{ 'SM' | translate }}SM</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-sm">
             <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
@@ -39,7 +39,7 @@
     </li>
     <li class="list-group-item">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">MD</label>
+        <label class="col-sm-2 col-form-label">{{ 'MD' | translate }}</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-md">
             <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
@@ -54,7 +54,7 @@
     </li>
     <li class="list-group-item">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">LG</label>
+        <label class="col-sm-2 col-form-label">{{ 'LG' | translate }}LG</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-lg">
             <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
@@ -69,7 +69,7 @@
     </li>
     <li class="list-group-item">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">XL</label>
+        <label class="col-sm-2 col-form-label">{{ 'XL' | translate }}</label>
         <div class="col-sm-5">
           <select class="form-control" formControlName="col-xl">
             <option *ngFor="let size of columnSizes" [value]="size">{{ size }}</option>
@@ -97,6 +97,6 @@
   <option value="10">10</option>
   <option value="11">11</option>
   <option value="12">12</option>
-  <option value="auto">Auto</option>
-  <option value="equal">Equal</option>
+  <option value="auto">{{ 'Auto' | translate }}</option>
+  <option value="equal">{{ 'Equal' | translate }}</option>
 </ng-template>

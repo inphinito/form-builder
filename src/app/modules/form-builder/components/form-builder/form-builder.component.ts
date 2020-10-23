@@ -15,7 +15,6 @@ import { FormBuilderService } from '../../services/form-builder.service';
 import { TranslationService } from '../../services/translation.service';
 import { locale as esLang } from '../../assets/i18n/es';
 import { locale as enLang } from '../../assets/i18n/en';
-import { locale as itLang } from '../../assets/i18n/it';
 
 @Component({
 	selector: 'form-builder',
@@ -82,7 +81,8 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 	}
 
 	ngOnInit() {
-		this._translationSvc.loadTranslations(esLang, enLang, itLang);
+		this._translationSvc.loadTranslations(esLang, enLang);
+		this._translationSvc.setLanguage('es');
 	}
 
 	/**

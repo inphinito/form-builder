@@ -11,7 +11,13 @@
   <div class="building-item" *ngFor="let item of property?.properties" [dndDisableIf]="disabled" [dndDraggable]="item"
     dndEffectAllowed="move" [dndDisableIf]="item.disable" (dndMoved)="onDragged(item, property.properties, 'move')">
     <ng-container [ngSwitch]="item.type">
-      <ng-container *ngSwitchCase="'table'">
+      <div *ngSwitchCase="'table'" class="table">
+        <div class="d-flex">
+          <div class="ml-auto">
+            <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
+            </ng-container>
+          </div>
+        </div>
         <table class="table table-bordered table-striped table-responsive-sm">
           <caption *ngIf="item.caption">{{ item.caption }}</caption>
           <thead>
@@ -28,7 +34,7 @@
             </tr>
           </tbody>
         </table>
-      </ng-container>
+      </div>
 
       <div *ngSwitchCase="'tabs'" class="tabs">
         <ul class="nav nav-tabs mb-0">

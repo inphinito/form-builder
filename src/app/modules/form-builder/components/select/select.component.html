@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">Edición de pestañas</h5>
+  <h5 class="modal-title">{{ 'TABS_EDITION' | translate }}</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -9,17 +9,17 @@
   <form [formGroup]="form">
     <ul ngbNav #nav="ngbNav" [(activeId)]="activeNavId" class="nav-tabs">
       <li [ngbNavItem]="1">
-        <a ngbNavLink>Properties</a>
+        <a ngbNavLink>{{ 'PROPERTIES' | translate }}</a>
         <ng-template ngbNavContent>
           <fieldset>
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Key <sup class="text-danger">*</sup></label>
+              <label class="col-sm-3 col-form-label">{{ 'KEY' | translate }} <sup class="text-danger">*</sup></label>
               <div class="col-sm-9">
                 <input type="string" class="form-control" formControlName="key">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Label <sup class="text-danger">*</sup></label>
+              <label class="col-sm-3 col-form-label">{{ 'LABEL' | translate }} <sup class="text-danger">*</sup></label>
               <div class="col-sm-9">
                 <input type="string" class="form-control" formControlName="description">
               </div>
@@ -27,17 +27,17 @@
             <div class="form-check mb-3" *ngIf="form.get('format').value === 'dropdown'">
               <input class="form-check-input" type="checkbox" formControlName="multiple">
               <label class="form-check-label">
-                Multiple
+                {{ 'MULTIPLE' | translate }}
               </label>
             </div>
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" formControlName="required">
               <label class="form-check-label">
-                Required
+                {{ 'REQUIRED' | translate }}
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Type</label>
+              <label class="col-sm-3 col-form-label">{{ 'TYPE' | translate }}</label>
               <div class="col-sm-9">
                 <select class="form-control" formControlName="format">
                   <option *ngFor="let format of formats" [value]="format">{{ format }}</option>
@@ -45,26 +45,28 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Placeholder</label>
+              <label class="col-sm-3 col-form-label">{{ 'PLACEHOLDER' | translate }}</label>
               <div class="col-sm-9">
                 <input type="string" class="form-control" formControlName="placeholder">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Default value</label>
+              <label class="col-sm-3 col-form-label">{{ 'DEFAULT_VALUE' | translate }}</label>
               <div class="col-sm-9">
                 <input type="string" class="form-control" formControlName="default">
               </div>
             </div>
           </fieldset>
           <fieldset>
-            <legend>Fedding type</legend>
+            <legend>{{ 'FEEDING_TYPE' | translate }}</legend>
             <div class="form-check form-check-inline mb-3">
               <label class="form-check-label mr-4">
-                <input class="form-check-input" formControlName="feeding_type" type="radio" value="static"> Static
+                <input class="form-check-input" formControlName="feeding_type" type="radio" value="static">
+                {{ 'STATIC' | translate }}
               </label>
               <label class="form-check-label">
-                <input class="form-check-input" formControlName="feeding_type" type="radio" value="external"> External
+                <input class="form-check-input" formControlName="feeding_type" type="radio" value="external">
+                {{ 'EXTERNAL' | translate }}
               </label>
             </div>
           </fieldset>
@@ -73,7 +75,7 @@
           </ng-container>
           <ng-template #staticOptionsTpt>
             <fieldset>
-              <legend>Options</legend>
+              <legend>{{ 'OPTIONS' | translate }}</legend>
               <div formArrayName="properties" *ngFor="let item of properties.controls; index as i;"
                 class="form-group row">
                 <ng-container [formGroupName]="i">
@@ -98,32 +100,32 @@
                 </ng-container>
               </div>
               <div *ngIf="!properties.controls.length" class="alert alert-warning" role="alert">
-                Click the button to add new options
+                {{ 'CLICK_BUTTON_ADD_OPTIONS' | translate }}
               </div>
               <div class="text-right">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="addOption()">
-                  <i class="fas fa-plus mr-2"></i>Add
+                  <i class="fas fa-plus mr-2"></i>{{ 'ADD' | translate }}
                 </button>
               </div>
             </fieldset>
           </ng-template>
           <ng-template #externalOptionsTpt>
             <fieldset [formGroup]="form.get('external_feeding_config')">
-              <legend>Feeding config</legend>
+              <legend>{{ 'FEEDING_CONFIG' | translate }}</legend>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Endpoint</label>
+                <label class="col-sm-3 col-form-label">{{ 'ENDPOINT' | translate }}</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" formControlName="endpoint">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Value property</label>
+                <label class="col-sm-3 col-form-label">{{ 'VALUE_PORPERTY' | translate }}</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" formControlName="value_property">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Text property</label>
+                <label class="col-sm-3 col-form-label">{{ 'TEXT_PROPERTY' | translate }}</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" formControlName="text_property">
                 </div>
@@ -133,7 +135,7 @@
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
-        <a ngbNavLink>Triggers</a>
+        <a ngbNavLink>{{ 'TRIGGERS' | translate }}</a>
         <ng-template ngbNavContent>
           <ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
         </ng-template>
@@ -150,6 +152,7 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-danger" (click)="dismiss()">Cancel</button>
-  <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">Accept</button>
+  <button type="button" class="btn btn-danger" (click)="dismiss()">{{ 'CANCEL' | translate }}</button>
+  <button type="button" class="btn btn-primary" [disabled]="form.invalid"
+    (click)="saveAndDismiss()">{{ 'ACCEPT' | translate }}</button>
 </div>

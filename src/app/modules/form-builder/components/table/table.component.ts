@@ -16,7 +16,8 @@ export class TableComponent implements OnInit {
 		description: [null, Validators.required],
 		caption: [null],
 		required: [false],
-		properties: this._formBuilder.array([])
+		properties: this._formBuilder.array([]),
+		triggers: [null],
 	});
 
 	get properties(): FormArray {

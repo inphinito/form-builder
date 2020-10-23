@@ -4,7 +4,7 @@
     <div class="alert alert-info mt-3 mb-4" role="alert">
       <div class="d-flex align-items-center">
         <i class="fas fa-info mr-4 fa-2x"></i>
-        <p class="mb-0">The building element has no triggers. To add one, click on the button below.</p>
+        <p class="mb-0">{{ 'NO_TRIGGERS' | translate }}</p>
       </div>
     </div>
   </ng-template>
@@ -13,15 +13,15 @@
       <div class="card mb-4" *ngFor="let trigger of items.controls; let i=index" [formGroupName]="i">
         <div class="card-body">
           <div class="row align-items-center mb-4">
-            <h4 class="col card-title">Trigger #{{ i + 1 }}</h4>
+            <h4 class="col card-title">{{ 'TRIGGER' | translate }} #{{ i + 1 }}</h4>
             <div class="col d-flex">
               <button class="btn btn-danger ml-auto" (click)="removeTrigger(items, i)">
-                <i class="far fa-trash-alt mr-2"></i>Remove
+                <i class="far fa-trash-alt mr-2"></i>{{ 'REMOVE' | translate }}
               </button>
             </div>
           </div>
           <fieldset>
-            <legend>If</legend>
+            <legend>{{ 'IF' | translate }}</legend>
             <ng-container *ngIf="trigger.get('if')['controls']?.length; then ifIfTpt; else placeholderTpt">
             </ng-container>
             <ng-template #ifIfTpt>
@@ -33,12 +33,13 @@
                         <div class="row">
                           <div class="col-2">
                             <select class="form-control" formControlName="type">
-                              <option value="control">Control</option>
-                              <option value="value">Value</option>
+                              <option value="control">{{ 'CONTROL' | translate }}</option>
+                              <option value="value">{{ 'VALUE' | translate }}</option>
                             </select>
                           </div>
                           <div class="col-2">
-                            <input type="text" formControlName="value" placeholder="campo" class="form-control">
+                            <input type="text" formControlName="value" [placeholder]="'FIELD' | translate"
+                              class="form-control">
                           </div>
                           <div class="col-2">
                             <select class="form-control" formControlName="operator">
@@ -48,17 +49,18 @@
                           </div>
                           <div class="col-2">
                             <select class="form-control" formControlName="type2">
-                              <option value="control">Control</option>
-                              <option value="value">Value</option>
+                              <option value="control">{{ 'CONTROL' | translate }}</option>
+                              <option value="value">{{ 'VALUE' | translate }}</option>
                             </select>
                           </div>
                           <div class="col-2">
-                            <input type="text" formControlName="value2" placeholder="campo" class="form-control">
+                            <input type="text" formControlName="value2" [placeholder]="'FIELD' | translate"
+                              class="form-control">
                           </div>
                           <div class="col-2" *ngIf="!last">
                             <select class="form-control" formControlName="boolean">
-                              <option value="and">And</option>
-                              <option value="or">Or</option>
+                              <option value="and">{{ 'AND' | translate }}</option>
+                              <option value="or">{{ 'OR' | translate }}</option>
                             </select>
                           </div>
                         </div>
@@ -76,11 +78,11 @@
           </fieldset>
           <div class="text-right">
             <button class="btn btn-link" (click)="addAntecedent(trigger.get('if'))">
-              <i class="fas fa-plus mr-2"></i>Add antecedent
+              <i class="fas fa-plus mr-2"></i>{{ 'ADD_ANTECEDENT' | translate }}
             </button>
           </div>
           <fieldset>
-            <legend>Then</legend>
+            <legend>{{ 'THEN' | translate }}</legend>
             <ng-container *ngIf="trigger.get('then')['controls']?.length; then ifThenTpt; else placeholderTpt">
             </ng-container>
             <ng-template #ifThenTpt>
@@ -91,13 +93,14 @@
                       <div class="col">
                         <div class="row">
                           <div class="col">
-                            <input type="text" formControlName="control" placeholder="Control path"
+                            <input type="text" formControlName="control" [placeholder]="'CONTROL_PATH' | translate"
                               class="form-control">
                           </div>
-                          <label class="col-form-label">is </label>
+                          <label class="col-form-label">{{ 'IS' | translate }} </label>
                           <div class="col">
                             <select class="form-control" formControlName="action">
-                              <option *ngFor="let action of actions" [value]="action">{{ action }}
+                              <option *ngFor="let action of actions" [value]="action">
+                                {{ action }}
                               </option>
                             </select>
                           </div>
@@ -116,11 +119,11 @@
           </fieldset>
           <div class="text-right">
             <button class="btn btn-link" (click)="addConsequence(trigger.get('then'))">
-              <i class="fas fa-plus mr-2"></i>Add Consequence
+              <i class="fas fa-plus mr-2"></i>{{ 'ADD_CONSEQUENCE' | translate }}
             </button>
           </div>
           <fieldset>
-            <legend>Else</legend>
+            <legend>{{ 'ELSE' | translate }}</legend>
             <ng-container *ngIf="trigger.get('else')['controls']?.length; then ifElseTpt; else placeholderTpt">
             </ng-container>
             <ng-template #ifElseTpt>
@@ -131,13 +134,14 @@
                       <div class="col">
                         <div class="row">
                           <div class="col">
-                            <input type="text" formControlName="control" placeholder="Control path"
+                            <input type="text" formControlName="control" [placeholder]="'CONTROL_PATH' | translate"
                               class="form-control">
                           </div>
-                          <label class="col-form-label">is </label>
+                          <label class="col-form-label">{{ 'IS' | translate }} </label>
                           <div class="col">
                             <select class="form-control" formControlName="action">
-                              <option *ngFor="let action of actions" [value]="action">{{ action }}
+                              <option *ngFor="let action of actions" [value]="action">
+                                {{ action }}
                               </option>
                             </select>
                           </div>
@@ -156,7 +160,7 @@
           </fieldset>
           <div class="text-right">
             <button class="btn btn-link" (click)="addConsequence(trigger.get('else'))">
-              <i class="fas fa-plus mr-2"></i>Add Consequence
+              <i class="fas fa-plus mr-2"></i>{{ 'ADD_CONSEQUENCE' | translate }}
             </button>
           </div>
         </div>
@@ -165,7 +169,7 @@
   </ng-template>
   <div class="d-flex">
     <button class="btn btn-secondary ml-auto" (click)="addTrigger()">
-      <i class="fas fa-plus mr-2"></i>Add trigger
+      <i class="fas fa-plus mr-2"></i>{{ 'ADD_TRIGGER' | translate }}
     </button>
   </div>
 </form>
