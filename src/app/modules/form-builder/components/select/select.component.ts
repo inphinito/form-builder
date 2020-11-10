@@ -1,6 +1,7 @@
 import { Component, Input, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
 
 @Component({
 	selector: 'app-select',
@@ -14,7 +15,7 @@ export class SelectComponent implements OnInit {
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['select'],
-		key: [null, Validators.required],
+		key: [null, [Validators.required, NormalizedCharsValidator]],
 		description: [null, Validators.required],
 		required: [false],
 		placeholder: [null],

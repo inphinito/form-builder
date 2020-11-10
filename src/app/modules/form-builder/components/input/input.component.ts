@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
 
 @Component({
 	selector: 'app-input',
@@ -12,7 +13,7 @@ export class InputComponent implements OnInit {
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['input'],
-		key: [null, Validators.required],
+		key: [null, [Validators.required, NormalizedCharsValidator]],
 		description: [null, Validators.required],
 		required: [false],
 		format: ['text'],

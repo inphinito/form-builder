@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
 
 @Component({
 	selector: 'app-table',
@@ -12,7 +13,7 @@ export class TableComponent implements OnInit {
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['table'],
-		key: [null, Validators.required],
+		key: [null, [Validators.required, NormalizedCharsValidator]],
 		description: [null, Validators.required],
 		caption: [null],
 		required: [false],

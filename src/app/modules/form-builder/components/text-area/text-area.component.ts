@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
 
 @Component({
 	selector: 'app-text-area',
@@ -12,7 +13,7 @@ export class TextAreaComponent implements OnInit {
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['textarea'],
-		key: [null, Validators.required],
+		key: [null, [Validators.required, NormalizedCharsValidator]],
 		description: [null, Validators.required],
 		required: [false],
 		value: [null],

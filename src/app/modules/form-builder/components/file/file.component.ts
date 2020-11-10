@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
 
 @Component({
 	selector: 'app-file',
@@ -13,7 +14,7 @@ export class FileComponent implements OnInit {
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['file'],
-		key: [null, Validators.required],
+		key: [null, [Validators.required, NormalizedCharsValidator]],
 		description: [null, Validators.required],
 		required: [false],
 		accepts: [],

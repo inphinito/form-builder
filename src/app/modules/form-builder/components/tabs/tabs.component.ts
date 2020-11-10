@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Tabs } from '../../interfaces/tabs';
+import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
 
 @Component({
 	selector: 'app-tabs',
@@ -43,7 +44,7 @@ export class TabsComponent implements OnInit {
 			this._formBuilder.group({
 				type: ['tab'],
 				description: [value.description, Validators.required],
-				key: [value.key, Validators.required],
+				key: [null, [Validators.required, NormalizedCharsValidator]],
 				iconClass: [value.iconClass],
 				properties: [value.properties || []]
 			})
