@@ -67,7 +67,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 
 	disabled: boolean = false;
 
-	onTouch = () => { }
+	onTouch = () => { };
 
 	constructor(
 		private _elementRef: ElementRef,
@@ -130,8 +130,8 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 	}
 
 
-	// returns null when valid else the validation object 
-	// in this case we're checking if the json parsing has 
+	// returns null when valid else the validation object
+	// in this case we're checking if the json parsing has
 	// passed or failed from the onChange method
 	public validate(c: FormControl) {
 		return null;
@@ -261,7 +261,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 	clone(list: any[], item: object): void {
 		const index = list.indexOf(item);
 		if (index > -1) {
-			list.splice(index + 1, 0, Object.assign({}, item));
+			list.splice(index + 1, 0, this._cloneObject(item));
 			this.onChange(this.schema);
 			this.onTouch();
 		}
@@ -289,4 +289,19 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 		}
 	}
 
+	private _cloneObject(obj: any) {
+		const clone = {};
+
+		for (const i of Object.keys(obj)) {
+			if (obj[i] != null && typeof (obj[i]) === 'object' && !Array.isArray(obj[i])) {
+				clone[i] = this._cloneObject(obj[i]);
+			} else if (obj[i] != null && typeof (obj[i]) === 'object' && Array.isArray(obj[i])) {
+				clone[i] = [...obj[i]];
+			} else {
+				clone[i] = obj[i];
+			}
+		}
+
+		return clone;
+	}
 }
