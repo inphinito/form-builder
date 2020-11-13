@@ -74,6 +74,9 @@ export const locale = {
 		TOUCHED: 'Tocado',
 		DIRTY: 'Modificado',
 		FIELD: 'Campo',
-		CONTROL_PATH: 'Ruta del campo'
+		CONTROL_PATH: 'Ruta del campo',
+		MESSAGES: {
+			DELETE_ITEM: '¿Está seguro que quiere eliminar este item?'
+		}
 	}
-}
+};

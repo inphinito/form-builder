@@ -72,4 +72,11 @@ export class TranslationService {
 	getSelectedLanguage(): any {
 		return localStorage.getItem('language') || this.translate.getDefaultLang();
 	}
+
+	/**
+	 * Returns selected language
+	 */
+	instant(key: string): string {
+		return this.translate.instant(key);
+	}
 }

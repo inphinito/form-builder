@@ -249,7 +249,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 
 	delete(list: any[], item: object): void {
 		const index = list.indexOf(item);
-		if (confirm('Do you want to delete the item?')) {
+		if (confirm(this._translationSvc.instant('MESSAGES.DELETE_ITEM'))) {
 			if (index > -1) {
 				list.splice(index, 1);
 				this.onChange(this.schema);
