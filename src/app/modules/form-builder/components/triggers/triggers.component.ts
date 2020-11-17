@@ -1,8 +1,9 @@
 import { Component, forwardRef, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Trigger } from '../../interfaces/trigger';
 import { Antecedent } from '../../interfaces/antecedent';
 import { Consequence } from '../../interfaces/consequence';
+import { WithPointsValidator } from '../../validators/with-points.validator';
 
 @Component({
 	selector: 'ngx-form-builder-triggers',
@@ -68,20 +69,25 @@ export class TriggersComponent implements OnInit, ControlValueAccessor {
 		const group = this._fb.group({
 			if: this._fb.array([]),
 			then: this._fb.array([]),
-			else: this._fb.array([]),
+			else: this._fb.array([])
 		});
+
 		if (value) {
 			group.patchValue(value);
+
 			if (value.if?.length) {
 				value.if.forEach(v => this.addAntecedent(group.get('if') as FormArray, v));
 			}
+
 			if (value.then?.length) {
 				value.then.forEach(v => this.addConsequence(group.get('then') as FormArray, v));
 			}
+
 			if (value.else?.length) {
 				value.else.forEach(v => this.addConsequence(group.get('else') as FormArray, v));
 			}
 		}
+
 		this.items.push(group);
 	}
 
@@ -93,15 +99,17 @@ export class TriggersComponent implements OnInit, ControlValueAccessor {
 	addAntecedent(arrayForm: FormArray, value?: Antecedent) {
 		const group = this._fb.group({
 			type: this._fb.control(null),
-			value: this._fb.control(null),
+			value: this._fb.control(null, WithPointsValidator),
 			operator: this._fb.control('equal'),
 			boolean: this._fb.control('and'),
 			type2: this._fb.control(null),
-			value2: this._fb.control(null),
+			value2: this._fb.control(null, WithPointsValidator),
 		});
+
 		if (value) {
 			group.patchValue(value);
 		}
+
 		arrayForm.push(group);
 	}
 

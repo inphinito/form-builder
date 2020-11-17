@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Tabs } from '../../interfaces/tabs';
-import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
+import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
 @Component({
 	selector: 'app-tabs',

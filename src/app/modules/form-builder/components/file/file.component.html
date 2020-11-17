@@ -12,17 +12,19 @@
 				<ng-template ngbNavContent>
 					<fieldset>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">{{ 'KEY' | translate }} <sup
-									class="text-danger">*</sup></label>
+							<label class="col-sm-3 col-form-label">{{ 'KEY' | translate }} <sup class="text-danger">*</sup></label>
 							<div class="col-sm-9">
-								<input type="string" class="form-control" formControlName="key">
+								<input type="string" class="form-control" formControlName="key" [ngClass]="{'is-invalid': form.get('key').dirty && form.get('key').invalid}">
+								<div *ngIf="form.get('key').dirty && form.get('key').errors?.normalizedChars" class="invalid-feedback">{{ 'SPECIAL_CHARS_ERROR' | translate }}</div>
+								<div *ngIf="form.get('key').dirty && form.get('key').errors?.required" class="invalid-feedback">{{ 'REQUIRED' | translate }}</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">{{ 'LABEL' | translate }} <sup
-									class="text-danger">*</sup></label>
+							<label class="col-sm-3 col-form-label">{{ 'LABEL' | translate }} <sup class="text-danger">*</sup></label>
 							<div class="col-sm-9">
-								<input type="string" class="form-control" formControlName="description">
+								<input type="string" class="form-control" formControlName="description" [ngClass]="{'is-invalid': form.get('description').dirty && form.get('description').invalid}">
+								<div *ngIf="form.get('description').dirty && form.get('description').errors?.normalizedChars" class="invalid-feedback">{{ 'SPECIAL_CHARS_ERROR' | translate }}</div>
+								<div *ngIf="form.get('description').dirty && form.get('description').errors?.required" class="invalid-feedback">{{ 'REQUIRED' | translate }}</div>
 							</div>
 						</div>
 						<div class="form-check">
@@ -82,6 +84,5 @@
 
 <div class="modal-footer">
 	<button type="button" class="btn btn-danger" (click)="dismiss()">{{ 'CANCEL' | translate }}</button>
-	<button type="button" class="btn btn-primary" [disabled]="form.invalid"
-		(click)="saveAndDismiss()">{{ 'ACCEPT' | translate }}</button>
+	<button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="saveAndDismiss()">{{ 'ACCEPT' | translate }}</button>
 </div>

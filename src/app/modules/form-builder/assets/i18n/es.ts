@@ -38,6 +38,7 @@ export const locale = {
 		NAMING_PATTERN: 'Nombre del patrón',
 		EXTENSIONS_ACCEPTED: 'Extensiones aceptadas',
 		REQUIRED: 'Requerido',
+		SPECIAL_CHARS_ERROR: 'No se permiten caracteres especiales, como puntos o espacios.',
 		LABEL: 'Etiqueta',
 		STEP: 'Paso',
 		PLACEHOLDER: 'Placeholder',

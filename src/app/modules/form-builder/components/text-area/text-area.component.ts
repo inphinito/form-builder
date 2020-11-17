@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NormalizedCharsValidator } from '../../validators/normalizedChars.validator';
+import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
 @Component({
 	selector: 'app-text-area',
