@@ -65,17 +65,18 @@
 						<legend>{{ 'FEEDING_TYPE' | translate }}</legend>
 						<div class="form-check form-check-inline mb-3">
 							<label class="form-check-label mr-4">
-								<input class="form-check-input" formControlName="feeding_type" type="radio" value="static">
+								<input class="form-check-input" formControlName="feeding_type" type="radio" value="static" (change)="setValidators()">
 								{{ 'STATIC' | translate }}
 							</label>
 							<label class="form-check-label">
-								<input class="form-check-input" formControlName="feeding_type" type="radio" value="external">
+								<input class="form-check-input" formControlName="feeding_type" type="radio" value="external" (change)="setValidators()">
 								{{ 'EXTERNAL' | translate }}
 							</label>
 						</div>
 					</fieldset>
-					<ng-container *ngIf="form.get('feeding_type').value === 'static'; then staticOptionsTpt; else externalOptionsTpt">
-					</ng-container>
+
+					<ng-container *ngIf="form.get('feeding_type').value === 'static'; then staticOptionsTpt; else externalOptionsTpt"></ng-container>
+
 					<ng-template #staticOptionsTpt>
 						<fieldset>
 							<legend>{{ 'OPTIONS' | translate }}</legend>
@@ -107,25 +108,30 @@
 							</div>
 						</fieldset>
 					</ng-template>
+
 					<ng-template #externalOptionsTpt>
 						<fieldset [formGroup]="form.get('external_feeding_config')">
 							<legend>{{ 'FEEDING_CONFIG' | translate }}</legend>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label">{{ 'ENDPOINT' | translate }}</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" formControlName="endpoint">
+									<input type="text" class="form-control" formControlName="endpoint" [ngClass]="{'is-invalid': form.get('external_feeding_config.endpoint').dirty && form.get('external_feeding_config.endpoint').invalid}">
+									<div *ngIf="form.get('external_feeding_config.endpoint').dirty && form.get('external_feeding_config.endpoint').errors?.pattern" class="invalid-feedback">{{ 'INVALID_FIELD' | translate }}</div>
+									<div *ngIf="form.get('external_feeding_config.endpoint').dirty && form.get('external_feeding_config.endpoint').errors?.required" class="invalid-feedback">{{ 'REQUIRED' | translate }}</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label">{{ 'VALUE_PORPERTY' | translate }}</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" formControlName="value_property">
+									<input type="text" class="form-control" formControlName="value_property" [ngClass]="{'is-invalid': form.get('external_feeding_config.value_property').dirty && form.get('external_feeding_config.value_property').invalid}">
+									<div *ngIf="form.get('external_feeding_config.value_property').dirty && form.get('external_feeding_config.value_property').errors?.required" class="invalid-feedback">{{ 'REQUIRED' | translate }}</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label">{{ 'TEXT_PROPERTY' | translate }}</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" formControlName="text_property">
+									<input type="text" class="form-control" formControlName="text_property" [ngClass]="{'is-invalid': form.get('external_feeding_config.text_property').dirty && form.get('external_feeding_config.text_property').invalid}">
+									<div *ngIf="form.get('external_feeding_config.text_property').dirty && form.get('external_feeding_config.text_property').errors?.required" class="invalid-feedback">{{ 'REQUIRED' | translate }}</div>
 								</div>
 							</div>
 						</fieldset>
@@ -138,12 +144,6 @@
 					<ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
 				</ng-template>
 			</li>
-			<!-- <li [ngbNavItem]="3">
-        <a ngbNavLink>Display settings</a>
-        <ng-template ngbNavContent>
-          <ngx-form-builder-display-settings formControlName="display-settings"></ngx-form-builder-display-settings>
-        </ng-template>
-      </li> -->
 		</ul>
 		<div [ngbNavOutlet]="nav"></div>
 	</form>
