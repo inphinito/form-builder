@@ -1,5 +1,5 @@
-import { Component, Input, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, FormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
@@ -11,7 +11,7 @@ import { NormalizedCharsValidator } from '../../validators/normalized-chars.vali
 export class SelectComponent implements OnInit {
 	@Input() value: any;
 
-	urelRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+	urlRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['select'],
@@ -21,10 +21,10 @@ export class SelectComponent implements OnInit {
 		placeholder: [null],
 		multiple: [false],
 		format: ['dropdown'],
-		properties: this._formBuilder.array([]),
 		feeding_type: ['static', Validators.required],
+		properties: this._formBuilder.array([]),
 		external_feeding_config: this._formBuilder.group({
-			endpoint: [null, [Validators.required, Validators.pattern(this.urelRegEx)]],
+			endpoint: [null, [Validators.required, Validators.pattern(this.urlRegEx)]],
 			value_property: [null, Validators.required],
 			text_property: [null, Validators.required]
 		}),
@@ -56,6 +56,7 @@ export class SelectComponent implements OnInit {
 		} else {
 			this.addOption();
 		}
+		this.toggleFeedingTypeForms()
 	}
 
 	addOption(value: any = {}): void {
@@ -79,38 +80,45 @@ export class SelectComponent implements OnInit {
 	}
 
 	saveAndDismiss() {
+		if (this.form.invalid) {
+			this.getFormValidationErrors();
+			return;
+		}
 		this._activeModal.close(this.form.value);
 	}
 
-	setValidators() {
-		if (this.form.get('feeding_type').value === 'external') {
-			(this.form.get('properties') as FormArray).controls.forEach((formGroup: FormGroup) => {
-				Object.keys(formGroup.controls).forEach(key => {
-					formGroup.get(key).clearValidators();
-					formGroup.get(key).updateValueAndValidity();
-				});
-			});
+	getFormValidationErrors() {
+		Object.keys(this.form.controls).forEach(key => {
 
-			this.form.get('external_feeding_config.endpoint').setValidators([Validators.required, Validators.pattern(this.urelRegEx)]);
-			this.form.get('external_feeding_config.endpoint').updateValueAndValidity();
-			this.form.get('external_feeding_config.value_property').setValidators([Validators.required]);
-			this.form.get('external_feeding_config.value_property').updateValueAndValidity();
-			this.form.get('external_feeding_config.text_property').setValidators([Validators.required]);
-			this.form.get('external_feeding_config.text_property').updateValueAndValidity();
-		} else if (this.form.get('feeding_type').value === 'static') {
-			(this.form.get('properties') as FormArray).controls.forEach((formGroup: FormGroup) => {
-				Object.keys(formGroup.controls).forEach(key => {
-					formGroup.get(key).setValidators([Validators.required]);
-					formGroup.get(key).updateValueAndValidity();
+			if (this.form.get(key).constructor === FormControl) {
+				const controlErrors: ValidationErrors = this.form.get(key).errors;
+				if (controlErrors != null) {
+					Object.keys(controlErrors).forEach(keyError => {
+						console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+					});
+				}
+			} else if (this.form.get(key).constructor === FormControl) {
+				Object.keys(this.form.get(key)['controls']).forEach(key => {
+					this.getFormValidationErrors
 				});
-			});
 
-			this.form.get('external_feeding_config.endpoint').clearValidators();
-			this.form.get('external_feeding_config.endpoint').updateValueAndValidity();
-			this.form.get('external_feeding_config.value_property').clearValidators();
-			this.form.get('external_feeding_config.value_property').updateValueAndValidity();
-			this.form.get('external_feeding_config.text_property').clearValidators();
-			this.form.get('external_feeding_config.text_property').updateValueAndValidity();
+			}
+
+		});
+	}
+
+	toggleFeedingTypeForms() {
+		const propertiesFA = this.form.get('properties') as FormArray;
+		const externalFeedingConfigFG = this.form.get('external_feeding_config') as FormGroup;
+		switch (this.form.get('feeding_type').value) {
+			case 'external':
+				propertiesFA.disable();
+				externalFeedingConfigFG.enable();
+				break;
+			case 'static':
+				propertiesFA.enable();
+				externalFeedingConfigFG.disable();
+				break;
 		}
 	}
 }
