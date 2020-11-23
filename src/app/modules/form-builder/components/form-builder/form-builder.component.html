@@ -73,7 +73,7 @@
           <div *ngSwitchCase="'checkbox'" class="form-check">
             <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
             </ng-container>
-            <input type="checkbox" class="form-check-input" [checked]="!!item.value">
+            <input type="checkbox" class="form-check-input" [checked]="!!item.default">
             <label class="form-check-label">
               {{ item.description }}
               <sup *ngIf="item.required" class="text-danger">*</sup>
@@ -89,7 +89,7 @@
             </ng-container>
             <input class="form-control" [type]="item.format || 'string'" [name]="item.key"
               [placeholder]="item.placeholder || ''" [required]="item.required" [min]="item.minimun"
-              [max]="item.maximun" [step]="item.step" [value]="item.value || ''" />
+              [max]="item.maximun" [step]="item.step" [value]="item.default || ''" />
           </div>
         </ng-container>
       </ng-container>
@@ -102,10 +102,11 @@
             </label>
             <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
             </ng-container>
-            <select class="form-control" [value]="item.default || null" [required]="item.required" [name]="item.key"
+            <pre>{{ item.default | json }}</pre>
+            <select class="form-control" [value]="item.default" [required]="item.required" [name]="item.key"
               [multiple]="item.multiple || false">
               <option *ngFor="let option of item.properties" [value]="option.value">
-                {{ option.description }}
+                {{ option.value }} - {{ option.description }}
               </option>
             </select>
           </div>
@@ -131,7 +132,7 @@
         <ng-container *ngTemplateOutlet="buttonsTpt; context: { list: property.properties, item: item }">
         </ng-container>
         <textarea class="form-control" [id]="item.key" [rows]="item.rows || 4" [cols]="item.cols || 0"
-          [value]="item.value || ''" [placeholder]="item.placeholder" [required]="item.required || false"></textarea>
+          [value]="item.default || ''" [placeholder]="item.placeholder" [required]="item.required || false"></textarea>
       </div>
 
       <div *ngSwitchCase="'file'" class="form-group">

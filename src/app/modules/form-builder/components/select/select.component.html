@@ -62,12 +62,7 @@
                 <input type="string" class="form-control" formControlName="placeholder">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">{{ 'DEFAULT_VALUE' | translate }}</label>
-              <div class="col-sm-9">
-                <input type="string" class="form-control" formControlName="default">
-              </div>
-            </div>
+
           </fieldset>
           <fieldset>
             <legend>{{ 'FEEDING_TYPE' | translate }}</legend>
@@ -118,8 +113,8 @@
               <div *ngIf="!properties.controls.length" class="alert alert-warning" role="alert">
                 {{ 'CLICK_BUTTON_ADD_OPTIONS' | translate }}
               </div>
-              <div class="text-right">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="addOption()">
+              <div class="d-flex justify-content-end mb-4">
+                <button type="button" class="btn btn-secondary" (click)="addOption()">
                   <i class="fas fa-plus mr-2"></i>{{ 'ADD' | translate }}
                 </button>
               </div>
@@ -164,6 +159,26 @@
               </div>
             </fieldset>
           </ng-template>
+          <fieldset>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">{{ 'DEFAULT_VALUE' | translate }}</label>
+              <div class="col-sm-9">
+                <ng-container
+                  *ngIf="this.form.get('feeding_type').value === 'static'; else externalFeedingTypeDefaultValueTpt">
+                  <select class="form-control" formControlName="default">
+                    <option *ngFor="let item of properties.controls; index as i" [value]="item.value.value">
+                      {{ item.value.description }}
+                    </option>
+                  </select>
+                </ng-container>
+                <ng-template #externalFeedingTypeDefaultValueTpt>
+                  <input type="string" class="form-control" formControlName="default">
+
+                </ng-template>
+
+              </div>
+            </div>
+          </fieldset>
         </ng-template>
       </li>
       <li [ngbNavItem]="2">

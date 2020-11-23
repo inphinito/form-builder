@@ -19,7 +19,7 @@ export class FileComponent implements OnInit {
 		required: [false],
 		accepts: [],
 		namingPattern: [null],
-		value: [null],
+		default: [null],
 		multiple: [false],
 		maximun: [20],
 		minimun: [0],

@@ -27,7 +27,7 @@
             "description": "three"
           }
         ],
-        "default": null,
+        "default": "2",
         "triggers": null
       }, {
         "type": "enriched-text",

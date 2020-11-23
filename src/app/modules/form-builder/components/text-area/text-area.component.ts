@@ -16,7 +16,7 @@ export class TextAreaComponent implements OnInit {
 		key: [null, [Validators.required, NormalizedCharsValidator]],
 		description: [null, Validators.required],
 		required: [false],
-		value: [null],
+		default: [null],
 		placeholder: [''],
 		cols: [20],
 		rows: [5],

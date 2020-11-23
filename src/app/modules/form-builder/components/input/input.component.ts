@@ -20,7 +20,7 @@ export class InputComponent implements OnInit {
 		placeholder: [null],
 		maximun: [20],
 		minimun: [0],
-		value: [null],
+		default: [null],
 		// selected: [false],
 		// multiple: [false],
 		step: [1],
