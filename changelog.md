@@ -4,20 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.5] - 2020-11-29
+### Removed
+- Eliminación del establecimineto del idioma por defecto
+
 ## [0.9.4] - 2020-11-23
-### Fix
+### Fixed
 - Unificación del campo default en todos los componentes afectados.
 
 ## [0.9.3] - 2020-11-23
-### Fix
+### Fixed
 - Corrección de validación del componente de selectores.
 
 ## [0.9.2] - 2020-11-18
-### Fix
+### Fixed
 - Se establecen bien los validadores al cambiar la entrada de datos en los select.
 
 ## [0.9.1] - 2020-11-17
-### Fix
+### Fixed
 - Corrección de la validación en las Tabs.
 - Mejorados los títulos del constructor.
 
