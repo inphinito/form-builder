@@ -33,8 +33,8 @@ export class TabsComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.value) {
-			this.form.patchValue(this.value);
 			this.value.properties.forEach(o => this.add(o));
+			this.form.patchValue(this.value);
 		} else {
 			this.add();
 		}

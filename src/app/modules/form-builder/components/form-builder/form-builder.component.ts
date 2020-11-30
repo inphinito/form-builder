@@ -16,6 +16,8 @@ import { TranslationService } from '../../services/translation.service';
 import { locale as esLang } from '../../assets/i18n/es';
 import { locale as enLang } from '../../assets/i18n/en';
 
+import { cloneDeep } from 'lodash';
+
 @Component({
 	selector: 'form-builder',
 	templateUrl: './form-builder.component.html',
@@ -261,7 +263,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 	clone(list: any[], item: object): void {
 		const index = list.indexOf(item);
 		if (index > -1) {
-			list.splice(index + 1, 0, this._cloneObject(item));
+			list.splice(index + 1, 0, cloneDeep(item));
 			this.onChange(this.schema);
 			this.onTouch();
 		}
@@ -287,21 +289,5 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 		} else {
 			this.sticky = false;
 		}
-	}
-
-	private _cloneObject(obj: any) {
-		const clone = {};
-
-		for (const i of Object.keys(obj)) {
-			if (obj[i] != null && typeof (obj[i]) === 'object' && !Array.isArray(obj[i])) {
-				clone[i] = this._cloneObject(obj[i]);
-			} else if (obj[i] != null && typeof (obj[i]) === 'object' && Array.isArray(obj[i])) {
-				clone[i] = [...obj[i]];
-			} else {
-				clone[i] = obj[i];
-			}
-		}
-
-		return clone;
 	}
 }
