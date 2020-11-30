@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.6] - 2020-11-30
+### Fixed
+- Confirmación al cancelar cuando los formularios han sido rellenados.
+
 ## [0.9.5] - 2020-11-29
 ### Removed
-- Eliminación del establecimineto del idioma por defecto
+- Eliminación del establecimineto del idioma por defecto.
 
 ## [0.9.4] - 2020-11-23
 ### Fixed

@@ -74,6 +74,10 @@ export const locale = {
 		TOUCHED: 'Touched',
 		DIRTY: 'Dirty',
 		FIELD: 'Field',
-		CONTROL_PATH: 'Control path'
+		CONTROL_PATH: 'Control path',
+		MESSAGES: {
+			DELETE_ITEM: 'Are you sure you want to delete this item?',
+			EXIT_WITHOUT_SAVE: 'Are you sure you want to leave without saving the changes?'
+		}
 	}
-}
+};

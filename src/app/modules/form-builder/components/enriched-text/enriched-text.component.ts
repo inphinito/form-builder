@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslationService } from '../../services/translation.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class EnrichedTextComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _activeModal: NgbActiveModal,
+		private _translationSvc: TranslationService
 	) { }
 
 
@@ -38,7 +40,13 @@ export class EnrichedTextComponent implements OnInit {
 
 
 	dismiss() {
-		this._activeModal.close();
+		if (this.form.dirty) {
+			if (confirm(this._translationSvc.instant('MESSAGES.EXIT_WITHOUT_SAVE'))) {
+				this._activeModal.close();
+			}
+		} else {
+			this._activeModal.close();
+		}
 	}
 
 	saveAndDismiss() {

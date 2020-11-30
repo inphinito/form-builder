@@ -1,4 +1,4 @@
-import { Component, forwardRef, ElementRef, ViewChild, AfterViewInit, HostListener, OnInit } from '@angular/core';
+import { Component, forwardRef, ElementRef, ViewChild, HostListener, OnInit } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
@@ -217,31 +217,31 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 		let modalRef: NgbModalRef;
 		switch (key) {
 			case 'string':
-				modalRef = this._modalSvc.open(InputComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(InputComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'file':
-				modalRef = this._modalSvc.open(FileComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(FileComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'tabs':
-				modalRef = this._modalSvc.open(TabsComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(TabsComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'fieldset':
-				modalRef = this._modalSvc.open(FieldsetComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(FieldsetComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'textarea':
-				modalRef = this._modalSvc.open(TextAreaComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(TextAreaComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'select':
-				modalRef = this._modalSvc.open(SelectComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(SelectComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'table':
-				modalRef = this._modalSvc.open(TableComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(TableComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			case 'enriched-text':
-				modalRef = this._modalSvc.open(EnrichedTextComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(EnrichedTextComponent, { size: 'lg', backdrop: 'static' });
 				break;
 			default:
-				modalRef = this._modalSvc.open(InputComponent, { size: 'lg' });
+				modalRef = this._modalSvc.open(InputComponent, { size: 'lg', backdrop: 'static' });
 				break;
 		}
 		return modalRef;

@@ -83,7 +83,8 @@ export const locale = {
 		FIELD: 'Campo',
 		CONTROL_PATH: 'Ruta del campo',
 		MESSAGES: {
-			DELETE_ITEM: '¿Está seguro que quiere eliminar este item?'
+			DELETE_ITEM: '¿Está seguro que quiere eliminar este item?',
+			EXIT_WITHOUT_SAVE: '¿Está seguro que desea salir sin guardar los cambios?'
 		}
 	}
 };

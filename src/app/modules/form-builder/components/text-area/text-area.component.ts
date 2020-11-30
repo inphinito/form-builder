@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
 @Component({
@@ -28,6 +29,7 @@ export class TextAreaComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
+		private _translationSvc: TranslationService
 	) { }
 
 	ngOnInit() {
@@ -37,7 +39,13 @@ export class TextAreaComponent implements OnInit {
 	}
 
 	dismiss() {
-		this._activeModal.close();
+		if (this.form.dirty) {
+			if (confirm(this._translationSvc.instant('MESSAGES.EXIT_WITHOUT_SAVE'))) {
+				this._activeModal.close();
+			}
+		} else {
+			this._activeModal.close();
+		}
 	}
 
 	saveAndDismiss() {

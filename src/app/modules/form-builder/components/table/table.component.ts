@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
 @Component({
@@ -29,7 +30,8 @@ export class TableComponent implements OnInit {
 
 	constructor(
 		private _activeModal: NgbActiveModal,
-		private _formBuilder: FormBuilder
+		private _formBuilder: FormBuilder,
+		private _translationSvc: TranslationService
 	) { }
 
 	ngOnInit() {
@@ -58,8 +60,14 @@ export class TableComponent implements OnInit {
 		properties.removeAt(index);
 	}
 
-	dismiss(): void {
-		this._activeModal.close();
+	dismiss() {
+		if (this.form.dirty) {
+			if (confirm(this._translationSvc.instant('MESSAGES.EXIT_WITHOUT_SAVE'))) {
+				this._activeModal.close();
+			}
+		} else {
+			this._activeModal.close();
+		}
 	}
 
 	saveAndDismiss(): void {
