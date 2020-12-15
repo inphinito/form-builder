@@ -54,10 +54,14 @@ export class SelectComponent implements OnInit {
 	ngOnInit() {
 		if (this.value) {
 			this.form.patchValue(this.value);
-			this.value.properties.forEach(o => this.addOption(o));
+
+			if (this.value.properties) {
+				this.value.properties.forEach(o => this.addOption(o));
+			}
 		} else {
 			this.addOption();
 		}
+
 		this.toggleFeedingTypeForms();
 	}
 
@@ -100,6 +104,7 @@ export class SelectComponent implements OnInit {
 
 			if (this.form.get(key).constructor === FormControl) {
 				const controlErrors: ValidationErrors = this.form.get(key).errors;
+
 				if (controlErrors != null) {
 					Object.keys(controlErrors).forEach(keyError => {
 						console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
@@ -109,15 +114,14 @@ export class SelectComponent implements OnInit {
 				Object.keys(this.form.get(key)['controls']).forEach(key => {
 					this.getFormValidationErrors;
 				});
-
 			}
-
 		});
 	}
 
 	toggleFeedingTypeForms() {
 		const propertiesFA = this.form.get('properties') as FormArray;
 		const externalFeedingConfigFG = this.form.get('external_feeding_config') as FormGroup;
+
 		switch (this.form.get('feeding_type').value) {
 			case 'external':
 				propertiesFA.disable();
