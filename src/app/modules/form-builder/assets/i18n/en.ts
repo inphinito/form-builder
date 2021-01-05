@@ -78,6 +78,12 @@ export const locale = {
 		MESSAGES: {
 			DELETE_ITEM: 'Are you sure you want to delete this item?',
 			EXIT_WITHOUT_SAVE: 'Are you sure you want to leave without saving the changes?'
+		},
+		PERMISSIONS_PER_ROLE: {
+			TITLE: 'permissions',
+			ROLE: 'role',
+			CAN_VIEW: 'can view',
+			CAN_EDIT: 'can edit',
 		}
 	}
 };

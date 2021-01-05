@@ -63,7 +63,7 @@ export const locale = {
 		COLUMNS: 'Columnas',
 		CAPTION: 'Subtítulo',
 		ROWS: 'Filas',
-		NO_TRIGGERS: 'El elemento en construcción no tiene disparadores. Para agregar uno, haga click en el botón de abajo.',
+		NO_TRIGGERS: 'El elemento de construcción no tiene disparadores. Para agregar uno, haga clic en el botón de abajo.',
 		CONTROL: 'Control',
 		VALUE: 'Valor',
 		AND: 'Y',
@@ -85,6 +85,12 @@ export const locale = {
 		MESSAGES: {
 			DELETE_ITEM: '¿Está seguro que quiere eliminar este item?',
 			EXIT_WITHOUT_SAVE: '¿Está seguro que desea salir sin guardar los cambios?'
+		},
+		PERMISSIONS_PER_ROLE: {
+			TITLE: 'Permisos',
+			ROLE: 'rol',
+			CAN_VIEW: 'puede ver',
+			CAN_EDIT: 'puede editar',
 		}
 	}
 };

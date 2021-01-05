@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilderService } from '../../services/form-builder.service';
 import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
@@ -10,7 +11,10 @@ import { NormalizedCharsValidator } from '../../validators/normalized-chars.vali
 	styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements OnInit {
+
 	@Input() value: any;
+
+	roles = this._configSvc.config.roles || [];
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['input'],
@@ -22,27 +26,21 @@ export class InputComponent implements OnInit {
 		maximun: [20],
 		minimun: [0],
 		default: [null],
-		// selected: [false],
-		// multiple: [false],
 		step: [1],
-		// controlName: [null]
-		triggers: [null]
+		triggers: [null],
+		permissions: [null]
 	});
 
 	activeNavId: number = 1;
 
 	formats: string[] = [
-		// 'button',
 		'checkbox',
 		'color',
 		'datetime',
 		'date',
 		'time',
-		// 'email',
 		'file',
-		// 'hidden',
 		'number',
-		// 'radio',
 		'range',
 		'text',
 		'time',
@@ -52,7 +50,8 @@ export class InputComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService
+		private _translationSvc: TranslationService,
+		private _configSvc: FormBuilderService
 	) { }
 
 	ngOnInit() {

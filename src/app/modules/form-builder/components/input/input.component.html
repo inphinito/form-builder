@@ -17,9 +17,11 @@
                 <input type="string" class="form-control" formControlName="key"
                   [ngClass]="{'is-invalid': form.get('key').dirty && form.get('key').invalid}">
                 <div *ngIf="form.get('key').dirty && form.get('key').errors?.normalizedChars" class="invalid-feedback">
-                  {{ 'SPECIAL_CHARS_ERROR' | translate }}</div>
+                  {{ 'SPECIAL_CHARS_ERROR' | translate }}
+                </div>
                 <div *ngIf="form.get('key').dirty && form.get('key').errors?.required" class="invalid-feedback">
-                  {{ 'REQUIRED' | translate }}</div>
+                  {{ 'REQUIRED' | translate }}
+                </div>
               </div>
             </div>
             <div class="form-group row">
@@ -84,6 +86,12 @@
         <a ngbNavLink>{{ 'TRIGGERS' | translate }}</a>
         <ng-template ngbNavContent>
           <ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3" *ngIf="roles?.length">
+        <a ngbNavLink>{{ 'PERMISSIONS_PER_ROLE.TITLE' | translate | titlecase}}</a>
+        <ng-template ngbNavContent>
+          <ngx-config-per-role formControlName="permissions"></ngx-config-per-role>
         </ng-template>
       </li>
     </ul>

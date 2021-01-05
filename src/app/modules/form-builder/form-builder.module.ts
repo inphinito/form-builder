@@ -20,6 +20,7 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { FormBuilderConfigService } from '../form-builder/services/form-builder-config.service'
 import { FormBuilderService } from '../form-builder/services/form-builder.service'
 import { TranslateModule } from '@ngx-translate/core';
+import { ConfigPerRoleComponent } from './components/config-per-role/config-per-role.component';
 
 @NgModule({
 	declarations: [
@@ -33,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
 		FileComponent,
 		TriggersComponent,
 		EnrichedTextComponent,
-		DisplaySettingsComponent
+		DisplaySettingsComponent,
+		ConfigPerRoleComponent
 	],
 	imports: [
 		FormsModule,
@@ -56,7 +58,8 @@ import { TranslateModule } from '@ngx-translate/core';
 		SelectComponent,
 		FileComponent,
 		EnrichedTextComponent,
-		DisplaySettingsComponent
+		DisplaySettingsComponent,
+		ConfigPerRoleComponent
 	]
 })
 

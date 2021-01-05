@@ -13,6 +13,7 @@ export { TabsComponent } from './components/tabs/tabs.component';
 export { TextAreaComponent } from './components/text-area/text-area.component';
 export { TriggersComponent } from './components/triggers/triggers.component';
 export { DisplaySettingsComponent } from './components/display-settings/display-settings.component';
+export { ConfigPerRoleComponent } from './components/config-per-role/config-per-role.component';
 
 // Services
 export { FormBuilderConfig } from './interfaces/FormBuilderConfig';

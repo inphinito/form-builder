@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilderService } from '../../services/form-builder.service';
 import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
@@ -13,6 +14,8 @@ export class FileComponent implements OnInit {
 
 	@Input() value: any;
 
+	roles = this._configSvc.config.roles || [];
+
 	form: FormGroup = this._formBuilder.group({
 		type: ['file'],
 		key: [null, [Validators.required, NormalizedCharsValidator]],
@@ -24,7 +27,8 @@ export class FileComponent implements OnInit {
 		multiple: [false],
 		maximun: [20],
 		minimun: [0],
-		triggers: [null]
+		triggers: [null],
+		permissions: [null]
 	});
 
 	activeNavId: number = 1;
@@ -32,7 +36,8 @@ export class FileComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService
+		private _translationSvc: TranslationService,
+		private _configSvc: FormBuilderService
 	) { }
 
 	ngOnInit() {

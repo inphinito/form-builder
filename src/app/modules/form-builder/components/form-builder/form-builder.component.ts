@@ -15,11 +15,10 @@ import { FormBuilderService } from '../../services/form-builder.service';
 import { TranslationService } from '../../services/translation.service';
 import { locale as esLang } from '../../assets/i18n/es';
 import { locale as enLang } from '../../assets/i18n/en';
-
 import { cloneDeep } from 'lodash';
 
 @Component({
-	selector: 'form-builder',
+	selector: 'ngx-form-builder',
 	templateUrl: './form-builder.component.html',
 	styleUrls: ['./form-builder.component.scss'],
 	providers: [

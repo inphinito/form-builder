@@ -32,6 +32,7 @@ export class TriggersComponent implements OnInit, ControlValueAccessor {
 	}
 
 	onChange = (_: any) => { };
+
 	onTouch = () => { };
 
 	constructor(

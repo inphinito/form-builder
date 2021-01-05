@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <td>{{ 'PERMISSIONS_PER_ROLE.ROLE' | translate | titlecase }}</td>
+      <td>{{ 'PERMISSIONS_PER_ROLE.CAN_VIEW' | translate | titlecase }}</td>
+      <td>{{ 'PERMISSIONS_PER_ROLE.CAN_EDIT' | translate | titlecase }}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let config of form.controls; index as i">
+      <ng-container [formGroup]="config">
+        <td>{{ config.get('name').value }}</td>
+        <td class="text-center">
+          <input type="checkbox" formControlName="canView" (change)="uncheckCanEditControl(config)">
+        </td>
+        <td class="text-center">
+          <input type="checkbox" formControlName="canEdit" (change)="checkCanViewControl(config)">
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>

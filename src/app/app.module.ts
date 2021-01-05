@@ -15,7 +15,20 @@ import { TranslateModule } from '@ngx-translate/core';
 		BrowserModule,
 		TranslateModule.forRoot(),
 		FormBuilderModule.forRoot({
-			// components: ['tabs', 'fieldset', 'string', 'select', 'textarea', 'file']
+			// components: ['tabs', 'fieldset', 'string', 'select', 'textarea', 'file']m
+			roles: [{
+				id: 1,
+				name: 'super',
+			}, {
+				id: 4,
+				name: 'admin',
+			}, {
+				id: 4,
+				name: 'supervisor',
+			}, {
+				id: 4,
+				name: 'technician',
+			}]
 		}),
 		HttpClientModule
 	],

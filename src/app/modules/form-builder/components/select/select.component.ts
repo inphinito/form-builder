@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationE
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 import { TranslationService } from '../../services/translation.service';
+import { FormBuilderService } from '../../services/form-builder.service';
 
 @Component({
 	selector: 'app-select',
@@ -10,7 +11,10 @@ import { TranslationService } from '../../services/translation.service';
 	styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
+
 	@Input() value: any;
+
+	roles = this._configSvc.config.roles || [];
 
 	urlRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
@@ -31,6 +35,7 @@ export class SelectComponent implements OnInit {
 		}),
 		default: [],
 		triggers: [null],
+		permissions: [null],
 		// 'display-settings': [null]
 	});
 
@@ -48,7 +53,8 @@ export class SelectComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService
+		private _translationSvc: TranslationService,
+		private _configSvc: FormBuilderService
 	) { }
 
 	ngOnInit() {

@@ -1,522 +1,475 @@
-[
-	{
-		"$id": "https://example.com/person.schema.json",
-		"$schema": "http://json-schema.org/draft-07/schema#",
-		"title": null,
-		"type": "object",
-		"properties": [
-			{
-				"type": "select",
-				"key": "select",
-				"description": "select",
-				"required": false,
-				"placeholder": null,
-				"multiple": false,
-				"format": "dropdown",
-				"properties": [
-					{
-						"type": "option",
-						"value": "1",
-						"description": "one"
-					},
-					{
-						"type": "option",
-						"value": "2",
-						"description": "two"
-					},
-					{
-						"type": "option",
-						"value": "3",
-						"description": "three"
-					}
-				],
-				"default": "2",
-				"triggers": null
-			},
-			{
-				"type": "enriched-text",
-				"value": "<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&nbsp;</h3><h4>Nam porttitor, eros quis accumsan tempus, nisi nisl vulputate justo, non mollis dui felis malesuada enim. In nec elit at tortor faucibus blandit a sed eros.&nbsp;</h4><p>Suspendisse ligula massa, venenatis in sodales sit amet, sodales id mauris. Sed sodales enim quis elit efficitur, et tincidunt quam aliquet. Quisque tincidunt posuere massa quis tincidunt. Aliquam erat volutpat. Integer non placerat ipsum. Sed vel risus mi. Sed consectetur ornare urna ut porttitor. Sed arcu sapien, maximus sed nunc ut, iaculis bibendum ligula. Sed consectetur lectus vel nisl semper, sed bibendum eros varius. Curabitur maximus massa eget felis venenatis gravida. Etiam id placerat urna.&nbsp;</p><blockquote><p>Aliquam ultricies, lacus eget lobortis vehicula, ex leo vestibulum nunc, non volutpat leo arcu ac ex. Nulla facilisi.</p></blockquote>",
-				"classList": "mb-4"
-			},
-			{
-				"type": "tabs",
-				"properties": [
-					{
-						"type": "tab",
-						"description": "asdf",
-						"key": "aasdf",
-						"iconClass": "far fa-smile-beam",
-						"properties": []
-					},
-					{
-						"type": "tab",
-						"description": "asdf",
-						"key": "asdf",
-						"iconClass": "far fa-frown",
-						"properties": []
-					}
-				],
-				"triggers": null
-			},
-			{
-				"type": "input",
-				"key": "ASD",
-				"description": "SADASD",
-				"required": false,
-				"format": "checkbox",
-				"placeholder": null,
-				"maximun": 20,
-				"minimun": 0,
-				"value": null,
-				"step": 1,
-				"triggers": null
-			},
-			{
-				"type": "fieldset",
-				"key": "Permiso",
-				"description": "permission",
-				"properties": [
-					{
-						"key": "table1",
-						"type": "table",
-						"description": "Table",
-						"required": false,
-						"properties": [
-							{
-								"description": "Name",
-								"properties": []
-							},
-							{
-								"description": "Surname",
-								"properties": []
-							},
-							{
-								"description": "Age",
-								"properties": []
-							},
-							{
-								"description": "Job",
-								"properties": []
-							}
-						]
-					},
-					{
-						"type": "select",
-						"key": "type",
-						"description": "Type",
-						"required": false,
-						"placeholder": null,
-						"multiple": false,
-						"format": "dropdown",
-						"properties": [
-							{
-								"type": "option",
-								"value": "type1",
-								"description": "Type 1"
-							},
-							{
-								"type": "option",
-								"value": "type2",
-								"description": "Type 2"
-							},
-							{
-								"type": "option",
-								"value": "type3",
-								"description": "Type 3"
-							}
-						],
-						"default": null
-					},
-					{
-						"type": "fieldset",
-						"key": "type1_fieldset",
-						"description": "Type 1 info",
-						"properties": [
-							{
-								"type": "input",
-								"key": "date",
-								"description": "Date",
-								"required": false,
-								"format": "date",
-								"placeholder": null,
-								"maximun": 20,
-								"minimun": 0,
-								"value": null,
-								"step": 1
-							}
-						],
-						"triggers": [
-							{
-								"if": [
-									{
-										"type": "control",
-										"value": "permission.type",
-										"operator": "equal",
-										"boolean": "and",
-										"type2": "value",
-										"value2": "type1"
-									}
-								],
-								"then": [
-									{
-										"control": "type1_fieldset",
-										"action": "shown"
-									}
-								],
-								"else": []
-							}
-						]
-					},
-					{
-						"type": "fieldset",
-						"key": "type2_fieldset",
-						"description": "Type 2 info",
-						"properties": [
-							{
-								"type": "input",
-								"key": "date",
-								"description": "Date",
-								"required": false,
-								"format": "date",
-								"placeholder": null,
-								"maximun": 20,
-								"minimun": 0,
-								"value": null,
-								"step": 1
-							}
-						],
-						"triggers": [
-							{
-								"if": [
-									{
-										"type": "control",
-										"value": "permission.type",
-										"operator": "equal",
-										"boolean": "and",
-										"type2": "value",
-										"value2": "type2"
-									}
-								],
-								"then": [
-									{
-										"control": "permission.type2_fieldset",
-										"action": "shown"
-									}
-								],
-								"else": []
-							}
-						]
-					},
-					{
-						"type": "fieldset",
-						"key": "type3_fieldset",
-						"description": "Type 3 info",
-						"properties": [
-							{
-								"type": "input",
-								"key": "date",
-								"description": "Date",
-								"required": false,
-								"format": "date",
-								"placeholder": null,
-								"maximun": 20,
-								"minimun": 0,
-								"value": null,
-								"step": 1
-							}
-						],
-						"triggers": [
-							{
-								"if": [
-									{
-										"type": "control",
-										"value": "permission.type",
-										"operator": "equal",
-										"boolean": "and",
-										"type2": "value",
-										"value2": "type3"
-									}
-								],
-								"then": [
-									{
-										"control": "permission.type_fieldset",
-										"action": "shown"
-									}
-								],
-								"else": []
-							}
-						]
-					}
-				],
-				"triggers": null
-			}
-		]
-	},
-	{
-		"$id": "https://example.com/person.schema.json",
-		"$schema": "http://json-schema.org/draft-07/schema#",
-		"title": null,
-		"type": "object",
-		"properties": [
-			{
-				"type": "fieldset",
-				"key": "aaa",
-				"description": "aaa",
-				"properties": [],
-				"triggers": [
-					{
-						"if": [
-							{
-								"type": null,
-								"value": "asdf",
-								"operator": "equal",
-								"boolean": "and",
-								"type2": null,
-								"value2": "asdf"
-							},
-							{
-								"type": null,
-								"value": "fasd",
-								"operator": "equal",
-								"boolean": "and",
-								"type2": null,
-								"value2": "dsd"
-							}
-						],
-						"then": [
-							{
-								"action": "asdf"
-							}
-						],
-						"else": [
-							{
-								"action": "asdfasdf"
-							}
-						]
-					}
-				]
-			},
-			{
-				"key": "firstName",
-				"type": "input",
-				"description": "First name"
-			},
-			{
-				"key": "lastName",
-				"type": "input",
-				"description": "Last name"
-			},
-			{
-				"key": "email",
-				"type": "input",
-				"description": "Email"
-			},
-			{
-				"key": "age",
-				"type": "input",
-				"description": "Age",
-				"format": "number",
-				"placeholder": "31"
-			},
-			{
-				"type": "select",
-				"key": "gender",
-				"description": "Gender",
-				"required": false,
-				"placeholder": "Select your gender",
-				"multiple": false,
-				"format": "dropdown",
-				"properties": [
-					{
-						"type": "option",
-						"value": "men",
-						"description": "Men"
-					},
-					{
-						"type": "option",
-						"value": "women",
-						"description": "Women"
-					}
-				],
-				"default": "men"
-			},
-			{
-				"type": "select",
-				"key": "gender2",
-				"description": "Gender 2",
-				"required": true,
-				"placeholder": "Select your gender",
-				"multiple": true,
-				"format": "dropdown",
-				"properties": [
-					{
-						"type": "option",
-						"value": "men",
-						"description": "Men"
-					},
-					{
-						"type": "option",
-						"value": "women",
-						"description": "Women"
-					}
-				],
-				"default": null
-			},
-			{
-				"type": "select",
-				"key": "gender3",
-				"description": "Gender 3",
-				"required": true,
-				"placeholder": "Select your gender",
-				"multiple": false,
-				"format": "radio",
-				"properties": [
-					{
-						"type": "option",
-						"value": "men",
-						"description": "Men"
-					},
-					{
-						"type": "option",
-						"value": "women",
-						"description": "Women"
-					}
-				],
-				"default": null
-			},
-			{
-				"type": "select",
-				"key": "gender4",
-				"description": "Gender 4",
-				"required": false,
-				"placeholder": "Select your gender",
-				"multiple": true,
-				"format": "radio",
-				"properties": [
-					{
-						"type": "option",
-						"value": "men",
-						"description": "Men"
-					},
-					{
-						"type": "option",
-						"value": "women",
-						"description": "Women"
-					}
-				],
-				"default": null
-			},
-			{
-				"type": "textarea",
-				"key": "description",
-				"description": "Description",
-				"required": true,
-				"placeholder": "Describe yourself",
-				"cols": 20,
-				"rows": 6
-			},
-			{
-				"key": "tabs1",
-				"type": "tabs",
-				"description": "Phases",
-				"properties": [
-					{
-						"type": "tab",
-						"description": "Invoice address",
-						"properties": [
-							{
-								"key": "address",
-								"type": "input",
-								"description": "Address"
-							},
-							{
-								"key": "city",
-								"type": "input",
-								"description": "City"
-							},
-							{
-								"key": "country",
-								"type": "input",
-								"description": "Country"
-							}
-						]
-					},
-					{
-						"type": "tab",
-						"description": "Delivery address",
-						"properties": [
-							{
-								"key": "address",
-								"type": "input",
-								"description": "Address 2"
-							},
-							{
-								"key": "city",
-								"type": "input",
-								"description": "City 2"
-							}
-						]
-					}
-				]
-			}
-		]
-	},
-	{
-		"$id": "https://example.com/person.schema.json",
-		"$schema": "http://json-schema.org/draft-07/schema#",
-		"title": "Person",
-		"type": "object",
-		"properties": {
-			"firstName": {
-				"type": "input",
-				"description": "First name"
-			},
-			"lastName": {
-				"type": "input",
-				"description": "Last name"
-			},
-			"email": {
-				"type": "input",
-				"description": "Email"
-			},
-			"tabs1": {
-				"type": "tabs",
-				"description": "Phases",
-				"children": [
-					{
-						"type": "tab",
-						"description": "Phase 1",
-						"properties": {
-							"firstName": {
-								"type": "input",
-								"description": "First name"
-							},
-							"lastName": {
-								"type": "input",
-								"description": "Last name"
-							},
-							"email": {
-								"type": "input",
-								"description": "Email"
-							}
-						}
-					},
-					{
-						"type": "tab",
-						"description": "Phase 2",
-						"properties": {
-							"firstName": {
-								"type": "input",
-								"description": "Email"
-							},
-							"lastName": {
-								"type": "input",
-								"description": "Password"
-							}
-						}
-					}
-				]
-			}
-		}
-	}
+[{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": null,
+    "type": "object",
+    "properties": [{
+        "type": "select",
+        "key": "select",
+        "description": "select",
+        "required": false,
+        "placeholder": "Select one",
+        "multiple": false,
+        "format": "dropdown",
+        "properties": [{
+            "type": "option",
+            "value": "1",
+            "description": "one"
+          },
+          {
+            "type": "option",
+            "value": "2",
+            "description": "two"
+          },
+          {
+            "type": "option",
+            "value": "3",
+            "description": "three"
+          }
+        ],
+        "default": "2",
+        "triggers": null
+      },
+      {
+        "type": "enriched-text",
+        "value": "<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&nbsp;</h3><h4>Nam porttitor, eros quis accumsan tempus, nisi nisl vulputate justo, non mollis dui felis malesuada enim. In nec elit at tortor faucibus blandit a sed eros.&nbsp;</h4><p>Suspendisse ligula massa, venenatis in sodales sit amet, sodales id mauris. Sed sodales enim quis elit efficitur, et tincidunt quam aliquet. Quisque tincidunt posuere massa quis tincidunt. Aliquam erat volutpat. Integer non placerat ipsum. Sed vel risus mi. Sed consectetur ornare urna ut porttitor. Sed arcu sapien, maximus sed nunc ut, iaculis bibendum ligula. Sed consectetur lectus vel nisl semper, sed bibendum eros varius. Curabitur maximus massa eget felis venenatis gravida. Etiam id placerat urna.&nbsp;</p><blockquote><p>Aliquam ultricies, lacus eget lobortis vehicula, ex leo vestibulum nunc, non volutpat leo arcu ac ex. Nulla facilisi.</p></blockquote>",
+        "classList": "mb-4"
+      },
+      {
+        "type": "tabs",
+        "properties": [{
+            "type": "tab",
+            "description": "asdf",
+            "key": "aasdf",
+            "iconClass": "far fa-smile-beam",
+            "properties": []
+          },
+          {
+            "type": "tab",
+            "description": "asdf",
+            "key": "asdf",
+            "iconClass": "far fa-frown",
+            "properties": []
+          }
+        ],
+        "triggers": null
+      },
+      {
+        "type": "input",
+        "key": "ASD",
+        "description": "SADASD",
+        "required": false,
+        "format": "checkbox",
+        "placeholder": null,
+        "maximun": 20,
+        "minimun": 0,
+        "value": null,
+        "step": 1,
+        "triggers": null
+      },
+      {
+        "type": "fieldset",
+        "key": "Permiso",
+        "description": "permission",
+        "properties": [{
+            "key": "table1",
+            "type": "table",
+            "description": "Table",
+            "required": false,
+            "properties": [{
+                "description": "Name",
+                "properties": []
+              },
+              {
+                "description": "Surname",
+                "properties": []
+              },
+              {
+                "description": "Age",
+                "properties": []
+              },
+              {
+                "description": "Job",
+                "properties": []
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "key": "type",
+            "description": "Type",
+            "required": false,
+            "placeholder": null,
+            "multiple": false,
+            "format": "dropdown",
+            "properties": [{
+                "type": "option",
+                "value": "type1",
+                "description": "Type 1"
+              },
+              {
+                "type": "option",
+                "value": "type2",
+                "description": "Type 2"
+              },
+              {
+                "type": "option",
+                "value": "type3",
+                "description": "Type 3"
+              }
+            ],
+            "default": null
+          },
+          {
+            "type": "fieldset",
+            "key": "type1_fieldset",
+            "description": "Type 1 info",
+            "properties": [{
+              "type": "input",
+              "key": "date",
+              "description": "Date",
+              "required": false,
+              "format": "date",
+              "placeholder": null,
+              "maximun": 20,
+              "minimun": 0,
+              "value": null,
+              "step": 1
+            }],
+            "triggers": [{
+              "if": [{
+                "type": "control",
+                "value": "permission.type",
+                "operator": "equal",
+                "boolean": "and",
+                "type2": "value",
+                "value2": "type1"
+              }],
+              "then": [{
+                "control": "type1_fieldset",
+                "action": "shown"
+              }],
+              "else": []
+            }]
+          },
+          {
+            "type": "fieldset",
+            "key": "type2_fieldset",
+            "description": "Type 2 info",
+            "properties": [{
+              "type": "input",
+              "key": "date",
+              "description": "Date",
+              "required": false,
+              "format": "date",
+              "placeholder": null,
+              "maximun": 20,
+              "minimun": 0,
+              "value": null,
+              "step": 1
+            }],
+            "triggers": [{
+              "if": [{
+                "type": "control",
+                "value": "permission.type",
+                "operator": "equal",
+                "boolean": "and",
+                "type2": "value",
+                "value2": "type2"
+              }],
+              "then": [{
+                "control": "permission.type2_fieldset",
+                "action": "shown"
+              }],
+              "else": []
+            }]
+          },
+          {
+            "type": "fieldset",
+            "key": "type3_fieldset",
+            "description": "Type 3 info",
+            "properties": [{
+              "type": "input",
+              "key": "date",
+              "description": "Date",
+              "required": false,
+              "format": "date",
+              "placeholder": null,
+              "maximun": 20,
+              "minimun": 0,
+              "value": null,
+              "step": 1
+            }],
+            "triggers": [{
+              "if": [{
+                "type": "control",
+                "value": "permission.type",
+                "operator": "equal",
+                "boolean": "and",
+                "type2": "value",
+                "value2": "type3"
+              }],
+              "then": [{
+                "control": "permission.type_fieldset",
+                "action": "shown"
+              }],
+              "else": []
+            }]
+          }
+        ],
+        "triggers": null
+      }
+    ]
+  },
+  {
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": null,
+    "type": "object",
+    "properties": [{
+        "type": "fieldset",
+        "key": "aaa",
+        "description": "aaa",
+        "properties": [],
+        "triggers": [{
+          "if": [{
+              "type": null,
+              "value": "asdf",
+              "operator": "equal",
+              "boolean": "and",
+              "type2": null,
+              "value2": "asdf"
+            },
+            {
+              "type": null,
+              "value": "fasd",
+              "operator": "equal",
+              "boolean": "and",
+              "type2": null,
+              "value2": "dsd"
+            }
+          ],
+          "then": [{
+            "action": "asdf"
+          }],
+          "else": [{
+            "action": "asdfasdf"
+          }]
+        }]
+      },
+      {
+        "key": "firstName",
+        "type": "input",
+        "description": "First name"
+      },
+      {
+        "key": "lastName",
+        "type": "input",
+        "description": "Last name"
+      },
+      {
+        "key": "email",
+        "type": "input",
+        "description": "Email"
+      },
+      {
+        "key": "age",
+        "type": "input",
+        "description": "Age",
+        "format": "number",
+        "placeholder": "31"
+      },
+      {
+        "type": "select",
+        "key": "gender",
+        "description": "Gender",
+        "required": false,
+        "placeholder": "Select your gender",
+        "multiple": false,
+        "format": "dropdown",
+        "properties": [{
+            "type": "option",
+            "value": "men",
+            "description": "Men"
+          },
+          {
+            "type": "option",
+            "value": "women",
+            "description": "Women"
+          }
+        ],
+        "default": "men"
+      },
+      {
+        "type": "select",
+        "key": "gender2",
+        "description": "Gender 2",
+        "required": true,
+        "placeholder": "Select your gender",
+        "multiple": true,
+        "format": "dropdown",
+        "properties": [{
+            "type": "option",
+            "value": "men",
+            "description": "Men"
+          },
+          {
+            "type": "option",
+            "value": "women",
+            "description": "Women"
+          }
+        ],
+        "default": null
+      },
+      {
+        "type": "select",
+        "key": "gender3",
+        "description": "Gender 3",
+        "required": true,
+        "placeholder": "Select your gender",
+        "multiple": false,
+        "format": "radio",
+        "properties": [{
+            "type": "option",
+            "value": "men",
+            "description": "Men"
+          },
+          {
+            "type": "option",
+            "value": "women",
+            "description": "Women"
+          }
+        ],
+        "default": null
+      },
+      {
+        "type": "select",
+        "key": "gender4",
+        "description": "Gender 4",
+        "required": false,
+        "placeholder": "Select your gender",
+        "multiple": true,
+        "format": "radio",
+        "properties": [{
+            "type": "option",
+            "value": "men",
+            "description": "Men"
+          },
+          {
+            "type": "option",
+            "value": "women",
+            "description": "Women"
+          }
+        ],
+        "default": null
+      },
+      {
+        "type": "textarea",
+        "key": "description",
+        "description": "Description",
+        "required": true,
+        "placeholder": "Describe yourself",
+        "cols": 20,
+        "rows": 6
+      },
+      {
+        "key": "tabs1",
+        "type": "tabs",
+        "description": "Phases",
+        "properties": [{
+            "type": "tab",
+            "description": "Invoice address",
+            "properties": [{
+                "key": "address",
+                "type": "input",
+                "description": "Address"
+              },
+              {
+                "key": "city",
+                "type": "input",
+                "description": "City"
+              },
+              {
+                "key": "country",
+                "type": "input",
+                "description": "Country"
+              }
+            ]
+          },
+          {
+            "type": "tab",
+            "description": "Delivery address",
+            "properties": [{
+                "key": "address",
+                "type": "input",
+                "description": "Address 2"
+              },
+              {
+                "key": "city",
+                "type": "input",
+                "description": "City 2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Person",
+    "type": "object",
+    "properties": {
+      "firstName": {
+        "type": "input",
+        "description": "First name"
+      },
+      "lastName": {
+        "type": "input",
+        "description": "Last name"
+      },
+      "email": {
+        "type": "input",
+        "description": "Email"
+      },
+      "tabs1": {
+        "type": "tabs",
+        "description": "Phases",
+        "children": [{
+            "type": "tab",
+            "description": "Phase 1",
+            "properties": {
+              "firstName": {
+                "type": "input",
+                "description": "First name"
+              },
+              "lastName": {
+                "type": "input",
+                "description": "Last name"
+              },
+              "email": {
+                "type": "input",
+                "description": "Email"
+              }
+            }
+          },
+          {
+            "type": "tab",
+            "description": "Phase 2",
+            "properties": {
+              "firstName": {
+                "type": "input",
+                "description": "Email"
+              },
+              "lastName": {
+                "type": "input",
+                "description": "Password"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
 ]

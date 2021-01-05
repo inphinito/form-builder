@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilderService } from '../../services/form-builder.service';
 import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
@@ -10,7 +11,10 @@ import { NormalizedCharsValidator } from '../../validators/normalized-chars.vali
 	styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent implements OnInit {
+
 	@Input() value: any;
+
+	roles = this._configSvc.config.roles || [];
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['textarea'],
@@ -21,7 +25,8 @@ export class TextAreaComponent implements OnInit {
 		placeholder: [''],
 		cols: [20],
 		rows: [5],
-		triggers: [null]
+		triggers: [null],
+		permissions: [null]
 	});
 
 	activeNavId: number = 1;
@@ -29,7 +34,8 @@ export class TextAreaComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService
+		private _translationSvc: TranslationService,
+		private _configSvc: FormBuilderService
 	) { }
 
 	ngOnInit() {
