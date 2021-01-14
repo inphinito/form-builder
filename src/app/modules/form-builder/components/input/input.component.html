@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">{{ 'LABEL' | translate }} <sup class="text-danger">*</sup></label>
+              <label class="col-sm-3 col-form-label">{{ 'LABEL' | translate }}</label>
               <div class="col-sm-9">
                 <input type="string" class="form-control" formControlName="description"
                   [ngClass]="{'is-invalid': form.get('description').dirty && form.get('description').invalid}">
@@ -42,7 +42,7 @@
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">{{ 'TYPE' | translate }}</label>
               <div class="col-sm-9">
-                <select class="form-control" formControlName="format">
+                <select class="form-control" formControlName="format" (click)="form.get('default').patchValue(null)">
                   <option *ngFor="let format of formats" [value]="format">{{ format }}</option>
                 </select>
               </div>
@@ -55,9 +55,24 @@
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">{{ 'DEFAULT_VALUE' | translate }}</label>
-              <div class="col-sm-9">
+              <div class="col">
                 <input type="string" class="form-control" formControlName="default">
               </div>
+              <ng-container [ngSwitch]="form.get('format').value">
+                <div class="col-auto" *ngSwitchCase="'date'">
+                  <button class="btn btn-link"
+                    (click)="form.get('default').patchValue('CURRENT_DATE')">{{ 'CURRENT_DATE' | translate }}</button>
+                </div>
+                <div class="col-auto" *ngSwitchCase="'time'">
+                  <button class="btn btn-link"
+                    (click)="form.get('default').patchValue('CURRENT_TIME')">{{ 'CURRENT_TIME' | translate }}</button>
+                </div>
+                <div class="col-auto" *ngSwitchCase="'datetime'">
+                  <button class="btn btn-link"
+                    (click)="form.get('default').patchValue('CURRENT_DATETIME')">{{ 'CURRENT_DATETIME' | translate }}</button>
+                </div>
+              </ng-container>
+
             </div>
             <ng-container *ngIf="form.get('format').value === 'number'">
               <div class="form-group row">
@@ -91,7 +106,7 @@
       <li [ngbNavItem]="3" *ngIf="roles?.length">
         <a ngbNavLink>{{ 'PERMISSIONS_PER_ROLE.TITLE' | translate | titlecase}}</a>
         <ng-template ngbNavContent>
-          <ngx-config-per-role formControlName="permissions"></ngx-config-per-role>
+          <ngx-config-per-role formControlName="permissions" [roles]="roles"></ngx-config-per-role>
         </ng-template>
       </li>
     </ul>

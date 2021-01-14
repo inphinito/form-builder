@@ -77,22 +77,34 @@
             "description": "Table",
             "required": false,
             "properties": [{
-                "description": "Name",
-                "properties": []
-              },
-              {
-                "description": "Surname",
-                "properties": []
-              },
-              {
-                "description": "Age",
-                "properties": []
-              },
-              {
-                "description": "Job",
-                "properties": []
-              }
-            ]
+              "description": "Name",
+              "properties": []
+            }, {
+              "description": "Surname",
+              "properties": []
+            }, {
+              "description": "Age",
+              "properties": []
+            }, {
+              "description": "Job",
+              "properties": []
+            }, {
+              "description": "Date",
+              "properties": [{
+                "type": "input",
+                "key": "date",
+                "description": null,
+                "required": false,
+                "format": "date",
+                "placeholder": null,
+                "maximun": 20,
+                "minimun": 0,
+                "default": null,
+                "step": 1,
+                "triggers": null,
+                "permissions": null
+              }]
+            }]
           },
           {
             "type": "select",
@@ -103,21 +115,18 @@
             "multiple": false,
             "format": "dropdown",
             "properties": [{
-                "type": "option",
-                "value": "type1",
-                "description": "Type 1"
-              },
-              {
-                "type": "option",
-                "value": "type2",
-                "description": "Type 2"
-              },
-              {
-                "type": "option",
-                "value": "type3",
-                "description": "Type 3"
-              }
-            ],
+              "type": "option",
+              "value": "type1",
+              "description": "Type 1"
+            }, {
+              "type": "option",
+              "value": "type2",
+              "description": "Type 2"
+            }, {
+              "type": "option",
+              "value": "type3",
+              "description": "Type 3"
+            }],
             "default": null
           },
           {
@@ -380,36 +389,31 @@
             "type": "tab",
             "description": "Invoice address",
             "properties": [{
-                "key": "address",
-                "type": "input",
-                "description": "Address"
-              },
-              {
-                "key": "city",
-                "type": "input",
-                "description": "City"
-              },
-              {
-                "key": "country",
-                "type": "input",
-                "description": "Country"
-              }
-            ]
+              "key": "address",
+              "type": "input",
+              "description": "Address"
+            }, {
+              "key": "city",
+              "type": "input",
+              "description": "City"
+            }, {
+              "key": "country",
+              "type": "input",
+              "description": "Country"
+            }]
           },
           {
             "type": "tab",
             "description": "Delivery address",
             "properties": [{
-                "key": "address",
-                "type": "input",
-                "description": "Address 2"
-              },
-              {
-                "key": "city",
-                "type": "input",
-                "description": "City 2"
-              }
-            ]
+              "key": "address",
+              "type": "input",
+              "description": "Address 2"
+            }, {
+              "key": "city",
+              "type": "input",
+              "description": "City 2"
+            }]
           }
         ]
       }

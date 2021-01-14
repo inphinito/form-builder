@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Tabs } from '../../interfaces/tabs';
-import { FormBuilderService } from '../../services/form-builder.service';
 import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
@@ -15,7 +14,7 @@ export class TabsComponent implements OnInit {
 
 	@Input() value: Tabs;
 
-	roles = this._configSvc.config.roles || [];
+	roles: Array<{ id: number, name: string }>;
 
 	get properties(): FormArray { return this.form.get('properties') as FormArray; }
 
@@ -31,8 +30,7 @@ export class TabsComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService,
-		private _configSvc: FormBuilderService
+		private _translationSvc: TranslationService
 	) { }
 
 	ngOnInit() {

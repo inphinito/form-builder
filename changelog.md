@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.2] - 2021-01-14
+### Added
+- Reordenación mediante drag and drop de columnas del elemento de construcción table y opciones del elemento de construcción select.
+### Changed
+- Los roles van a nivel del componente y no hay que inicializarlos en el módulo.
+### Fixed
+- Las propiedades dentro de las columnas de una tabla no desaparecen al ser eliminadas.
+
+## [0.10.1] - 2021-01-14
+### Added
+- Posibilidad de poner por defecto el día y hora actual en el elemento de construcción Input cuando el formato seleccionado es date, time o datetime.
+
 ## [0.10.0] - 2021-01-05
 ### Added
 - Permisos por rol en cada elemento de construcción.

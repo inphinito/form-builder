@@ -1,6 +1,5 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormArray, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { FormBuilderService } from '../../services/form-builder.service';
 
 @Component({
 	selector: 'ngx-config-per-role',
@@ -16,15 +15,24 @@ import { FormBuilderService } from '../../services/form-builder.service';
 })
 export class ConfigPerRoleComponent implements OnInit, ControlValueAccessor {
 
-	roles = this._configSvc.config.roles || [];
+	@Input()
+	set roles(value: Array<{ id: number, name: string }>) {
+		this.form = this._fb.array(value.map(o => {
+			return this._fb.group({
+				id: [o.id, Validators.required],
+				name: [o.name, Validators.required],
+				canView: [true],
+				canEdit: [true],
+			});
+		}))
+	}
 
-	form: FormArray;
+	form: FormArray = this._fb.array([]);
 
 	isDisabled: boolean = false;
 
 	constructor(
-		private _fb: FormBuilder,
-		private _configSvc: FormBuilderService
+		private _fb: FormBuilder
 	) { }
 
 	onChange = (_: any) => { };
@@ -50,14 +58,6 @@ export class ConfigPerRoleComponent implements OnInit, ControlValueAccessor {
 	}
 
 	ngOnInit(): void {
-		this.form = this._fb.array(this.roles.map(o => {
-			return this._fb.group({
-				id: [o.id, Validators.required],
-				name: [o.name, Validators.required],
-				canView: [true],
-				canEdit: [true],
-			});
-		}))
 		this.form.valueChanges.subscribe((changes) => {
 			this.onChange(this.form.value);
 		});

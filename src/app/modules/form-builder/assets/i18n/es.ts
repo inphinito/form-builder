@@ -82,6 +82,9 @@ export const locale = {
 		DIRTY: 'Modificado',
 		FIELD: 'Campo',
 		CONTROL_PATH: 'Ruta del campo',
+		CURRENT_DATE: 'Fecha actual',
+		CURRENT_TIME: 'Hora actual',
+		CURRENT_DATETIME: 'Fecha y hora actual',
 		MESSAGES: {
 			DELETE_ITEM: '¿Está seguro que quiere eliminar este item?',
 			EXIT_WITHOUT_SAVE: '¿Está seguro que desea salir sin guardar los cambios?'

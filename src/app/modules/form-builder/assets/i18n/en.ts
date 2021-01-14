@@ -75,6 +75,9 @@ export const locale = {
 		DIRTY: 'Dirty',
 		FIELD: 'Field',
 		CONTROL_PATH: 'Control path',
+		CURRENT_DATE: 'Current date',
+		CURRENT_TIME: 'Current time',
+		CURRENT_DATETIME: 'Current date and time',
 		MESSAGES: {
 			DELETE_ITEM: 'Are you sure you want to delete this item?',
 			EXIT_WITHOUT_SAVE: 'Are you sure you want to leave without saving the changes?'

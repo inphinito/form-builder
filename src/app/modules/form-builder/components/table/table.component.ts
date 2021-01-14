@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilderService } from '../../services/form-builder.service';
+import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { TranslationService } from '../../services/translation.service';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 
@@ -14,7 +14,7 @@ export class TableComponent implements OnInit {
 
 	@Input() value: any;
 
-	roles = this._configSvc.config.roles || [];
+	roles: Array<{ id: number, name: string }>;
 
 	form: FormGroup = this._formBuilder.group({
 		type: ['table'],
@@ -36,8 +36,7 @@ export class TableComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService,
-		private _configSvc: FormBuilderService
+		private _translationSvc: TranslationService
 	) { }
 
 	ngOnInit() {
@@ -49,16 +48,16 @@ export class TableComponent implements OnInit {
 		}
 	}
 
-	addOption(value?: any): void {
+	addOption(value?: any, index?: number): void {
 		const properties = this.form.get('properties') as FormArray;
 		const formGroup = this._formBuilder.group({
 			description: [null, Validators.required],
-			properties: this._formBuilder.array([])
+			properties: [null],
 		});
 		if (value) {
 			formGroup.patchValue(value);
 		}
-		properties.push(formGroup);
+		index !== undefined ? properties.insert(index, formGroup) : properties.push(formGroup);
 	}
 
 	removeByIndex(index: number): void {
@@ -78,5 +77,16 @@ export class TableComponent implements OnInit {
 
 	saveAndDismiss(): void {
 		this._activeModal.close(this.form.value);
+	}
+
+	onMoved(item: any) {
+		const index = this.properties.controls.indexOf(item)
+		this.properties.removeAt(index);
+	}
+
+	onDrop(event: DndDropEvent) {
+		if (event.dropEffect === 'move') {
+			this.addOption(event.data, event.index);
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, forwardRef, ElementRef, ViewChild, HostListener, OnInit } from '@angular/core';
+import { Component, forwardRef, ElementRef, ViewChild, HostListener, OnInit, Input } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingItem } from '../../interfaces/building-item';
@@ -35,6 +35,8 @@ import { cloneDeep } from 'lodash';
 	]
 })
 export class FormBuilderComponent implements ControlValueAccessor, Validator, OnInit {
+
+	@Input() roles: Array<{ id: number, name: string }>;
 
 	@ViewChild('buildingToolbar') toolbarElement: ElementRef;
 
@@ -190,6 +192,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 
 	async newBuildingItem(type: string) {
 		const modalRef = this.getModalRefByKey(type);
+		modalRef.componentInstance.roles = this.roles;
 		try {
 			this.onTouch();
 			return await modalRef.result;
@@ -201,6 +204,7 @@ export class FormBuilderComponent implements ControlValueAccessor, Validator, On
 	async edit(list: any[], item: any) {
 		const index = list.indexOf(item);
 		const modalRef = this.getModalRefByKey(item.type);
+		modalRef.componentInstance.roles = this.roles;
 		try {
 			modalRef.componentInstance.value = item;
 			const result = await modalRef.result;

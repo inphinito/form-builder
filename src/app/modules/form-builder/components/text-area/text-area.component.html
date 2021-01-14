@@ -75,7 +75,7 @@
       <li [ngbNavItem]="3" *ngIf="roles?.length">
         <a ngbNavLink>{{ 'PERMISSIONS_PER_ROLE.TITLE' | translate | titlecase}}</a>
         <ng-template ngbNavContent>
-          <ngx-config-per-role formControlName="permissions"></ngx-config-per-role>
+          <ngx-config-per-role formControlName="permissions" [roles]="roles"></ngx-config-per-role>
         </ng-template>
       </li>
     </ul>

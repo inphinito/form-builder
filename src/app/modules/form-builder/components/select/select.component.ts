@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationE
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NormalizedCharsValidator } from '../../validators/normalized-chars.validator';
 import { TranslationService } from '../../services/translation.service';
-import { FormBuilderService } from '../../services/form-builder.service';
+import { DndDropEvent } from 'ngx-drag-drop';
 
 @Component({
 	selector: 'app-select',
@@ -14,7 +14,7 @@ export class SelectComponent implements OnInit {
 
 	@Input() value: any;
 
-	roles = this._configSvc.config.roles || [];
+	roles: Array<{ id: number, name: string }>;
 
 	urlRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
@@ -53,8 +53,7 @@ export class SelectComponent implements OnInit {
 	constructor(
 		private _activeModal: NgbActiveModal,
 		private _formBuilder: FormBuilder,
-		private _translationSvc: TranslationService,
-		private _configSvc: FormBuilderService
+		private _translationSvc: TranslationService
 	) { }
 
 	ngOnInit() {
@@ -71,15 +70,17 @@ export class SelectComponent implements OnInit {
 		this.toggleFeedingTypeForms();
 	}
 
-	addOption(value: any = {}): void {
+	addOption(value?: any, index?: number): void {
 		const properties = this.form.get('properties') as FormArray;
-		properties.push(
-			this._formBuilder.group({
-				type: ['option'],
-				value: [value.value, Validators.required],
-				description: [value.description, Validators.required]
-			})
-		);
+		const formGroup = this._formBuilder.group({
+			type: ['option'],
+			value: [null, Validators.required],
+			description: [null, Validators.required]
+		});
+		if (value) {
+			formGroup.patchValue(value);
+		}
+		index !== undefined ? properties.insert(index, formGroup) : properties.push(formGroup);
 	}
 
 	removeByIndex(index: number) {
@@ -137,6 +138,17 @@ export class SelectComponent implements OnInit {
 				propertiesFA.enable();
 				externalFeedingConfigFG.disable();
 				break;
+		}
+	}
+
+	onMoved(item: any) {
+		const index = this.properties.controls.indexOf(item)
+		this.properties.removeAt(index);
+	}
+
+	onDrop(event: DndDropEvent) {
+		if (event.dropEffect === 'move') {
+			this.addOption(event.data, event.index);
 		}
 	}
 }

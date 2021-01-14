@@ -14,6 +14,20 @@ export class AppComponent implements OnInit {
 		schema: [null]
 	});
 
+	roles: Array<{ id: number, name: string }> = [{
+		id: 1,
+		name: 'super',
+	}, {
+		id: 2,
+		name: 'admin',
+	}, {
+		id: 3,
+		name: 'supervisor',
+	}, {
+		id: 4,
+		name: 'technician',
+	}];
+
 	constructor(
 		private _http: HttpClient,
 		private _formBuilder: FormBuilder

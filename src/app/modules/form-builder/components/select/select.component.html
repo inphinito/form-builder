@@ -87,28 +87,35 @@
           <ng-template #staticOptionsTpt>
             <fieldset>
               <legend>{{ 'OPTIONS' | translate }}</legend>
-              <div formArrayName="properties" *ngFor="let item of properties.controls; index as i;"
-                class="form-group row">
-                <ng-container [formGroupName]="i">
-                  <div class="col-auto" style="line-height: 32px;"><strong>{{ i + 1 }}</strong></div>
-                  <div class="col px-1">
-                    <input type="string" class="form-control" formControlName="value">
-                  </div>
-                  <div class="col px-1">
-                    <input type="string" class="form-control" formControlName="description">
-                  </div>
-                  <div class="col-auto">
-                    <button class="btn btn-link text-danger mx-0" (click)="removeByIndex(i)">
-                      <svg style="height: 1rem;" aria-hidden="true" focusable="false" data-prefix="far"
-                        data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                        class="svg-inline--fa fa-trash-alt fa-w-14">
-                        <path fill="currentColor"
-                          d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"
-                          class=""></path>
-                      </svg>
-                    </button>
-                  </div>
-                </ng-container>
+              <div dndDropzone (dndDrop)="onDrop($event)">
+                <div class="dndPlaceholder" dndPlaceholderRef></div>
+                <div formArrayName="properties" *ngFor="let item of properties.controls; index as i;"
+                  class="form-group row align-items-center" [dndDraggable]="item.value" dndEffectAllowed="move"
+                  (dndMoved)="onMoved(item)">
+                  <ng-container [formGroupName]="i">
+                    <div class="col-auto p-0" dndHandle>
+                      <button class="btn btn-link-dark">&#9776;</button>
+                    </div>
+                    <div class="col-auto" style="line-height: 32px;"><strong>{{ i + 1 }}</strong></div>
+                    <div class="col px-1">
+                      <input type="string" class="form-control" formControlName="value">
+                    </div>
+                    <div class="col px-1">
+                      <input type="string" class="form-control" formControlName="description">
+                    </div>
+                    <div class="col-auto">
+                      <button class="btn btn-link text-danger mx-0" (click)="removeByIndex(i)">
+                        <svg style="height: 1rem;" aria-hidden="true" focusable="false" data-prefix="far"
+                          data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          class="svg-inline--fa fa-trash-alt fa-w-14">
+                          <path fill="currentColor"
+                            d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"
+                            class=""></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
               <div *ngIf="!properties.controls.length" class="alert alert-warning" role="alert">
                 {{ 'CLICK_BUTTON_ADD_OPTIONS' | translate }}
@@ -185,6 +192,12 @@
         <a ngbNavLink>{{ 'TRIGGERS' | translate }}</a>
         <ng-template ngbNavContent>
           <ngx-form-builder-triggers formControlName="triggers"></ngx-form-builder-triggers>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3" *ngIf="roles?.length">
+        <a ngbNavLink>{{ 'PERMISSIONS_PER_ROLE.TITLE' | translate | titlecase}}</a>
+        <ng-template ngbNavContent>
+          <ngx-config-per-role formControlName="permissions" [roles]="roles"></ngx-config-per-role>
         </ng-template>
       </li>
     </ul>
