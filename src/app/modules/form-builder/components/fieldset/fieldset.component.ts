@@ -18,7 +18,7 @@ export class FieldsetComponent implements OnInit {
 	form: FormGroup = this._formBuilder.group({
 		type: ['fieldset'],
 		key: [null, [Validators.required, NormalizedCharsValidator]],
-		description: [null, Validators.required],
+		description: [null],
 		properties: [[]],
 		triggers: [null],
 		permissions: [null]

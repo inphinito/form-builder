@@ -18,7 +18,7 @@ export class TextAreaComponent implements OnInit {
 	form: FormGroup = this._formBuilder.group({
 		type: ['textarea'],
 		key: [null, [Validators.required, NormalizedCharsValidator]],
-		description: [null, Validators.required],
+		description: [null],
 		required: [false],
 		default: [null],
 		placeholder: [''],

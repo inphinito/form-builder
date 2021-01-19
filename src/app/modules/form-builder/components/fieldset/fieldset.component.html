@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label>{{ 'LEGEND' | translate }} <sup class="text-danger">*</sup></label>
+            <label>{{ 'LEGEND' | translate }}</label>
             <input type="text" formControlName="description" class="form-control"
               [ngClass]="{'is-invalid': form.get('description').dirty && form.get('description').invalid}">
             <div *ngIf="form.get('description').dirty && form.get('description').errors?.normalizedChars"

@@ -21,7 +21,7 @@ export class SelectComponent implements OnInit {
 	form: FormGroup = this._formBuilder.group({
 		type: ['select'],
 		key: [null, [Validators.required, NormalizedCharsValidator]],
-		description: [null, Validators.required],
+		description: [null],
 		required: [false],
 		placeholder: [null],
 		multiple: [false],

@@ -19,7 +19,7 @@ export class TableComponent implements OnInit {
 	form: FormGroup = this._formBuilder.group({
 		type: ['table'],
 		key: [null, [Validators.required, NormalizedCharsValidator]],
-		description: [null, Validators.required],
+		description: [null],
 		caption: [null],
 		required: [false],
 		properties: this._formBuilder.array([]),
@@ -52,7 +52,7 @@ export class TableComponent implements OnInit {
 		const properties = this.form.get('properties') as FormArray;
 		const formGroup = this._formBuilder.group({
 			description: [null, Validators.required],
-			properties: [null],
+			properties: [[]],
 		});
 		if (value) {
 			formGroup.patchValue(value);

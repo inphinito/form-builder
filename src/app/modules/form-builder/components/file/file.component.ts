@@ -18,7 +18,7 @@ export class FileComponent implements OnInit {
 	form: FormGroup = this._formBuilder.group({
 		type: ['file'],
 		key: [null, [Validators.required, NormalizedCharsValidator]],
-		description: [null, Validators.required],
+		description: [null],
 		required: [false],
 		accepts: [],
 		namingPattern: [null],
